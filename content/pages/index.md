@@ -4,7 +4,7 @@ slug: /
 sections:
   - type: GenericSection
     title:
-      text: A website collection of my body of work
+      text: a website collection of my body of work
       color: text-dark
       type: TitleBlock
     subtitle: Subtitle goes here

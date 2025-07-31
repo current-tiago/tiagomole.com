@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>work - tiago branco mole</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #FF2400;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .back-link {
+            font-size: 0.9rem;
+            font-weight: 300;
+            text-transform: lowercase;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: auto;
+            padding-bottom: 0.1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, border-bottom 0.3s ease, transform 0.3s ease;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+            border-bottom-color: white;
+            transform: scale(1.05);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+            text-transform: lowercase;
+            transition: transform 0.3s ease;
+        }
+        
+        h1:hover {
+            transform: scale(1.05);
+        }
+        
+        .work-section {
+            margin-bottom: 3rem;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .work-title {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            text-transform: lowercase;
+            transition: transform 0.3s ease;
+        }
+        
+        .work-title:hover {
+            transform: scale(1.05);
+        }
+        
+        .work-description {
+            font-size: 1rem;
+            font-weight: 300;
+            opacity: 0.8;
+            text-transform: lowercase;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .work-description:hover {
+            transform: scale(1.05);
+        }
+        
+        .work-link {
+            font-size: 0.9rem;
+            font-weight: 300;
+            text-transform: lowercase;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: border-bottom 0.3s ease, transform 0.3s ease;
+        }
+        
+        .work-link:hover {
+            border-bottom-color: white;
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .work-title {
+                font-size: 1.1rem;
+            }
+            
+            .work-description {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>work</h1>
+        
+        <div class="work-section">
+            <div class="work-title">macroeconomic analysis</div>
+            <div class="work-description">
+                research and writing on global economic trends, monetary policy, and market dynamics
+            </div>
+            <a href="#" class="work-link">read more</a>
+        </div>
+        
+        <div class="work-section">
+            <div class="work-title">historical perspectives</div>
+            <div class="work-description">
+                exploring the intersections of economic history, political developments, and human behavior
+            </div>
+            <a href="#" class="work-link">read more</a>
+        </div>
+        
+        <div class="work-section">
+            <div class="work-title">entrepreneurial ventures</div>
+            <div class="work-description">
+                building and scaling businesses at the intersection of finance, technology, and innovation
+            </div>
+            <a href="#" class="work-link">read more</a>
+        </div>
+        
+        <div class="work-section">
+            <div class="work-title">policy research</div>
+            <div class="work-description">
+                analyzing the impact of political decisions on economic outcomes and market behavior
+            </div>
+            <a href="#" class="work-link">read more</a>
+        </div>
+    </div>
+    <a href="index.html" class="back-link">back to home</a>
+</body>
+</html> 

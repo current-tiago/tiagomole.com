@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>historical perspectives - tiago branco mole</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #FF2400;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .back-link {
+            font-size: 0.9rem;
+            font-weight: 300;
+            text-transform: lowercase;
+            color: white;
+            text-decoration: none;
+            border-bottom: none;
+            padding-bottom: 0.05rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, border-bottom 0.3s ease, transform 0.3s ease;
+            margin-top: auto;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        .back-link:hover {
+            opacity: 1;
+            border-bottom-color: white;
+            transform: scale(1.05);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            text-transform: lowercase;
+            transition: transform 0.3s ease;
+        }
+        
+        h1:hover {
+            transform: scale(1.05);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.9;
+            text-transform: lowercase;
+        }
+        
+        .content-layout {
+            display: flex;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex: 1;
+        }
+        
+        .article-list {
+            flex: 0 0 300px;
+            text-align: left;
+        }
+        
+        .article-item {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-left: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .article-item:hover {
+            border-left-color: white;
+            transform: translateX(0.5rem);
+        }
+        
+        .article-title {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            text-transform: lowercase;
+            cursor: pointer;
+        }
+        
+        .article-date {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            text-transform: lowercase;
+        }
+        
+        .article-content {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .medium-embed {
+            margin-top: 1rem;
+            opacity: 0.9;
+        }
+        
+        #medium-widget {
+            background: transparent;
+        }
+        
+        #medium-widget * {
+            color: white !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+        }
+        
+        #medium-widget a {
+            text-decoration: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+            transition: border-bottom 0.3s ease !important;
+        }
+        
+        #medium-widget a:hover {
+            border-bottom-color: white !important;
+        }
+        
+        @media (max-width: 768px) {
+            .content-layout {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .article-list {
+                flex: none;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .back-link {
+                position: static;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>historical perspectives</h1>
+        <div class="subtitle">exploring the intersections of economic history and human behavior</div>
+    </div>
+    
+    <div class="content-layout">
+        <div class="article-list">
+            <div class="article-item">
+                <div class="article-title">the great depression and modern parallels</div>
+                <div class="article-date">december 2024</div>
+            </div>
+            <div class="article-item">
+                <div class="article-title">industrial revolution and technological disruption</div>
+                <div class="article-date">november 2024</div>
+            </div>
+            <div class="article-item">
+                <div class="article-title">colonial economics and global trade patterns</div>
+                <div class="article-date">october 2024</div>
+            </div>
+            <div class="article-item">
+                <div class="article-title">ancient markets and human psychology</div>
+                <div class="article-date">september 2024</div>
+            </div>
+        </div>
+        
+        <div class="article-content">
+            <div class="medium-embed">
+                <div id="medium-widget"></div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="02-work.html" class="back-link">back to work</a>
+    
+    <script src="https://medium-widget.pixelpoint.io/widget.js"></script>
+    <script>
+        MediumWidget.Init({
+            renderTo: '#medium-widget',
+            params: {
+                "resource": "https://medium.com/@tiagobrancomole",
+                "postsPerLine": 1,
+                "limit": 1,
+                "picture": "small",
+                "fields": ["description", "author", "publishAt"],
+                "ratio": "landscape"
+            }
+        })
+    </script>
+</body>
+</html> 

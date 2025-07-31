@@ -2,6 +2,10 @@
 
 personal website and portfolio
 
+## about
+
+aspiring economist and entrepreneur writing about macroeconomics and history, exploring the intersections of finance, politics and human thought.
+
 ## pages
 
 - **[home](index.html)** - personal introduction and contact

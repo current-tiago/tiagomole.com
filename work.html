@@ -113,6 +113,30 @@
             transform: scale(1.05);
         }
         
+        .medium-embed {
+            margin-top: 1rem;
+            opacity: 0.9;
+        }
+        
+        #medium-widget {
+            background: transparent;
+        }
+        
+        #medium-widget * {
+            color: white !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+        }
+        
+        #medium-widget a {
+            text-decoration: none !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+            transition: border-bottom 0.3s ease !important;
+        }
+        
+        #medium-widget a:hover {
+            border-bottom-color: white !important;
+        }
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -137,7 +161,7 @@
             <div class="work-description">
                 research and writing on global economic trends, monetary policy, and market dynamics
             </div>
-            <a href="#" class="work-link">read more</a>
+            <a href="macroeconomic-analysis.html" class="work-link">read more</a>
         </div>
         
         <div class="work-section">
@@ -163,7 +187,32 @@
             </div>
             <a href="#" class="work-link">read more</a>
         </div>
+        
+        <div class="work-section">
+            <div class="work-title">medium articles</div>
+            <div class="work-description">
+                latest writing on economics, politics, and human thought
+            </div>
+            <div class="medium-embed">
+                <div id="medium-widget"></div>
+            </div>
+        </div>
     </div>
     <a href="index.html" class="back-link">back to home</a>
+    
+    <script src="https://medium-widget.pixelpoint.io/widget.js"></script>
+    <script>
+        MediumWidget.Init({
+            renderTo: '#medium-widget',
+            params: {
+                "resource": "https://medium.com/@tiagobrancomole",
+                "postsPerLine": 1,
+                "limit": 3,
+                "picture": "small",
+                "fields": ["description", "author", "publishAt"],
+                "ratio": "landscape"
+            }
+        })
+    </script>
 </body>
 </html> 

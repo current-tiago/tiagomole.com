@@ -188,6 +188,15 @@
             </div>
             <a href="policy-research.html" class="work-link">read more</a>
         </div>
+        
+        <!-- Drafts section (hidden by default) -->
+        <div class="work-section" id="draftsSection" style="display: none;">
+            <div class="work-title">drafts</div>
+            <div class="work-description">
+                your saved article drafts
+            </div>
+            <div id="draftsList"></div>
+        </div>
     </div>
     <a href="index.html" class="back-link">back to home</a>
     
@@ -206,6 +215,88 @@
                     link.href = `${href}?edit=true&key=tiago2024`;
                 }
             });
+            
+            // Show drafts section
+            const draftsSection = document.getElementById('draftsSection');
+            const draftsList = document.getElementById('draftsList');
+            
+            draftsSection.style.display = 'block';
+            
+            // Load and display drafts
+            const drafts = JSON.parse(localStorage.getItem('article_drafts') || '[]');
+            
+            if (drafts.length === 0) {
+                draftsList.innerHTML = '<p style="opacity: 0.7; font-size: 0.9rem;">no drafts yet</p>';
+            } else {
+                draftsList.innerHTML = drafts.map(draft => `
+                    <div style="margin: 1rem 0; padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px;">
+                        <div style="font-weight: 400; margin-bottom: 0.5rem;">${draft.title || 'Untitled'}</div>
+                        <div style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 0.5rem;">
+                            ${new Date(draft.timestamp).toLocaleDateString()}
+                        </div>
+                        <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 1rem;">
+                            ${draft.content.substring(0, 100)}${draft.content.length > 100 ? '...' : ''}
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button onclick="loadDraft('${draft.id}')" style="
+                                background: transparent;
+                                border: 1px solid rgba(255, 255, 255, 0.3);
+                                color: white;
+                                padding: 0.3rem 0.8rem;
+                                border-radius: 4px;
+                                cursor: pointer;
+                                font-family: inherit;
+                                font-size: 0.8rem;
+                                text-transform: lowercase;
+                            ">edit</button>
+                            <button onclick="deleteDraft('${draft.id}')" style="
+                                background: transparent;
+                                border: 1px solid rgba(255, 0, 0, 0.3);
+                                color: rgba(255, 0, 0, 0.8);
+                                padding: 0.3rem 0.8rem;
+                                border-radius: 4px;
+                                cursor: pointer;
+                                font-family: inherit;
+                                font-size: 0.8rem;
+                                text-transform: lowercase;
+                            ">delete</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // Load draft function
+        function loadDraft(draftId) {
+            const drafts = JSON.parse(localStorage.getItem('article_drafts') || '[]');
+            const draft = drafts.find(d => d.id === draftId);
+            
+            if (draft) {
+                // Save current content as auto-save
+                const currentTitle = document.querySelector('input[type="text"]')?.value || '';
+                const currentContent = document.querySelector('textarea')?.value || '';
+                
+                if (currentTitle || currentContent) {
+                    localStorage.setItem('draft_title', currentTitle);
+                    localStorage.setItem('draft_content', currentContent);
+                }
+                
+                // Open write page with draft content
+                const writeUrl = `write-article.html?edit=true&key=tiago2024&load=${draftId}`;
+                window.open(writeUrl, '_blank');
+            }
+        }
+        
+        // Delete draft function
+        function deleteDraft(draftId) {
+            if (confirm('Are you sure you want to delete this draft?')) {
+                const drafts = JSON.parse(localStorage.getItem('article_drafts') || '[]');
+                const updatedDrafts = drafts.filter(d => d.id !== draftId);
+                localStorage.setItem('article_drafts', JSON.stringify(updatedDrafts));
+                
+                // Reload page to refresh drafts list
+                window.location.reload();
+            }
         }
     </script>
 </body>

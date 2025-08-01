@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>write article - tiago branco mole</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #FF2400;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .back-btn {
+            font-size: 0.9rem;
+            font-weight: 300;
+            text-transform: lowercase;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            border-bottom-color: white;
+        }
+        
+        .header-title {
+            font-size: 1.2rem;
+            font-weight: 400;
+            text-transform: lowercase;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .header-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            text-transform: lowercase;
+            font-size: 0.9rem;
+        }
+        
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+        
+        .header-btn.primary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-btn.primary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Main content */
+        .main-content {
+            flex: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+        }
+        
+        /* Article form */
+        .article-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-label {
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-transform: lowercase;
+            opacity: 0.8;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .form-input.title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            padding: 1.5rem;
+            border: none;
+            background: transparent;
+        }
+        
+        .form-input.title:focus {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .form-textarea {
+            width: 100%;
+            min-height: 400px;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: inherit;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+        
+        .form-textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Placeholder styles */
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .header-left {
+                gap: 1rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .form-input.title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <a href="work.html" class="back-btn" id="backBtn">← back</a>
+            <div class="header-title">writing new article</div>
+        </div>
+        <div class="header-actions">
+            <button class="header-btn" id="saveDraftBtn">save to drafts</button>
+            <button class="header-btn" id="previewBtn">preview</button>
+            <button class="header-btn primary" id="publishBtn">publish</button>
+        </div>
+    </div>
+    
+    <!-- Main content -->
+    <div class="main-content">
+        <form class="article-form" id="articleForm">
+            <div class="form-group">
+                <label class="form-label">article title</label>
+                <input type="text" class="form-input title" id="articleTitle" placeholder="write your article title here..." autocomplete="off">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">article content</label>
+                <textarea class="form-textarea" id="articleContent" placeholder="start writing your article here...&#10;&#10;you can write multiple paragraphs.&#10;use line breaks to separate sections.&#10;&#10;this is your space to share your thoughts and insights."></textarea>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // Check URL for secret key to ensure only authorized access
+        const urlParams = new URLSearchParams(window.location.search);
+        const editMode = urlParams.get('edit');
+        const secretKey = urlParams.get('key');
+        const SECRET_KEY = 'tiago2024';
+        
+        // Redirect if not authorized
+        if (editMode !== 'true' || secretKey !== SECRET_KEY) {
+            window.location.href = 'index.html';
+        }
+        
+        // Preserve URL parameters in back button
+        const backBtn = document.getElementById('backBtn');
+        backBtn.href = `work.html?edit=true&key=tiago2024`;
+        
+        // Auto-save functionality
+        let autoSaveTimer;
+        const articleTitle = document.getElementById('articleTitle');
+        const articleContent = document.getElementById('articleContent');
+        
+        function autoSave() {
+            const title = articleTitle.value;
+            const content = articleContent.value;
+            
+            if (title || content) {
+                localStorage.setItem('draft_title', title);
+                localStorage.setItem('draft_content', content);
+                console.log('Auto-saved draft');
+            }
+        }
+        
+        // Save to drafts functionality
+        document.getElementById('saveDraftBtn').addEventListener('click', () => {
+            const title = articleTitle.value.trim();
+            const content = articleContent.value.trim();
+            
+            if (!title && !content) {
+                alert('please write something to save as draft');
+                return;
+            }
+            
+            // Create draft object
+            const draft = {
+                title: title,
+                content: content,
+                timestamp: new Date().toISOString(),
+                id: Date.now().toString()
+            };
+            
+            // Get existing drafts
+            const existingDrafts = JSON.parse(localStorage.getItem('article_drafts') || '[]');
+            
+            // Add new draft
+            existingDrafts.push(draft);
+            
+            // Save to localStorage (keep only last 10 drafts)
+            if (existingDrafts.length > 10) {
+                existingDrafts.splice(0, existingDrafts.length - 10);
+            }
+            
+            localStorage.setItem('article_drafts', JSON.stringify(existingDrafts));
+            
+            // Clear current form
+            articleTitle.value = '';
+            articleContent.value = '';
+            
+            // Clear auto-save draft
+            localStorage.removeItem('draft_title');
+            localStorage.removeItem('draft_content');
+            
+            alert(`Draft saved!\n\nTitle: ${title || 'Untitled'}\n\nYou can access your drafts from the main site.`);
+            
+            // Option to go back to main site
+            if (confirm('Would you like to go back to the main site?')) {
+                window.location.href = 'work.html?edit=true&key=tiago2024';
+            }
+        });
+        
+        // Auto-save on input
+        articleTitle.addEventListener('input', () => {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(autoSave, 1000);
+        });
+        
+        articleContent.addEventListener('input', () => {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(autoSave, 1000);
+        });
+        
+        // Load draft on page load
+        window.addEventListener('load', () => {
+            const savedTitle = localStorage.getItem('draft_title');
+            const savedContent = localStorage.getItem('draft_content');
+            
+            // Check if we should load a specific draft
+            const loadDraftId = urlParams.get('load');
+            if (loadDraftId) {
+                const drafts = JSON.parse(localStorage.getItem('article_drafts') || '[]');
+                const draft = drafts.find(d => d.id === loadDraftId);
+                
+                if (draft) {
+                    articleTitle.value = draft.title || '';
+                    articleContent.value = draft.content || '';
+                    console.log('Loaded draft:', draft.title);
+                }
+            } else if (savedTitle || savedContent) {
+                // Load auto-saved content
+                if (savedTitle) articleTitle.value = savedTitle;
+                if (savedContent) articleContent.value = savedContent;
+            }
+        });
+        
+        // Preview functionality
+        document.getElementById('previewBtn').addEventListener('click', () => {
+            const title = articleTitle.value.trim();
+            const content = articleContent.value.trim();
+            
+            if (!title && !content) {
+                alert('please write something to preview');
+                return;
+            }
+            
+            // Create preview popup
+            const preview = window.open('', '_blank', 'width=800,height=600');
+            preview.document.write(`
+                <html>
+                <head>
+                    <title>${title || 'Untitled Article'}</title>
+                    <style>
+                        body {
+                            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                            line-height: 1.8;
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 2rem;
+                            color: #333;
+                        }
+                        h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 1rem; }
+                        p { margin-bottom: 1rem; }
+                    </style>
+                </head>
+                <body>
+                    <h1>${title || 'Untitled Article'}</h1>
+                    <div>${content.replace(/\n/g, '<br>')}</div>
+                </body>
+                </html>
+            `);
+        });
+        
+        // Publish functionality
+        document.getElementById('publishBtn').addEventListener('click', () => {
+            const title = articleTitle.value.trim();
+            const content = articleContent.value.trim();
+            
+            if (!title || !content) {
+                alert('please fill in both title and content');
+                return;
+            }
+            
+            // Here you would save to a database
+            // For now, just show success message
+            alert(`Article published!\n\nTitle: ${title}\n\nContent: ${content.substring(0, 100)}...`);
+            
+            // Clear draft
+            localStorage.removeItem('draft_title');
+            localStorage.removeItem('draft_content');
+            
+            // Clear form
+            articleTitle.value = '';
+            articleContent.value = '';
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + S to save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                autoSave();
+                alert('Draft saved!');
+            }
+            
+            // Ctrl/Cmd + Enter to publish
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('publishBtn').click();
+            }
+        });
+    </script>
+</body>
+</html> 

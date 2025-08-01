@@ -23,174 +23,6 @@
             padding: 2rem;
         }
         
-        /* Create button styles (hidden by default) */
-        .create-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            z-index: 1001;
-            display: none;
-            text-transform: lowercase;
-        }
-        
-        .create-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: white;
-        }
-        
-        .create-btn.show {
-            display: block;
-        }
-        
-        /* Write new article button styles */
-        .write-new-btn {
-            font-size: 0.9rem;
-            font-weight: 300;
-            text-transform: lowercase;
-            color: white;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            padding-bottom: 0.05rem;
-            opacity: 0.8;
-            transition: opacity 0.3s ease, border-bottom 0.3s ease, transform 0.3s ease;
-            margin: 2rem 0 1rem 0;
-            text-align: center;
-            display: none;
-            cursor: pointer;
-            width: 100%;
-        }
-        
-        .write-new-btn:hover {
-            opacity: 1;
-            border-bottom-color: white;
-            transform: scale(1.05);
-        }
-        
-        .write-new-btn.show {
-            display: block;
-        }
-        
-        /* Article editor styles */
-        .article-editor {
-            display: none;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            padding: 2rem;
-            margin: 2rem 0;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .article-editor.show {
-            display: block;
-        }
-        
-        .editor-field {
-            margin-bottom: 1.5rem;
-        }
-        
-        .editor-label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-            text-transform: lowercase;
-            opacity: 0.9;
-        }
-        
-        .editor-input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-        
-        .editor-input:focus {
-            outline: none;
-            border-color: white;
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .editor-textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-family: inherit;
-            font-size: 1rem;
-            resize: vertical;
-        }
-        
-        .editor-textarea:focus {
-            outline: none;
-            border-color: white;
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .editor-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-            margin-top: 1rem;
-        }
-        
-        .editor-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            text-transform: lowercase;
-        }
-        
-        .editor-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: white;
-        }
-        
-        .editor-btn.primary {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .editor-btn.primary:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        /* Editor styles */
-        .editor-mode .article-title {
-            border: 1px dashed rgba(255, 255, 255, 0.3);
-            padding: 0.5rem;
-            margin: 0.5rem 0;
-            min-height: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .editor-mode .article-title:focus {
-            outline: none;
-            border-color: white;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
         .header {
             text-align: center;
             margin-bottom: 3rem;
@@ -344,9 +176,6 @@
     </style>
 </head>
 <body>
-    <!-- Create button (hidden by default) -->
-    <button class="create-btn" id="createBtn">create new article</button>
-    
     <div class="header">
         <h1>macroeconomic analysis</h1>
         <div class="subtitle">research and insights on global economic trends</div>
@@ -355,19 +184,19 @@
     <div class="content-layout">
         <div class="article-list">
             <div class="article-item">
-                <div class="article-title" contenteditable="false">monetary policy in the digital age</div>
+                <div class="article-title">monetary policy in the digital age</div>
                 <div class="article-date">december 2024</div>
             </div>
             <div class="article-item">
-                <div class="article-title" contenteditable="false">inflation dynamics and market behavior</div>
+                <div class="article-title">inflation dynamics and market behavior</div>
                 <div class="article-date">november 2024</div>
             </div>
             <div class="article-item">
-                <div class="article-title" contenteditable="false">global trade patterns and economic growth</div>
+                <div class="article-title">global trade patterns and economic growth</div>
                 <div class="article-date">october 2024</div>
             </div>
             <div class="article-item">
-                <div class="article-title" contenteditable="false">central bank independence and market stability</div>
+                <div class="article-title">central bank independence and market stability</div>
                 <div class="article-date">september 2024</div>
             </div>
         </div>
@@ -378,25 +207,6 @@
             </div>
         </div>
     </div>
-    
-    <!-- Article editor (hidden by default) -->
-    <div class="article-editor" id="articleEditor">
-        <div class="editor-field">
-            <label class="editor-label">article title</label>
-            <input type="text" class="editor-input" id="articleTitle" placeholder="enter article title">
-        </div>
-        <div class="editor-field">
-            <label class="editor-label">article content</label>
-            <textarea class="editor-textarea" id="articleContent" placeholder="write your article content here..."></textarea>
-        </div>
-        <div class="editor-buttons">
-            <button class="editor-btn" id="cancelArticle">cancel</button>
-            <button class="editor-btn primary" id="saveArticle">save article</button>
-        </div>
-    </div>
-    
-    <!-- Write new article button (hidden by default) -->
-    <div class="write-new-btn" id="writeNewBtn">write new article</div>
     
     <a href="work.html" class="back-link">back to work</a>
     
@@ -413,96 +223,6 @@
                 "ratio": "landscape"
             }
         })
-        
-        // Check if user is authenticated (from localStorage)
-        const createBtn = document.getElementById('createBtn');
-        const writeNewBtn = document.getElementById('writeNewBtn');
-        const articleEditor = document.getElementById('articleEditor');
-        const articleTitle = document.getElementById('articleTitle');
-        const articleContent = document.getElementById('articleContent');
-        const saveArticle = document.getElementById('saveArticle');
-        const cancelArticle = document.getElementById('cancelArticle');
-        
-        // Debug: Log authentication status on page load
-        console.log('Macroeconomic page loaded. Authentication status:', localStorage.getItem('editorMode'));
-        
-        // Check if user is in editor mode
-        if (localStorage.getItem('editorMode') === 'true') {
-            console.log('Editor mode detected. Enabling editing features...');
-            createBtn.classList.add('show');
-            writeNewBtn.classList.add('show');
-            document.body.classList.add('editor-mode');
-            
-            // Make article titles editable
-            const articleTitles = document.querySelectorAll('.article-title');
-            articleTitles.forEach(title => {
-                title.contentEditable = true;
-            });
-            
-            console.log('Editing features enabled successfully.');
-        } else {
-            console.log('No authentication detected. Editing features disabled.');
-        }
-        
-        // Write new article functionality
-        writeNewBtn.addEventListener('click', () => {
-            articleEditor.classList.add('show');
-            articleTitle.focus();
-            writeNewBtn.style.display = 'none';
-        });
-        
-        // Save article
-        saveArticle.addEventListener('click', () => {
-            const title = articleTitle.value.trim();
-            const content = articleContent.value.trim();
-            
-            if (!title || !content) {
-                alert('please fill in both title and content');
-                return;
-            }
-            
-            // Add new article to the list
-            const articleList = document.querySelector('.article-list');
-            const newArticle = document.createElement('div');
-            newArticle.className = 'article-item';
-            newArticle.innerHTML = `
-                <div class="article-title" contenteditable="true">${title}</div>
-                <div class="article-date">new</div>
-            `;
-            articleList.insertBefore(newArticle, articleList.firstChild);
-            
-            // Clear editor and hide it
-            articleTitle.value = '';
-            articleContent.value = '';
-            articleEditor.classList.remove('show');
-            writeNewBtn.style.display = 'block'; // Changed from 'inline-block' to 'block'
-            
-            alert('article saved! (this is a demo - in a real implementation, changes would be saved to a database)');
-        });
-        
-        // Cancel article creation
-        cancelArticle.addEventListener('click', () => {
-            articleTitle.value = '';
-            articleContent.value = '';
-            articleEditor.classList.remove('show');
-            writeNewBtn.style.display = 'block'; // Changed from 'inline-block' to 'block'
-        });
-        
-        // Create new article functionality (legacy)
-        createBtn.addEventListener('click', () => {
-            const articleList = document.querySelector('.article-list');
-            const newArticle = document.createElement('div');
-            newArticle.className = 'article-item';
-            newArticle.innerHTML = `
-                <div class="article-title" contenteditable="true" style="border: 1px dashed rgba(255, 255, 255, 0.3); padding: 0.5rem; background: rgba(255, 255, 255, 0.05);">click to write article title</div>
-                <div class="article-date">new</div>
-            `;
-            articleList.insertBefore(newArticle, articleList.firstChild);
-            
-            // Focus on the new article title
-            const newTitle = newArticle.querySelector('.article-title');
-            newTitle.focus();
-        });
     </script>
 </body>
 </html> 

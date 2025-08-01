@@ -161,34 +161,12 @@
             // Add editor mode class to body for styling
             document.body.classList.add('editor-mode');
             
-            // Make certain elements editable
+            // Make certain elements editable without visual changes
             const editableElements = document.querySelectorAll('h1, .tagline, .description');
             editableElements.forEach(element => {
                 element.contentEditable = true;
-                element.style.border = '1px dashed rgba(255, 255, 255, 0.3)';
-                element.style.padding = '0.5rem';
-                element.style.margin = '0.5rem 0';
-                element.style.borderRadius = '4px';
-                element.style.background = 'rgba(255, 255, 255, 0.05)';
                 element.style.cursor = 'text';
             });
-            
-            // Add subtle indicator that editing is enabled
-            const indicator = document.createElement('div');
-            indicator.style.cssText = `
-                position: fixed;
-                top: 10px;
-                right: 10px;
-                background: rgba(0, 0, 0, 0.7);
-                color: white;
-                padding: 5px 10px;
-                border-radius: 4px;
-                font-size: 12px;
-                z-index: 1000;
-                opacity: 0.8;
-            `;
-            indicator.textContent = 'edit mode';
-            document.body.appendChild(indicator);
             
             // Preserve URL parameters in all links
             const links = document.querySelectorAll('a');

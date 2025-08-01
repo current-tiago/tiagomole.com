@@ -24,6 +24,137 @@
             padding: 2rem;
         }
         
+        /* Editor styles (hidden by default) */
+        .editor-mode {
+            display: none;
+        }
+        
+        .editor-mode.show {
+            display: block;
+        }
+        
+        .write-new-btn {
+            font-size: 1.2rem;
+            font-weight: 400;
+            text-transform: lowercase;
+            color: white;
+            text-decoration: none;
+            border: 2px solid white;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            opacity: 1;
+            transition: all 0.3s ease;
+            margin: 2rem 0 1rem 0;
+            text-align: center;
+            cursor: pointer;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .write-new-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+            transform: scale(1.05);
+        }
+        
+        .article-editor {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .article-editor.show {
+            display: block;
+        }
+        
+        .editor-field {
+            margin-bottom: 1.5rem;
+        }
+        
+        .editor-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            text-transform: lowercase;
+            opacity: 0.9;
+        }
+        
+        .editor-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        
+        .editor-input:focus {
+            outline: none;
+            border-color: white;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .editor-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+        }
+        
+        .editor-textarea:focus {
+            outline: none;
+            border-color: white;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .editor-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1rem;
+        }
+        
+        .editor-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            text-transform: lowercase;
+        }
+        
+        .editor-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+        
+        .editor-btn.primary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .editor-btn.primary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
         .container {
             text-align: center;
             max-width: 600px;
@@ -134,6 +265,7 @@
     </style>
 </head>
 <body>
+    <!-- Normal site content -->
     <div class="container">
         <h1>tiago branco mole</h1>
         <div class="tagline">aspiring economist & entrepreneur</div>
@@ -145,5 +277,98 @@
         </div>
     </div>
     <a href="work.html" class="work-link">view my work</a>
+    
+    <!-- Editor interface (hidden by default) -->
+    <div class="editor-mode" id="editorMode">
+        <div class="container">
+            <h1>editor mode</h1>
+            <div class="tagline">write new articles</div>
+            
+            <!-- Article editor -->
+            <div class="article-editor" id="articleEditor">
+                <div class="editor-field">
+                    <label class="editor-label">article title</label>
+                    <input type="text" class="editor-input" id="articleTitle" placeholder="enter article title">
+                </div>
+                <div class="editor-field">
+                    <label class="editor-label">article content</label>
+                    <textarea class="editor-textarea" id="articleContent" placeholder="write your article content here..."></textarea>
+                </div>
+                <div class="editor-buttons">
+                    <button class="editor-btn" id="cancelArticle">cancel</button>
+                    <button class="editor-btn primary" id="saveArticle">save article</button>
+                </div>
+            </div>
+            
+            <!-- Write new article button -->
+            <div class="write-new-btn" id="writeNewBtn">write new article</div>
+            
+            <a href="work.html" class="work-link">back to normal site</a>
+        </div>
+    </div>
+    
+    <script>
+        // Check URL for secret key
+        const urlParams = new URLSearchParams(window.location.search);
+        const editMode = urlParams.get('edit');
+        const secretKey = urlParams.get('key');
+        const SECRET_KEY = 'tiago2024';
+        
+        // Check if editor mode should be enabled
+        if (editMode === 'true' && secretKey === SECRET_KEY) {
+            console.log('Editor mode activated via URL');
+            document.getElementById('editorMode').classList.add('show');
+            
+            // Hide normal content
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('.work-link').style.display = 'none';
+        } else {
+            console.log('Normal mode - no valid editor key');
+        }
+        
+        // Editor functionality
+        const writeNewBtn = document.getElementById('writeNewBtn');
+        const articleEditor = document.getElementById('articleEditor');
+        const articleTitle = document.getElementById('articleTitle');
+        const articleContent = document.getElementById('articleContent');
+        const saveArticle = document.getElementById('saveArticle');
+        const cancelArticle = document.getElementById('cancelArticle');
+        
+        // Write new article functionality
+        writeNewBtn.addEventListener('click', () => {
+            articleEditor.classList.add('show');
+            articleTitle.focus();
+            writeNewBtn.style.display = 'none';
+        });
+        
+        // Save article
+        saveArticle.addEventListener('click', () => {
+            const title = articleTitle.value.trim();
+            const content = articleContent.value.trim();
+            
+            if (!title || !content) {
+                alert('please fill in both title and content');
+                return;
+            }
+            
+            // Here you would save to a database
+            // For now, just show success message
+            alert(`Article saved!\n\nTitle: ${title}\n\nContent: ${content.substring(0, 100)}...`);
+            
+            // Clear editor and hide it
+            articleTitle.value = '';
+            articleContent.value = '';
+            articleEditor.classList.remove('show');
+            writeNewBtn.style.display = 'block';
+        });
+        
+        // Cancel article creation
+        cancelArticle.addEventListener('click', () => {
+            articleTitle.value = '';
+            articleContent.value = '';
+            articleEditor.classList.remove('show');
+            writeNewBtn.style.display = 'block';
+        });
+    </script>
 </body>
 </html> 

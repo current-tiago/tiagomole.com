@@ -190,5 +190,23 @@
         </div>
     </div>
     <a href="index.html" class="back-link">back to home</a>
+    
+    <script>
+        // Preserve URL parameters in all links
+        const urlParams = new URLSearchParams(window.location.search);
+        const editMode = urlParams.get('edit');
+        const secretKey = urlParams.get('key');
+        
+        if (editMode === 'true' && secretKey === 'tiago2024') {
+            // Add URL parameters to all links
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http') && !href.startsWith('mailto:')) {
+                    link.href = `${href}?edit=true&key=tiago2024`;
+                }
+            });
+        }
+    </script>
 </body>
 </html> 

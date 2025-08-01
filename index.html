@@ -24,6 +24,120 @@
             padding: 2rem;
         }
         
+        /* Sneaky hidden button styles */
+        .sneaky-button {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .sneaky-button:hover {
+            opacity: 0.1;
+        }
+        
+        /* Password modal styles */
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .password-modal.show {
+            display: flex;
+        }
+        
+        .password-container {
+            background: #FF2400;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: inherit;
+        }
+        
+        .password-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .password-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+            text-transform: lowercase;
+        }
+        
+        .password-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+        
+        /* Success message styles */
+        .success-message {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            text-transform: lowercase;
+            z-index: 3000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
         .container {
             text-align: center;
             max-width: 600px;
@@ -134,6 +248,24 @@
     </style>
 </head>
 <body>
+    <!-- Sneaky hidden button -->
+    <button class="sneaky-button" id="sneakyButton" title="Secret access"></button>
+    
+    <!-- Password modal -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-container">
+            <h3>enter password</h3>
+            <input type="password" class="password-input" id="passwordInput" placeholder="password">
+            <div>
+                <button class="password-btn" id="submitPassword">submit</button>
+                <button class="password-btn" id="cancelPassword">cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success message -->
+    <div class="success-message" id="successMessage">you have been authenticated</div>
+    
     <div class="container">
         <h1>tiago branco mole</h1>
         <div class="tagline">aspiring economist & entrepreneur</div>
@@ -145,5 +277,73 @@
         </div>
     </div>
     <a href="work.html" class="work-link">view my work</a>
+    
+    <script>
+        // Sneaky button functionality
+        const sneakyButton = document.getElementById('sneakyButton');
+        const passwordModal = document.getElementById('passwordModal');
+        const passwordInput = document.getElementById('passwordInput');
+        const submitPassword = document.getElementById('submitPassword');
+        const cancelPassword = document.getElementById('cancelPassword');
+        const successMessage = document.getElementById('successMessage');
+        
+        // The secret password (you can change this)
+        const SECRET_PASSWORD = 'tiago2024';
+        
+        // Clear any old authentication data on page load
+        console.log('Page loaded. Clearing old authentication data...');
+        localStorage.removeItem('editorMode');
+        localStorage.removeItem('authTimestamp');
+        
+        // Show password modal when sneaky button is clicked
+        sneakyButton.addEventListener('click', () => {
+            passwordModal.classList.add('show');
+            passwordInput.focus();
+        });
+        
+        // Handle password submission
+        submitPassword.addEventListener('click', checkPassword);
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        // Cancel password entry
+        cancelPassword.addEventListener('click', () => {
+            passwordModal.classList.remove('show');
+            passwordInput.value = '';
+        });
+        
+        function checkPassword() {
+            if (passwordInput.value === SECRET_PASSWORD) {
+                // Enable editor mode across all pages
+                localStorage.setItem('editorMode', 'true');
+                localStorage.setItem('authTimestamp', Date.now().toString());
+                
+                passwordModal.classList.remove('show');
+                passwordInput.value = '';
+                
+                showSuccessMessage();
+                
+                console.log('Authentication successful. Editor mode enabled.');
+                console.log('localStorage editorMode:', localStorage.getItem('editorMode'));
+            } else {
+                alert('incorrect password');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+        
+        function showSuccessMessage() {
+            successMessage.classList.add('show');
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Debug: Log authentication status
+        console.log('Page loaded. Authentication status:', localStorage.getItem('editorMode'));
+    </script>
 </body>
 </html> 

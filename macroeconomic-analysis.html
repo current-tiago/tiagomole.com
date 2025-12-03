@@ -423,9 +423,8 @@
         
         // Write new article functionality
         writeNewBtn.addEventListener('click', () => {
-            articleEditor.classList.add('show');
-            articleTitle.focus();
-            writeNewBtn.style.display = 'none';
+            // Open the new article writing page
+            window.open('write-article.html?edit=true&key=tiago2024', '_blank');
         });
         
         // Save article

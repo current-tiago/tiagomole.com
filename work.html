@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>work - tiago branco mole</title>
-    <!-- Updated work page with proper navigation -->
+    <title>past articles - tiago branco mole</title>
     <style>
         * {
             margin: 0;
@@ -20,18 +19,184 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
             padding: 2rem;
         }
         
-        .container {
+        .top-nav {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto 1rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+        
+        .top-back-link {
+            font-size: 0.9rem;
+            font-weight: 300;
+            text-transform: lowercase;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 0.05rem;
+            opacity: 0.8;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: opacity 0.3s ease, border-bottom 0.3s ease, transform 0.3s ease;
+        }
+        
+        .top-back-link:hover {
+            opacity: 1;
+            border-bottom-color: white;
+            transform: translateY(-1px);
+        }
+        
+        .header {
             text-align: center;
-            max-width: 800px;
+            margin-bottom: 2.5rem;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+            text-transform: lowercase;
+            transition: transform 0.3s ease;
+        }
+        
+        h1:hover {
+            transform: scale(1.04);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.85;
+            max-width: 520px;
+            margin: 0.25rem auto 0;
+            text-transform: lowercase;
+        }
+        
+        .layout {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
             flex: 1;
             display: flex;
             flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
             justify-content: center;
+        }
+        
+        .filter-label {
+            font-size: 0.85rem;
+            text-transform: lowercase;
+            opacity: 0.7;
+            margin-right: 0.5rem;
+        }
+        
+        .tag-chip {
+            font-size: 0.85rem;
+            text-transform: lowercase;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 0.35rem 0.9rem;
+            background: rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            opacity: 0.85;
+            transition: all 0.2s ease;
+        }
+        
+        .tag-chip:hover {
+            opacity: 1;
+            transform: translateY(-1px);
+            border-color: white;
+        }
+        
+        .tag-chip.active {
+            background: white;
+            color: #FF2400;
+            border-color: white;
+            opacity: 1;
+        }
+        
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .article-card {
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.06);
+            padding: 1.3rem 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            transition: all 0.25s ease;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-4px);
+            border-color: white;
+            background: rgba(255, 255, 255, 0.09);
+        }
+        
+        .article-title {
+            font-size: 1.05rem;
+            font-weight: 400;
+            text-transform: lowercase;
+            margin-bottom: 0.15rem;
+        }
+        
+        .article-title a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+            padding-bottom: 0.05rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .article-title a:hover {
+            border-bottom-color: white;
+        }
+        
+        .article-meta {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            text-transform: lowercase;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-top: 0.4rem;
+        }
+        
+        .article-tag {
+            font-size: 0.75rem;
+            text-transform: lowercase;
+            padding: 0.1rem 0.6rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.05);
+            opacity: 0.9;
+        }
+        
+        .article-summary {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 0.3rem;
+            text-transform: lowercase;
         }
         
         .back-link {
@@ -41,263 +206,249 @@
             color: white;
             text-decoration: none;
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            margin-top: auto;
+            margin: 2rem auto 0;
             padding-bottom: 0.1rem;
             opacity: 0.8;
             transition: opacity 0.3s ease, border-bottom 0.3s ease, transform 0.3s ease;
+            text-align: center;
         }
         
         .back-link:hover {
             opacity: 1;
             border-bottom-color: white;
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
         
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-            letter-spacing: -0.02em;
-            text-transform: lowercase;
-            transition: transform 0.3s ease;
-        }
-        
-        h1:hover {
-            transform: scale(1.05);
-        }
-        
-        .work-section {
-            margin-bottom: 3rem;
-            text-align: left;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .work-title {
-            font-size: 1.3rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-            text-transform: lowercase;
-            transition: transform 0.3s ease;
-        }
-        
-        .work-title:hover {
-            transform: scale(1.05);
-        }
-        
-        .work-description {
-            font-size: 1rem;
-            font-weight: 300;
-            opacity: 0.8;
-            text-transform: lowercase;
-            margin-bottom: 1rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .work-description:hover {
-            transform: scale(1.05);
-        }
-        
-        .work-link {
-            font-size: 0.9rem;
-            font-weight: 300;
-            text-transform: lowercase;
-            color: white;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            transition: border-bottom 0.3s ease, transform 0.3s ease;
-        }
-        
-        .work-link:hover {
-            border-bottom-color: white;
-            transform: scale(1.05);
-        }
-        
-        .medium-embed {
-            margin-top: 1rem;
-            opacity: 0.9;
-        }
-        
-        #medium-widget {
-            background: transparent;
-        }
-        
-        #medium-widget * {
-            color: white !important;
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-        }
-        
-        #medium-widget a {
-            text-decoration: none !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-            transition: border-bottom 0.3s ease !important;
-        }
-        
-        #medium-widget a:hover {
-            border-bottom-color: white !important;
+        @media (max-width: 900px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 768px) {
+            body {
+                padding: 1.5rem 1.25rem 2rem;
+            }
+            
             h1 {
                 font-size: 2.5rem;
             }
             
-            .work-title {
-                font-size: 1.1rem;
-            }
-            
-            .work-description {
-                font-size: 0.9rem;
+            .subtitle {
+                font-size: 0.95rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>work</h1>
-        
-        <div class="work-section">
-            <div class="work-title">macroeconomic analysis</div>
-            <div class="work-description">
-                research and writing on global economic trends, monetary policy, and market dynamics
-            </div>
-            <a href="macroeconomic-analysis.html" class="work-link">read more</a>
-        </div>
-        
-        <div class="work-section">
-            <div class="work-title">historical perspectives</div>
-            <div class="work-description">
-                exploring the intersections of economic history, political developments, and human behavior
-            </div>
-            <a href="historical-perspectives.html" class="work-link">read more</a>
-        </div>
-        
-        <div class="work-section">
-            <div class="work-title">entrepreneurial ventures</div>
-            <div class="work-description">
-                building and scaling businesses at the intersection of finance, technology, and innovation
-            </div>
-            <a href="entrepreneurial-ventures.html" class="work-link">read more</a>
-        </div>
-        
-        <div class="work-section">
-            <div class="work-title">policy research</div>
-            <div class="work-description">
-                analyzing the impact of political decisions on economic outcomes and market behavior
-            </div>
-            <a href="policy-research.html" class="work-link">read more</a>
-        </div>
-        
-        <!-- Drafts section (hidden by default) -->
-        <div class="work-section" id="draftsSection" style="display: none;">
-            <div class="work-title">drafts</div>
-            <div class="work-description">
-                your saved article drafts
-            </div>
-            <div id="draftsList"></div>
-        </div>
+    <div class="top-nav">
+        <a href="index.html" class="top-back-link">
+            <span aria-hidden="true">←</span>
+            <span>home</span>
+        </a>
     </div>
-    <a href="index.html" class="back-link">back to home</a>
+    
+    <div class="header">
+        <h1>past articles</h1>
+        <p class="subtitle">
+            a single place for everything i've written so far, across macroeconomics, history, entrepreneurship and policy
+        </p>
+    </div>
+    
+    <main class="layout">
+        <section class="filters">
+            <span class="filter-label">filter by topic</span>
+            <button class="tag-chip active" data-filter="all">all</button>
+            <button class="tag-chip" data-filter="macroeconomics">macroeconomics</button>
+            <button class="tag-chip" data-filter="history">history</button>
+            <button class="tag-chip" data-filter="entrepreneurship">entrepreneurship</button>
+            <button class="tag-chip" data-filter="policy">policy</button>
+        </section>
+        
+        <section class="articles-grid" id="articlesGrid">
+            <!-- Historical articles -->
+            <article class="article-card" data-tags="history,policy">
+                <div class="article-title">
+                    <a href="how-to-be-a-dictator.html">how to be a dictator: lessons from bismarck</a>
+            </div>
+                <div class="article-meta">december 2024 · history & political strategy</div>
+                <div class="article-tags">
+                    <span class="article-tag">history</span>
+                    <span class="article-tag">policy</span>
+        </div>
+            </article>
+            
+            <article class="article-card" data-tags="history">
+                <div class="article-title">
+                    <a href="how-poland-caused-german-unification.html">how poland caused german unification</a>
+            </div>
+                <div class="article-meta">november 2024 · 19th century european history</div>
+                <div class="article-tags">
+                    <span class="article-tag">history</span>
+        </div>
+            </article>
+            
+            <article class="article-card" data-tags="history,macroeconomics">
+                <div class="article-title">the great depression and modern parallels</div>
+                <div class="article-meta">november 2024 · crises, markets and policy responses</div>
+                <div class="article-tags">
+                    <span class="article-tag">history</span>
+                    <span class="article-tag">macroeconomics</span>
+            </div>
+            </article>
+            
+            <article class="article-card" data-tags="history">
+                <div class="article-title">the fall of constantinople</div>
+                <div class="article-meta">october 2024 · strategy, empire and long-run decline</div>
+                <div class="article-tags">
+                    <span class="article-tag">history</span>
+        </div>
+            </article>
+            
+            <article class="article-card" data-tags="history">
+                <div class="article-title">the rise and fall of the hanseatic league</div>
+                <div class="article-meta">september 2024 · trade networks and political power</div>
+                <div class="article-tags">
+                    <span class="article-tag">history</span>
+            </div>
+            </article>
+            
+            <!-- Macroeconomic analysis -->
+            <article class="article-card" data-tags="macroeconomics,policy">
+                <div class="article-title">monetary policy in the digital age</div>
+                <div class="article-meta">december 2024 · central banking and digital money</div>
+                <div class="article-tags">
+                    <span class="article-tag">macroeconomics</span>
+                    <span class="article-tag">policy</span>
+        </div>
+            </article>
+            
+            <article class="article-card" data-tags="macroeconomics">
+                <div class="article-title">inflation dynamics and market behavior</div>
+                <div class="article-meta">november 2024 · prices, expectations and cycles</div>
+                <div class="article-tags">
+                    <span class="article-tag">macroeconomics</span>
+            </div>
+            </article>
+            
+            <article class="article-card" data-tags="macroeconomics">
+                <div class="article-title">global trade patterns and economic growth</div>
+                <div class="article-meta">october 2024 · openness, growth and distribution</div>
+                <div class="article-tags">
+                    <span class="article-tag">macroeconomics</span>
+        </div>
+            </article>
+            
+            <article class="article-card" data-tags="macroeconomics,policy">
+                <div class="article-title">central bank independence and market stability</div>
+                <div class="article-meta">september 2024 · institutions and credibility</div>
+                <div class="article-tags">
+                    <span class="article-tag">macroeconomics</span>
+                    <span class="article-tag">policy</span>
+    </div>
+            </article>
+            
+            <!-- Entrepreneurial ventures -->
+            <article class="article-card" data-tags="entrepreneurship,macroeconomics">
+                <div class="article-title">fintech disruption and traditional banking</div>
+                <div class="article-meta">december 2024 · startups, regulation and incumbents</div>
+                <div class="article-tags">
+                    <span class="article-tag">entrepreneurship</span>
+                    <span class="article-tag">macroeconomics</span>
+                </div>
+            </article>
+            
+            <article class="article-card" data-tags="entrepreneurship,policy">
+                <div class="article-title">startup funding in uncertain markets</div>
+                <div class="article-meta">november 2024 · capital, risk and cycles</div>
+                <div class="article-tags">
+                    <span class="article-tag">entrepreneurship</span>
+                    <span class="article-tag">policy</span>
+                </div>
+            </article>
+            
+            <article class="article-card" data-tags="entrepreneurship">
+                <div class="article-title">scaling operations and market expansion</div>
+                <div class="article-meta">october 2024 · execution at scale</div>
+                <div class="article-tags">
+                    <span class="article-tag">entrepreneurship</span>
+                </div>
+            </article>
+            
+            <article class="article-card" data-tags="entrepreneurship,macroeconomics">
+                <div class="article-title">venture capital and economic cycles</div>
+                <div class="article-meta">september 2024 · funding, bubbles and downturns</div>
+                <div class="article-tags">
+                    <span class="article-tag">entrepreneurship</span>
+                    <span class="article-tag">macroeconomics</span>
+                </div>
+            </article>
+            
+            <!-- Policy research -->
+            <article class="article-card" data-tags="policy,macroeconomics">
+                <div class="article-title">fiscal policy and economic recovery</div>
+                <div class="article-meta">december 2024 · stimulus, debt and growth</div>
+                <div class="article-tags">
+                    <span class="article-tag">policy</span>
+                    <span class="article-tag">macroeconomics</span>
+                </div>
+            </article>
+            
+            <article class="article-card" data-tags="policy">
+                <div class="article-title">regulatory frameworks and market efficiency</div>
+                <div class="article-meta">november 2024 · rules, incentives and innovation</div>
+                <div class="article-tags">
+                    <span class="article-tag">policy</span>
+                        </div>
+            </article>
+            
+            <article class="article-card" data-tags="policy,macroeconomics">
+                <div class="article-title">trade policy and global supply chains</div>
+                <div class="article-meta">october 2024 · tariffs, logistics and resilience</div>
+                <div class="article-tags">
+                    <span class="article-tag">policy</span>
+                    <span class="article-tag">macroeconomics</span>
+                        </div>
+            </article>
+            
+            <article class="article-card" data-tags="policy,macroeconomics">
+                <div class="article-title">central bank policies and market stability</div>
+                <div class="article-meta">september 2024 · instruments and spillovers</div>
+                <div class="article-tags">
+                    <span class="article-tag">policy</span>
+                    <span class="article-tag">macroeconomics</span>
+                        </div>
+            </article>
+        </section>
+        
+        <a href="index.html" class="back-link">back to home</a>
+    </main>
     
     <script>
-        // Preserve URL parameters in all links
-        const urlParams = new URLSearchParams(window.location.search);
-        const editMode = urlParams.get('edit');
-        const secretKey = urlParams.get('key');
+        // Simple tag-based filtering
+        const chips = document.querySelectorAll('.tag-chip');
+        const articles = document.querySelectorAll('.article-card');
         
-        if (editMode === 'true' && secretKey === 'tiago2024') {
-            // Add URL parameters to all links
-            const links = document.querySelectorAll('a');
-            links.forEach(link => {
-                const href = link.getAttribute('href');
-                if (href && !href.startsWith('http') && !href.startsWith('mailto:')) {
-                    link.href = `${href}?edit=true&key=tiago2024`;
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const filter = chip.getAttribute('data-filter');
+                
+                chips.forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                
+                if (filter === 'all') {
+                    articles.forEach(article => {
+                        article.style.display = '';
+                    });
+                    return;
                 }
+                
+                articles.forEach(article => {
+                    const tags = (article.getAttribute('data-tags') || '').split(',').map(t => t.trim());
+                    article.style.display = tags.includes(filter) ? '' : 'none';
+                });
             });
-            
-            // Show drafts section
-            const draftsSection = document.getElementById('draftsSection');
-            const draftsList = document.getElementById('draftsList');
-            
-            draftsSection.style.display = 'block';
-            
-            // Load and display drafts
-            const drafts = JSON.parse(localStorage.getItem('article_drafts') || '[]');
-            
-            if (drafts.length === 0) {
-                draftsList.innerHTML = '<p style="opacity: 0.7; font-size: 0.9rem;">no drafts yet</p>';
-            } else {
-                draftsList.innerHTML = drafts.map(draft => `
-                    <div style="margin: 1rem 0; padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px;">
-                        <div style="font-weight: 400; margin-bottom: 0.5rem;">${draft.title || 'Untitled'}</div>
-                        <div style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 0.5rem;">
-                            ${new Date(draft.timestamp).toLocaleDateString()}
-                        </div>
-                        <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 1rem;">
-                            ${draft.content.substring(0, 100)}${draft.content.length > 100 ? '...' : ''}
-                        </div>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button onclick="loadDraft('${draft.id}')" style="
-                                background: transparent;
-                                border: 1px solid rgba(255, 255, 255, 0.3);
-                                color: white;
-                                padding: 0.3rem 0.8rem;
-                                border-radius: 4px;
-                                cursor: pointer;
-                                font-family: inherit;
-                                font-size: 0.8rem;
-                                text-transform: lowercase;
-                            ">edit</button>
-                            <button onclick="deleteDraft('${draft.id}')" style="
-                                background: transparent;
-                                border: 1px solid rgba(255, 0, 0, 0.3);
-                                color: rgba(255, 0, 0, 0.8);
-                                padding: 0.3rem 0.8rem;
-                                border-radius: 4px;
-                                cursor: pointer;
-                                font-family: inherit;
-                                font-size: 0.8rem;
-                                text-transform: lowercase;
-                            ">delete</button>
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
-        
-        // Load draft function
-        function loadDraft(draftId) {
-            const drafts = JSON.parse(localStorage.getItem('article_drafts') || '[]');
-            const draft = drafts.find(d => d.id === draftId);
-            
-            if (draft) {
-                // Save current content as auto-save
-                const currentTitle = document.querySelector('input[type="text"]')?.value || '';
-                const currentContent = document.querySelector('textarea')?.value || '';
-                
-                if (currentTitle || currentContent) {
-                    localStorage.setItem('draft_title', currentTitle);
-                    localStorage.setItem('draft_content', currentContent);
-                }
-                
-                // Open write page with draft content
-                const writeUrl = `write-article.html?edit=true&key=tiago2024&load=${draftId}`;
-                window.open(writeUrl, '_blank');
-            }
-        }
-        
-        // Delete draft function
-        function deleteDraft(draftId) {
-            if (confirm('Are you sure you want to delete this draft?')) {
-                const drafts = JSON.parse(localStorage.getItem('article_drafts') || '[]');
-                const updatedDrafts = drafts.filter(d => d.id !== draftId);
-                localStorage.setItem('article_drafts', JSON.stringify(updatedDrafts));
-                
-                // Reload page to refresh drafts list
-                window.location.reload();
-            }
-        }
+        });
     </script>
 </body>
 </html> 

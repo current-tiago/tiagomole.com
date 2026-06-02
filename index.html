@@ -233,34 +233,32 @@
 
     /* ── WRITING SECTION ── */
     .writing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .writing-item {
-      padding: 2rem 2rem 2rem 0;
+      display: grid;
+      grid-template-columns: 3rem 14rem 1fr auto;
+      align-items: baseline;
+      gap: 0 2.5rem;
+      padding: 1.75rem 0;
       border-bottom: 1px solid var(--line);
-      border-right: 1px solid var(--line);
       text-decoration: none;
       color: inherit;
-      display: block;
       transition: background 0.2s;
       position: relative;
-      overflow: hidden;
     }
 
-    .writing-item::before {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 2px;
-      background: var(--red);
-      transition: width 0.3s ease;
-    }
-
-    .writing-item:hover::before { width: 100%; }
     .writing-item:hover { background: rgba(255,36,0,0.02); }
+
+    .writing-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      padding-top: 0.2rem;
+    }
 
     .writing-tag {
       font-family: 'DM Mono', monospace;
@@ -268,37 +266,44 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--red);
-      margin-bottom: 0.75rem;
     }
 
     .writing-title {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 400;
       line-height: 1.25;
-      margin-bottom: 0.75rem;
       color: var(--ink);
     }
 
     .writing-desc {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 300;
       font-style: italic;
       color: var(--muted);
       line-height: 1.6;
+      max-width: 340px;
+      text-align: right;
     }
 
     .writing-arrow {
+      display: none;
+    }
+
+    .writing-item::after {
+      content: '↗';
       position: absolute;
-      top: 2rem; right: 2rem;
-      font-size: 1rem;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%) translate(0, 0);
+      font-size: 0.9rem;
       color: var(--muted);
       opacity: 0;
       transition: opacity 0.2s, transform 0.2s;
     }
 
-    .writing-item:hover .writing-arrow {
+    .writing-item:hover::after {
       opacity: 1;
-      transform: translate(2px, -2px);
+      transform: translateY(-50%) translate(3px, -3px);
     }
 
     /* ── VENTURES SECTION ── */
@@ -618,45 +623,45 @@
     <div class="writing-grid">
 
       <a href="how-to-be-a-dictator.html" class="writing-item reveal">
+        <span class="writing-num">01</span>
         <div class="writing-tag">History · Politics</div>
         <div class="writing-title">How to Be a Dictator</div>
         <div class="writing-desc">The anatomy of authoritarian power and how it endures.</div>
-        <span class="writing-arrow">↗</span>
       </a>
 
       <a href="how-poland-caused-german-unification.html" class="writing-item reveal">
+        <span class="writing-num">02</span>
         <div class="writing-tag">History · Europe</div>
         <div class="writing-title">How Poland Caused German Unification</div>
         <div class="writing-desc">Revisiting the chain of events that reshaped the European order.</div>
-        <span class="writing-arrow">↗</span>
       </a>
 
       <a href="macroeconomic-analysis.html" class="writing-item reveal">
+        <span class="writing-num">03</span>
         <div class="writing-tag">Economics</div>
         <div class="writing-title">Macroeconomic Analysis</div>
         <div class="writing-desc">Deep dives into global monetary systems and structural trends.</div>
-        <span class="writing-arrow">↗</span>
       </a>
 
       <a href="historical-perspectives.html" class="writing-item reveal">
+        <span class="writing-num">04</span>
         <div class="writing-tag">History</div>
         <div class="writing-title">Historical Perspectives</div>
         <div class="writing-desc">Long-form essays on events that continue to shape the present.</div>
-        <span class="writing-arrow">↗</span>
       </a>
 
       <a href="policy-research.html" class="writing-item reveal">
+        <span class="writing-num">05</span>
         <div class="writing-tag">Policy</div>
         <div class="writing-title">Policy Research</div>
         <div class="writing-desc">Evidence-based analysis of economic and political institutions.</div>
-        <span class="writing-arrow">↗</span>
       </a>
 
       <a href="entrepreneurial-ventures.html" class="writing-item reveal">
+        <span class="writing-num">06</span>
         <div class="writing-tag">Entrepreneurship</div>
         <div class="writing-title">Entrepreneurial Ventures</div>
         <div class="writing-desc">Lessons from building, failing, and iterating at the frontier.</div>
-        <span class="writing-arrow">↗</span>
       </a>
 
     </div>

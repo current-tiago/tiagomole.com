@@ -17,29 +17,29 @@ exports.handler = async () => {
     }),
   });
 
-  const { access_token } = await tokenRes.json();
+  const tokenData = await tokenRes.json();
+  const { access_token } = tokenData;
+  if (!access_token) {
+    return { statusCode: 200, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ debug: 'no access token', tokenData }) };
+  }
 
   // Try full player state first, fall back to currently-playing
   const playerRes = await fetch('https://api.spotify.com/v1/me/player', {
     headers: { Authorization: `Bearer ${access_token}` },
   });
 
-  if (playerRes.status === 204 || playerRes.status >= 400) {
-    return {
-      statusCode: 200,
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify({ isPlaying: false }),
-    };
+  if (playerRes.status === 204) {
+    return { statusCode: 200, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ debug: 'spotify returned 204 - nothing playing' }) };
+  }
+  if (playerRes.status >= 400) {
+    const errText = await playerRes.text();
+    return { statusCode: 200, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ debug: `spotify error ${playerRes.status}`, error: errText }) };
   }
 
   const data = await playerRes.json();
 
   if (!data || !data.item) {
-    return {
-      statusCode: 200,
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify({ isPlaying: false }),
-    };
+    return { statusCode: 200, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ debug: 'no item in response', data }) };
   }
 
   return {

@@ -1,314 +1,784 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tiago branco mole</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: #FF2400;
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            color: white;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2rem;
-        }
-        
-        .container {
-            text-align: center;
-            max-width: 600px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-            text-transform: lowercase;
-            transition: transform 0.3s ease;
-        }
-        
-        h1:hover {
-            transform: scale(1.05);
-        }
-        
-        .tagline {
-            font-size: 1.2rem;
-            font-weight: 400;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            text-transform: lowercase;
-            transition: transform 0.3s ease;
-        }
-        
-        .tagline:hover {
-            transform: scale(1.05);
-        }
-        
-        .description {
-            font-size: 1rem;
-            font-weight: 300;
-            margin-bottom: 3rem;
-            opacity: 0.8;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-            text-transform: lowercase;
-            transition: transform 0.3s ease;
-        }
-        
-        .description:hover {
-            transform: scale(1.05);
-        }
-        
-        .contact {
-            font-size: 0.9rem;
-            font-weight: 300;
-            opacity: 0.7;
-            text-transform: lowercase;
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .contact:hover {
-            transform: scale(1.05);
-        }
-        
-        .work-link {
-            font-size: 1rem;
-            font-weight: 300;
-            text-transform: lowercase;
-            color: white;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            margin-top: auto;
-            padding-bottom: 0.1rem;
-            opacity: 0.8;
-            transition: opacity 0.3s ease, border-bottom 0.3s ease, transform 0.3s ease;
-        }
-        
-        .work-link:hover {
-            opacity: 1;
-            border-bottom-color: white;
-            transform: scale(1.05);
-        }
-        
-        a {
-            color: white;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            transition: border-color 0.3s ease;
-        }
-        
-        a:hover {
-            border-bottom-color: white;
-        }
-        
-        #now-playing {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: #121212;
-            border-radius: 8px;
-            padding: 0.75rem;
-            text-decoration: none;
-            border-bottom: none;
-            border: 1px solid rgba(255,255,255,0.08);
-            opacity: 0;
-            transition: opacity 0.5s ease, transform 0.2s ease, background 0.2s ease, width 0.3s ease;
-            width: 220px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tiago branco mole</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #FF2400;
+      --cream: #F5F0E8;
+      --ink: #0D0D0D;
+      --ink-soft: #2A2A2A;
+      --muted: #8A8070;
+      --line: rgba(13,13,13,0.12);
+    }
 
-        #now-playing:hover {
-            width: 320px;
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        #now-playing.visible {
-            opacity: 1;
-        }
+    html { scroll-behavior: smooth; }
 
-        #now-playing:hover {
-            transform: scale(1.02);
-            background: #1a1a1a;
-            border-bottom: none;
-            width: 320px;
-        }
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      cursor: default;
+    }
 
-        #now-playing img {
-            width: 44px;
-            height: 44px;
-            border-radius: 4px;
-            flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-        }
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
 
-        #now-playing .np-text {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            gap: 2px;
-            flex: 1;
-        }
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, var(--cream) 60%, transparent);
+    }
 
-        #now-playing .np-label {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 0.6rem;
-            color: #1DB954;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 600;
-        }
+    .logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
 
-        #now-playing .np-label::before {
-            content: '';
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: #1DB954;
-            border-radius: 50%;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
+    nav {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
 
-        #now-playing .np-title {
-            font-size: 0.8rem;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: #ffffff;
-            text-transform: none;
-            transition: text-overflow 0.3s ease;
-        }
+    nav a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
 
-        #now-playing:hover .np-title,
-        #now-playing:hover .np-artist {
-            white-space: normal;
-            overflow: visible;
-            text-overflow: unset;
-        }
+    nav a:hover { color: var(--ink); }
 
-        #now-playing .np-artist {
-            font-size: 0.7rem;
-            color: #a7a7a7;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-transform: none;
-        }
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 0 3rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.85); }
-        }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 6rem;
+      position: relative;
+      z-index: 2;
+    }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .tagline {
-                font-size: 1rem;
-            }
-            
-            .description {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero-name {
+      font-size: clamp(4rem, 7vw, 7rem);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.4s forwards;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--red);
+    }
+
+    .hero-desc {
+      margin-top: 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      max-width: 360px;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.6s forwards;
+    }
+
+    .hero-links {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.8s forwards;
+    }
+
+    .hero-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .hero-link:hover {
+      color: var(--red);
+      border-color: var(--red);
+    }
+
+    .hero-right {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding-bottom: 6rem;
+      position: relative;
+    }
+
+    .hero-coords {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-align: right;
+      line-height: 2;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 1s forwards;
+    }
+
+    .hero-line {
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: var(--line);
+      transform: scaleY(0);
+      transform-origin: top;
+      animation: lineGrow 1.2s ease 0.3s forwards;
+    }
+
+    .hero-year {
+      position: absolute;
+      bottom: 3.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeIn 0.8s ease 1.2s forwards;
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--line);
+      position: relative;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* ── WRITING SECTION ── */
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 0;
+    }
+
+    .writing-item {
+      padding: 2rem 2rem 2rem 0;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .writing-item::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--red);
+      transition: width 0.3s ease;
+    }
+
+    .writing-item:hover::before { width: 100%; }
+    .writing-item:hover { background: rgba(255,36,0,0.02); }
+
+    .writing-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+
+    .writing-title {
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+
+    .writing-desc {
+      font-size: 0.9rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .writing-arrow {
+      position: absolute;
+      top: 2rem; right: 2rem;
+      font-size: 1rem;
+      color: var(--muted);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .writing-item:hover .writing-arrow {
+      opacity: 1;
+      transform: translate(2px, -2px);
+    }
+
+    /* ── VENTURES SECTION ── */
+    .ventures-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .venture-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+
+    .venture-item:hover .venture-name {
+      color: var(--red);
+      transform: translateX(4px);
+    }
+
+    .venture-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .venture-name {
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .venture-desc {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── ABOUT SECTION ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .about-text {
+      font-size: 1.3rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--ink-soft);
+    }
+
+    .about-text strong {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .about-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-value {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--ink);
+    }
+
+    .meta-value a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .meta-value a:hover {
+      color: var(--red);
+      border-color: var(--red);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-name {
+      font-size: 0.65rem;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── NOW PLAYING ── */
+    #now-playing {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #121212;
+      border-radius: 8px;
+      padding: 0.75rem;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.08);
+      opacity: 0;
+      transition: opacity 0.5s ease, width 0.3s ease, background 0.2s ease;
+      width: 220px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      z-index: 999;
+    }
+
+    #now-playing.visible { opacity: 1; }
+
+    #now-playing:hover {
+      width: 320px;
+      background: #1a1a1a;
+    }
+
+    #now-playing img {
+      width: 44px;
+      height: 44px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    #now-playing .np-text {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      gap: 2px;
+      flex: 1;
+    }
+
+    #now-playing .np-label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      color: #1DB954;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 400;
+    }
+
+    #now-playing .np-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: #1DB954;
+      border-radius: 50%;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    #now-playing .np-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: -apple-system, sans-serif;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #fff;
+    }
+
+    #now-playing:hover .np-title,
+    #now-playing:hover .np-artist {
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+    }
+
+    #now-playing .np-artist {
+      font-family: -apple-system, sans-serif;
+      font-size: 0.68rem;
+      color: #a7a7a7;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes lineGrow {
+      from { transform: scaleY(0); }
+      to   { transform: scaleY(1); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      header { padding: 1.25rem 1.5rem; }
+      nav { gap: 1.5rem; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem;
+      }
+      .hero-left { padding-bottom: 4rem; padding-top: 8rem; }
+      .hero-right { display: none; }
+      .hero-line { display: none; }
+      .hero-name { font-size: clamp(3rem, 12vw, 5rem); }
+
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .venture-item { grid-template-columns: 50px 1fr; }
+      .venture-desc { display: none; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Normal site content -->
-    <div class="container">
-        <h1>tiago branco mole</h1>
-        <div class="tagline">aspiring economist & entrepreneur</div>
-        <div class="description">
-            writing about macroeconomics and history, exploring the intersections of finance, politics and human thought
-        </div>
-        <div class="contact">
-            <a href="mailto:tiagobrancomole@gmail.com">tiagobrancomole@gmail.com</a>
-        </div>
+
+  <!-- HEADER -->
+  <header>
+    <a href="/" class="logo">TBM</a>
+    <nav>
+      <a href="#writing">Writing</a>
+      <a href="#ventures">Ventures</a>
+      <a href="#about">About</a>
+      <a href="mailto:tiagobrancomole@gmail.com">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-line"></div>
+    <div class="hero-left">
+      <div class="hero-eyebrow">Economist · Entrepreneur · Writer</div>
+      <h1 class="hero-name">
+        Tiago<br>
+        Branco<br>
+        <em>Mole</em>
+      </h1>
+      <p class="hero-desc">
+        Writing at the intersection of macroeconomics, history, and human thought.
+      </p>
+      <div class="hero-links">
+        <a href="#writing" class="hero-link">Read Writing</a>
+        <a href="#ventures" class="hero-link">View Ventures</a>
+      </div>
     </div>
-    <a href="work.html" class="work-link">view past articles</a>
+    <div class="hero-right">
+      <div class="hero-coords">
+        38°43′N 9°8′W<br>
+        Lisbon, Portugal<br>
+        ——<br>
+        Economics<br>
+        Entrepreneurship<br>
+        ——<br>
+        Est. 2006
+      </div>
+    </div>
+    <div class="hero-year">MMXXVI</div>
+  </div>
 
-    <a id="now-playing" href="#" target="_blank" rel="noopener" style="display:none">
-        <img id="np-art" src="" alt="album art">
-        <div class="np-text">
-            <span class="np-label">listening now</span>
-            <span class="np-title" id="np-title"></span>
-            <span class="np-artist" id="np-artist"></span>
+  <!-- WRITING -->
+  <section id="writing">
+    <div class="section-label">Selected Writing</div>
+    <div class="writing-grid">
+
+      <a href="how-to-be-a-dictator.html" class="writing-item reveal">
+        <div class="writing-tag">History · Politics</div>
+        <div class="writing-title">How to Be a Dictator</div>
+        <div class="writing-desc">The anatomy of authoritarian power and how it endures.</div>
+        <span class="writing-arrow">↗</span>
+      </a>
+
+      <a href="how-poland-caused-german-unification.html" class="writing-item reveal">
+        <div class="writing-tag">History · Europe</div>
+        <div class="writing-title">How Poland Caused German Unification</div>
+        <div class="writing-desc">Revisiting the chain of events that reshaped the European order.</div>
+        <span class="writing-arrow">↗</span>
+      </a>
+
+      <a href="macroeconomic-analysis.html" class="writing-item reveal">
+        <div class="writing-tag">Economics</div>
+        <div class="writing-title">Macroeconomic Analysis</div>
+        <div class="writing-desc">Deep dives into global monetary systems and structural trends.</div>
+        <span class="writing-arrow">↗</span>
+      </a>
+
+      <a href="historical-perspectives.html" class="writing-item reveal">
+        <div class="writing-tag">History</div>
+        <div class="writing-title">Historical Perspectives</div>
+        <div class="writing-desc">Long-form essays on events that continue to shape the present.</div>
+        <span class="writing-arrow">↗</span>
+      </a>
+
+      <a href="policy-research.html" class="writing-item reveal">
+        <div class="writing-tag">Policy</div>
+        <div class="writing-title">Policy Research</div>
+        <div class="writing-desc">Evidence-based analysis of economic and political institutions.</div>
+        <span class="writing-arrow">↗</span>
+      </a>
+
+      <a href="entrepreneurial-ventures.html" class="writing-item reveal">
+        <div class="writing-tag">Entrepreneurship</div>
+        <div class="writing-title">Entrepreneurial Ventures</div>
+        <div class="writing-desc">Lessons from building, failing, and iterating at the frontier.</div>
+        <span class="writing-arrow">↗</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- VENTURES -->
+  <section id="ventures">
+    <div class="section-label">Ventures & Projects</div>
+    <div class="ventures-list">
+
+      <a href="https://juku.loans" target="_blank" rel="noopener" class="venture-item reveal">
+        <div class="venture-num">001</div>
+        <div class="venture-name">Swapdesk</div>
+        <div class="venture-desc">Interest rate swaps · UK</div>
+      </a>
+
+      <!-- Add more ventures here as you build them -->
+      <div class="venture-item reveal" style="opacity:0.35; pointer-events:none;">
+        <div class="venture-num">002</div>
+        <div class="venture-name" style="font-style:italic;">Next venture</div>
+        <div class="venture-desc">Coming soon</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About</div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        I'm an <strong>aspiring economist and entrepreneur</strong> interested in
+        the forces that shape markets, nations, and human behaviour.
+        I write to think — about macroeconomics, history, and
+        the quiet mechanisms that drive big outcomes.
+        <br><br>
+        Currently building at the intersection of
+        <strong>finance and technology</strong>, while studying the ideas
+        that have defined how our world is organised.
+      </div>
+      <div class="about-meta reveal">
+        <div class="meta-row">
+          <div class="meta-label">Based in</div>
+          <div class="meta-value">Lisbon, Portugal</div>
         </div>
-    </a>
+        <div class="meta-row">
+          <div class="meta-label">Interests</div>
+          <div class="meta-value">Macroeconomics · History · Entrepreneurship</div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Contact</div>
+          <div class="meta-value"><a href="mailto:tiagobrancomole@gmail.com">tiagobrancomole@gmail.com</a></div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-label">Archive</div>
+          <div class="meta-value"><a href="work.html">All past articles →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        async function fetchNowPlaying() {
-            try {
-                const res = await fetch('/.netlify/functions/now-playing');
-                const data = await res.json();
-                if (data.isPlaying) {
-                    const widget = document.getElementById('now-playing');
-                    document.getElementById('np-title').textContent = data.title;
-                    document.getElementById('np-artist').textContent = data.artist;
-                    document.getElementById('np-art').src = data.albumArt;
-                    widget.href = data.songUrl;
-                    widget.style.display = 'flex';
-                    setTimeout(() => widget.classList.add('visible'), 50);
-                }
-            } catch (e) {}
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Tiago Branco Mole</div>
+    <div class="footer-copy">© 2026 — All rights reserved</div>
+  </footer>
+
+  <!-- SPOTIFY NOW PLAYING -->
+  <a id="now-playing" href="#" target="_blank" rel="noopener" style="display:none">
+    <img id="np-art" src="" alt="album art">
+    <div class="np-text">
+      <span class="np-label">Now Playing</span>
+      <span class="np-title" id="np-title"></span>
+      <span class="np-artist" id="np-artist"></span>
+    </div>
+  </a>
+
+  <script>
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
         }
-        fetchNowPlaying();
-        setInterval(fetchNowPlaying, 30000);
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
 
-        // Check URL for secret key
-        const urlParams = new URLSearchParams(window.location.search);
-        const editMode = urlParams.get('edit');
-        const secretKey = urlParams.get('key');
-        const SECRET_KEY = 'tiago2024';
-        
-        // Check if editor mode should be enabled
-        if (editMode === 'true' && secretKey === SECRET_KEY) {
-            console.log('Editor mode activated via URL');
-            
-            // Add editor mode class to body for styling
-            document.body.classList.add('editor-mode');
-            
-            // Make certain elements editable without visual changes
-            const editableElements = document.querySelectorAll('h1, .tagline, .description');
-            editableElements.forEach(element => {
-                element.contentEditable = true;
-                element.style.cursor = 'text';
-            });
-            
-            // Preserve URL parameters in all links
-            const links = document.querySelectorAll('a');
-            links.forEach(link => {
-                const href = link.getAttribute('href');
-                if (href && !href.startsWith('http') && !href.startsWith('mailto:')) {
-                    link.href = `${href}?edit=true&key=tiago2024`;
-                }
-            });
+    // Spotify now playing
+    async function fetchNowPlaying() {
+      try {
+        const res = await fetch('/.netlify/functions/now-playing');
+        const data = await res.json();
+        if (data.isPlaying) {
+          const widget = document.getElementById('now-playing');
+          document.getElementById('np-title').textContent = data.title;
+          document.getElementById('np-artist').textContent = data.artist;
+          document.getElementById('np-art').src = data.albumArt;
+          widget.href = data.songUrl;
+          widget.style.display = 'flex';
+          setTimeout(() => widget.classList.add('visible'), 50);
         } else {
-            console.log('Normal mode - no valid editor key');
+          const widget = document.getElementById('now-playing');
+          widget.classList.remove('visible');
+          setTimeout(() => { widget.style.display = 'none'; }, 500);
         }
-    </script>
+      } catch (e) {}
+    }
+    fetchNowPlaying();
+    setInterval(fetchNowPlaying, 30000);
+  </script>
 </body>
-</html> 
+</html>

@@ -42,15 +42,15 @@ Set in Netlify → Site config → Environment variables:
 
 | Key | Value |
 |-----|-------|
-| `SPOTIFY_CLIENT_ID` | `89ca3f58268d46909e37eeda574b0a72` |
-| `SPOTIFY_CLIENT_SECRET` | `29467c3bc10441a698bb18a2b3a1cb0b` |
-| `SPOTIFY_REFRESH_TOKEN` | (most recent one — see below) |
+| `SPOTIFY_CLIENT_ID` | (in Netlify — do not commit) |
+| `SPOTIFY_CLIENT_SECRET` | (in Netlify — do not commit) |
+| `SPOTIFY_REFRESH_TOKEN` | (in Netlify — do not commit) |
 
-### Refresh token history
-Refresh tokens get **invalidated every time you run get-token.js**. The most recent token was generated on 2 June 2026 and is:
-`AQAwUnMyVDjAF2lcpvp10ZjL2UYWpp7Cwt3ZSuWlNIgcFxXphohbVhOarluB3UX1Vv39nVFXdoucX5OsKSweiBcmrU1sMkD0cKt287OuAdsvbXfcbJru_o3WRSIFAY1MqtE`
+### Refresh token notes
+Refresh tokens get **invalidated every time you run get-token.js**. Keep only one valid token in Netlify at a time.
+Never commit token values to the repo — Netlify will block the deploy if it detects them.
 
-If this stops working, regenerate using `get-token.js` (see below).
+If the token stops working, regenerate using `get-token.js` (see below).
 
 ---
 

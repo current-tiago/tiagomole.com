@@ -441,70 +441,65 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      background: #121212;
-      border-radius: 8px;
-      padding: 0.75rem;
+      background: var(--cream);
+      border-radius: 0;
+      padding: 0.85rem 1rem;
       text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--red);
       opacity: 0;
-      transition: opacity 0.5s ease, width 0.3s ease, background 0.2s ease;
-      width: 220px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      transition: opacity 0.5s ease, width 0.3s ease;
+      width: 210px;
+      box-shadow: 4px 4px 0 rgba(13,13,13,0.06);
       z-index: 999;
     }
 
     #now-playing.visible { opacity: 1; }
-
-    #now-playing:hover {
-      width: 320px;
-      background: #1a1a1a;
-    }
+    #now-playing:hover { width: 300px; }
 
     #now-playing img {
-      width: 44px;
-      height: 44px;
-      border-radius: 4px;
+      width: 36px;
+      height: 36px;
       flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      filter: grayscale(20%);
     }
 
     #now-playing .np-text {
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      gap: 2px;
+      gap: 3px;
       flex: 1;
     }
 
     #now-playing .np-label {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       font-family: 'DM Mono', monospace;
-      font-size: 0.55rem;
-      color: #1DB954;
+      font-size: 0.5rem;
+      color: var(--red);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 400;
+      letter-spacing: 0.15em;
     }
 
     #now-playing .np-label::before {
       content: '';
       display: inline-block;
-      width: 6px; height: 6px;
-      background: #1DB954;
+      width: 5px; height: 5px;
+      background: var(--red);
       border-radius: 50%;
       animation: pulse 1.5s ease-in-out infinite;
     }
 
     #now-playing .np-title {
-      font-size: 0.78rem;
-      font-weight: 600;
-      font-family: -apple-system, sans-serif;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-weight: 400;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: #fff;
+      color: var(--ink);
     }
 
     #now-playing:hover .np-title,
@@ -515,12 +510,13 @@
     }
 
     #now-playing .np-artist {
-      font-family: -apple-system, sans-serif;
-      font-size: 0.68rem;
-      color: #a7a7a7;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      color: var(--muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      letter-spacing: 0.05em;
     }
 
     /* ── ANIMATIONS ── */

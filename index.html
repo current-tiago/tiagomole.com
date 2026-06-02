@@ -448,15 +448,14 @@
       border: 1px solid var(--line);
       border-left: 2px solid var(--red);
       opacity: 0;
-      transition: opacity 0.5s ease, max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      max-width: 210px;
-      width: max-content;
+      transition: opacity 0.5s ease;
+      width: 240px;
       box-shadow: 4px 4px 0 rgba(13,13,13,0.06);
       z-index: 999;
     }
 
     #now-playing.visible { opacity: 1; }
-    #now-playing:hover { max-width: 320px; }
+
 
     #now-playing img {
       width: 36px;
@@ -503,10 +502,6 @@
       color: var(--ink);
     }
 
-    #now-playing:hover .np-title,
-    #now-playing:hover .np-artist {
-      text-overflow: clip;
-    }
 
     #now-playing .np-artist {
       font-family: 'DM Mono', monospace;

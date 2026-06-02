@@ -733,7 +733,7 @@
   <a id="now-playing" href="#" target="_blank" rel="noopener" style="display:none">
     <img id="np-art" src="" alt="album art">
     <div class="np-text">
-      <span class="np-label">Now Playing</span>
+      <span class="np-label" id="np-label">Now Playing</span>
       <span class="np-title" id="np-title"></span>
       <span class="np-artist" id="np-artist"></span>
     </div>
@@ -753,20 +753,32 @@
     revealEls.forEach(el => observer.observe(el));
 
     // Spotify now playing
+    let lastPlayed = null;
+
     async function fetchNowPlaying() {
       try {
         const res = await fetch('/.netlify/functions/now-playing');
         const data = await res.json();
+        const widget = document.getElementById('now-playing');
+        const label = document.getElementById('np-label');
         if (data.isPlaying) {
-          const widget = document.getElementById('now-playing');
+          lastPlayed = { title: data.title, artist: data.artist, albumArt: data.albumArt, songUrl: data.songUrl };
+          label.textContent = 'Now Playing';
           document.getElementById('np-title').textContent = data.title;
           document.getElementById('np-artist').textContent = data.artist;
           document.getElementById('np-art').src = data.albumArt;
           widget.href = data.songUrl;
           widget.style.display = 'flex';
           setTimeout(() => widget.classList.add('visible'), 50);
+        } else if (lastPlayed) {
+          label.textContent = 'Last Played';
+          document.getElementById('np-title').textContent = lastPlayed.title;
+          document.getElementById('np-artist').textContent = lastPlayed.artist;
+          document.getElementById('np-art').src = lastPlayed.albumArt;
+          widget.href = lastPlayed.songUrl;
+          widget.style.display = 'flex';
+          setTimeout(() => widget.classList.add('visible'), 50);
         } else {
-          const widget = document.getElementById('now-playing');
           widget.classList.remove('visible');
           setTimeout(() => { widget.style.display = 'none'; }, 500);
         }

@@ -19,11 +19,12 @@ exports.handler = async () => {
 
   const { access_token } = await tokenRes.json();
 
-  const nowRes = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+  // Try full player state first, fall back to currently-playing
+  const playerRes = await fetch('https://api.spotify.com/v1/me/player', {
     headers: { Authorization: `Bearer ${access_token}` },
   });
 
-  if (nowRes.status === 204 || nowRes.status > 400) {
+  if (playerRes.status === 204 || playerRes.status >= 400) {
     return {
       statusCode: 200,
       headers: { 'Access-Control-Allow-Origin': '*' },
@@ -31,7 +32,7 @@ exports.handler = async () => {
     };
   }
 
-  const data = await nowRes.json();
+  const data = await playerRes.json();
 
   if (!data || !data.item) {
     return {

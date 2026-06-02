@@ -118,6 +118,70 @@
             border-bottom-color: white;
         }
         
+        #now-playing {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 999px;
+            padding: 0.5rem 0.9rem 0.5rem 0.5rem;
+            text-decoration: none;
+            border-bottom: none;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.3s ease;
+            max-width: 220px;
+        }
+
+        #now-playing.visible {
+            opacity: 1;
+        }
+
+        #now-playing:hover {
+            transform: scale(1.04);
+            border-bottom: none;
+        }
+
+        #now-playing img {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        #now-playing .np-text {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #now-playing .np-label {
+            font-size: 0.6rem;
+            opacity: 0.6;
+            text-transform: lowercase;
+            letter-spacing: 0.05em;
+        }
+
+        #now-playing .np-title {
+            font-size: 0.75rem;
+            font-weight: 400;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-transform: lowercase;
+        }
+
+        #now-playing .np-artist {
+            font-size: 0.65rem;
+            opacity: 0.7;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-transform: lowercase;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -146,8 +210,35 @@
         </div>
     </div>
     <a href="work.html" class="work-link">view past articles</a>
-    
+
+    <a id="now-playing" href="#" target="_blank" rel="noopener" style="display:none">
+        <img id="np-art" src="" alt="album art">
+        <div class="np-text">
+            <span class="np-label">listening now</span>
+            <span class="np-title" id="np-title"></span>
+            <span class="np-artist" id="np-artist"></span>
+        </div>
+    </a>
+
     <script>
+        async function fetchNowPlaying() {
+            try {
+                const res = await fetch('/.netlify/functions/now-playing');
+                const data = await res.json();
+                if (data.isPlaying) {
+                    const widget = document.getElementById('now-playing');
+                    document.getElementById('np-title').textContent = data.title;
+                    document.getElementById('np-artist').textContent = data.artist;
+                    document.getElementById('np-art').src = data.albumArt;
+                    widget.href = data.songUrl;
+                    widget.style.display = 'flex';
+                    setTimeout(() => widget.classList.add('visible'), 50);
+                }
+            } catch (e) {}
+        }
+        fetchNowPlaying();
+        setInterval(fetchNowPlaying, 30000);
+
         // Check URL for secret key
         const urlParams = new URLSearchParams(window.location.search);
         const editMode = urlParams.get('edit');

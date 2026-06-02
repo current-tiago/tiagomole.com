@@ -11,9 +11,9 @@
       --red: #FF8800;
       --cream: #F5F0E8;
       --ink: #0D0D0D;
-      --ink-soft: #1A1A1A;
-      --muted: rgba(245,240,232,0.38);
-      --line: rgba(245,240,232,0.1);
+      --ink-soft: #2A2A2A;
+      --muted: #8A8070;
+      --line: rgba(13,13,13,0.12);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,13 +21,12 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--ink);
-      color: var(--cream);
+      background: var(--cream);
+      color: var(--ink);
       font-family: 'Cormorant Garamond', Georgia, serif;
       min-height: 100vh;
     }
 
-    /* NOISE */
     body::before {
       content: '';
       position: fixed;
@@ -35,7 +34,7 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 1000;
-      opacity: 0.5;
+      opacity: 0.4;
     }
 
     /* HEADER */
@@ -47,7 +46,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: linear-gradient(to bottom, var(--ink) 60%, transparent);
+      background: linear-gradient(to bottom, var(--cream) 60%, transparent);
     }
 
     .back-link {
@@ -60,14 +59,11 @@
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
       transition: color 0.2s;
     }
-    .back-link:hover { color: var(--cream); }
-    .back-link::before {
-      content: '←';
-      font-size: 0.8rem;
-    }
+    .back-link:hover { color: var(--ink); }
+    .back-link::before { content: '←'; font-size: 0.8rem; }
 
     .header-title {
       font-family: 'DM Mono', monospace;
@@ -81,46 +77,51 @@
     /* HERO */
     .hero {
       min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 0 3rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-line {
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: var(--line);
+      transform: scaleY(0);
+      transform-origin: top;
+      animation: lineGrow 1.2s ease 0.3s forwards;
+    }
+
+    .hero-left {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 0 3rem 7rem;
+      padding-bottom: 6rem;
       position: relative;
-      border-bottom: 1px solid var(--line);
-      overflow: hidden;
-    }
-
-    .hero-bg-text {
-      position: absolute;
-      bottom: -0.15em;
-      right: -0.02em;
-      font-size: clamp(12rem, 22vw, 22rem);
-      font-weight: 600;
-      font-style: italic;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(245,240,232,0.045);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: -0.04em;
+      z-index: 2;
     }
 
     .hero-eyebrow {
       font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.28em;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--red);
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.5rem;
       opacity: 0;
       animation: fadeUp 0.8s ease 0.2s forwards;
     }
 
     .hero-title {
-      font-size: clamp(5rem, 10vw, 10rem);
+      font-size: clamp(4rem, 7vw, 7.5rem);
       font-weight: 300;
-      line-height: 0.9;
-      letter-spacing: -0.03em;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      color: var(--ink);
       opacity: 0;
       animation: fadeUp 0.9s ease 0.4s forwards;
     }
@@ -132,68 +133,105 @@
 
     .hero-subtitle {
       margin-top: 2.5rem;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 300;
       font-style: italic;
       color: var(--muted);
-      max-width: 380px;
+      max-width: 360px;
       line-height: 1.65;
       opacity: 0;
-      animation: fadeUp 0.9s ease 0.65s forwards;
+      animation: fadeUp 0.9s ease 0.6s forwards;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.8s forwards;
+    }
+
+    .hero-cta a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .hero-cta a:hover { color: var(--red); border-color: var(--red); }
+
+    .hero-right {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding-bottom: 6rem;
     }
 
     .hero-meta {
-      margin-top: 3rem;
-      display: flex;
-      gap: 3rem;
-      align-items: center;
-      opacity: 0;
-      animation: fadeUp 0.9s ease 0.85s forwards;
-    }
-
-    .hero-count {
       font-family: 'DM Mono', monospace;
       font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
       color: var(--muted);
+      letter-spacing: 0.1em;
+      text-align: right;
+      line-height: 2.2;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 1s forwards;
     }
 
-    .hero-scroll {
+    .hero-meta span {
+      display: block;
+      color: var(--red);
+    }
+
+    .hero-year {
+      position: absolute;
+      bottom: 3.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeIn 0.8s ease 1.2s forwards;
+    }
+
+    /* POEMS SECTION */
+    .poems-section {
+      padding: 6rem 3rem;
+    }
+
+    .section-label {
       font-family: 'DM Mono', monospace;
       font-size: 0.6rem;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--red);
+      margin-bottom: 4rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 1rem;
     }
 
-    .hero-scroll::after {
+    .section-label::after {
       content: '';
-      display: block;
-      width: 1px;
-      height: 2.5rem;
-      background: var(--red);
-      opacity: 0.5;
-      animation: lineDown 1.8s ease-in-out infinite;
+      flex: 1;
+      height: 1px;
+      background: var(--line);
     }
 
-    /* POEMS */
-    .poems {
-      padding: 0 3rem;
-    }
-
+    /* POEM */
     .poem {
       display: grid;
-      grid-template-columns: 5rem 1fr;
-      gap: 0 4rem;
-      padding: 7rem 0;
+      grid-template-columns: 4rem 1fr auto;
+      gap: 0 3rem;
+      padding: 4rem 0;
       border-bottom: 1px solid var(--line);
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
     .poem.visible {
@@ -201,69 +239,60 @@
       transform: translateY(0);
     }
 
-    .poem-index {
-      position: relative;
-    }
-
     .poem-num {
       font-family: 'DM Mono', monospace;
       font-size: 0.55rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--red);
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      white-space: nowrap;
-      padding-top: 0.4rem;
-    }
-
-    .poem-ghost-num {
-      position: absolute;
-      top: -1.2rem;
-      left: -0.5rem;
-      font-size: 9rem;
-      font-weight: 600;
-      font-style: italic;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(245,240,232,0.04);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: -0.04em;
+      color: var(--muted);
+      padding-top: 0.5rem;
     }
 
     .poem-body {
-      padding-top: 0.2rem;
+      max-width: 540px;
     }
 
     .poem-title {
-      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
       font-weight: 300;
       font-style: italic;
       line-height: 1.1;
       letter-spacing: -0.02em;
-      color: var(--cream);
-      margin-bottom: 3rem;
+      color: var(--ink);
+      margin-bottom: 2.5rem;
     }
 
     .poem-stanzas {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-    }
-
-    .stanza {
-      display: flex;
-      flex-direction: column;
-      gap: 0.1rem;
+      gap: 1.8rem;
     }
 
     .stanza p {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 300;
-      line-height: 1.9;
-      color: rgba(245,240,232,0.82);
+      line-height: 1.95;
+      color: var(--ink-soft);
       letter-spacing: 0.005em;
+    }
+
+    .poem-side {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-end;
+      padding-top: 0.5rem;
+      min-width: 80px;
+    }
+
+    .poem-roman {
+      font-size: clamp(4rem, 6vw, 6rem);
+      font-weight: 600;
+      font-style: italic;
+      color: rgba(13,13,13,0.04);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      user-select: none;
     }
 
     /* FOOTER */
@@ -273,7 +302,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 2rem;
     }
 
     .footer-name {
@@ -300,30 +328,36 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes lineDown {
-      0%   { transform: scaleY(0); transform-origin: top; opacity: 0.5; }
-      50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
-      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0.5; }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes lineGrow {
+      from { transform: scaleY(0); }
+      to   { transform: scaleY(1); }
     }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
       header { padding: 1.25rem 1.5rem; }
-      .hero { padding: 0 1.5rem 6rem; }
-      .poems { padding: 0 1.5rem; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem;
+      }
+      .hero-left { padding-bottom: 4rem; padding-top: 8rem; }
+      .hero-right { display: none; }
+      .hero-line { display: none; }
+      .hero-year { display: none; }
+
+      .poems-section { padding: 4rem 1.5rem; }
 
       .poem {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 5rem 0;
+        grid-template-columns: 3rem 1fr;
+        gap: 0 1.5rem;
       }
-
-      .poem-num {
-        writing-mode: horizontal-tb;
-        transform: none;
-      }
-
-      .poem-ghost-num { display: none; }
+      .poem-side { display: none; }
 
       footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
     }
@@ -337,29 +371,39 @@
   </header>
 
   <div class="hero">
-    <div class="hero-bg-text">Rocky</div>
-    <div class="hero-eyebrow">Poetry · Tiago Branco Mole</div>
-    <h1 class="hero-title">
-      Rocky's<br>
-      <em>Home</em>
-    </h1>
-    <p class="hero-subtitle">
-      Five poems. Observations rendered in verse — light, colour, and the people who occupy a room.
-    </p>
-    <div class="hero-meta">
-      <span class="hero-count">V poems</span>
-      <span class="hero-scroll">Scroll</span>
+    <div class="hero-line"></div>
+    <div class="hero-left">
+      <div class="hero-eyebrow">Poetry · Tiago Branco Mole</div>
+      <h1 class="hero-title">
+        Rocky's<br>
+        <em>Home</em>
+      </h1>
+      <p class="hero-subtitle">
+        Five poems. Observations rendered in verse — light, colour, and the people who occupy a room.
+      </p>
+      <div class="hero-cta">
+        <a href="#poems">Read the poems</a>
+      </div>
     </div>
+    <div class="hero-right">
+      <div class="hero-meta">
+        V poems<br>
+        <span>2024 — 2025</span>
+        ——<br>
+        Observation<br>
+        Memory<br>
+        ——<br>
+        <span>Poetry</span>
+      </div>
+    </div>
+    <div class="hero-year">MMXXVI</div>
   </div>
 
-  <div class="poems">
+  <div class="poems-section" id="poems">
+    <div class="section-label">Five Poems</div>
 
-    <!-- I -->
     <article class="poem">
-      <div class="poem-index">
-        <span class="poem-ghost-num">I</span>
-        <span class="poem-num">I</span>
-      </div>
+      <div class="poem-num">01</div>
       <div class="poem-body">
         <h2 class="poem-title">Sample no.1</h2>
         <div class="poem-stanzas">
@@ -377,14 +421,13 @@
           </div>
         </div>
       </div>
+      <div class="poem-side">
+        <span class="poem-roman">I</span>
+      </div>
     </article>
 
-    <!-- II -->
     <article class="poem">
-      <div class="poem-index">
-        <span class="poem-ghost-num">II</span>
-        <span class="poem-num">II</span>
-      </div>
+      <div class="poem-num">02</div>
       <div class="poem-body">
         <h2 class="poem-title">View of the Room</h2>
         <div class="poem-stanzas">
@@ -402,14 +445,13 @@
           </div>
         </div>
       </div>
+      <div class="poem-side">
+        <span class="poem-roman">II</span>
+      </div>
     </article>
 
-    <!-- III -->
     <article class="poem">
-      <div class="poem-index">
-        <span class="poem-ghost-num">III</span>
-        <span class="poem-num">III</span>
-      </div>
+      <div class="poem-num">03</div>
       <div class="poem-body">
         <h2 class="poem-title">T-3 Weeks</h2>
         <div class="poem-stanzas">
@@ -439,14 +481,13 @@
           </div>
         </div>
       </div>
+      <div class="poem-side">
+        <span class="poem-roman">III</span>
+      </div>
     </article>
 
-    <!-- IV -->
     <article class="poem">
-      <div class="poem-index">
-        <span class="poem-ghost-num">IV</span>
-        <span class="poem-num">IV</span>
-      </div>
+      <div class="poem-num">04</div>
       <div class="poem-body">
         <h2 class="poem-title">Studying</h2>
         <div class="poem-stanzas">
@@ -464,14 +505,13 @@
           </div>
         </div>
       </div>
+      <div class="poem-side">
+        <span class="poem-roman">IV</span>
+      </div>
     </article>
 
-    <!-- V -->
     <article class="poem">
-      <div class="poem-index">
-        <span class="poem-ghost-num">V</span>
-        <span class="poem-num">V</span>
-      </div>
+      <div class="poem-num">05</div>
       <div class="poem-body">
         <h2 class="poem-title">Orpheus</h2>
         <div class="poem-stanzas">
@@ -489,6 +529,9 @@
           </div>
         </div>
       </div>
+      <div class="poem-side">
+        <span class="poem-roman">V</span>
+      </div>
     </article>
 
   </div>
@@ -503,7 +546,7 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
           observer.unobserve(e.target);
         }
       });

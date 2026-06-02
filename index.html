@@ -132,9 +132,13 @@
             border-bottom: none;
             border: 1px solid rgba(255,255,255,0.08);
             opacity: 0;
-            transition: opacity 0.5s ease, transform 0.2s ease, background 0.2s ease;
+            transition: opacity 0.5s ease, transform 0.2s ease, background 0.2s ease, width 0.3s ease;
             width: 220px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        #now-playing:hover {
+            width: 320px;
         }
 
         #now-playing.visible {
@@ -142,9 +146,10 @@
         }
 
         #now-playing:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
             background: #1a1a1a;
             border-bottom: none;
+            width: 320px;
         }
 
         #now-playing img {
@@ -192,6 +197,14 @@
             text-overflow: ellipsis;
             color: #ffffff;
             text-transform: none;
+            transition: text-overflow 0.3s ease;
+        }
+
+        #now-playing:hover .np-title,
+        #now-playing:hover .np-artist {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: unset;
         }
 
         #now-playing .np-artist {

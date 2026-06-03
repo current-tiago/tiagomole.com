@@ -1,89 +1,139 @@
-# Handover File — tiagomole.com Spotify Widget
+# Handover File — tiagomole.com
 
-## What was built
-A "now playing on Spotify" widget on tiagomole.com. When you're actively playing a song on Spotify, a small pill appears in the **bottom-right corner** of the page showing the album art, song title, and artist. Clicking it opens the song in Spotify.
-
----
-
-## Project location
-`~/tiagomole.com`
-
-Hosted on **Netlify**, connected to GitHub repo: `https://github.com/current-tiago/tiagomole.com`
+Last updated: 3 June 2026
 
 ---
 
-## Files added/modified
+## Project overview
 
-### `netlify/functions/now-playing.js`
-Netlify serverless function. Called by the frontend every 30 seconds. It:
-1. Uses the refresh token to get a fresh Spotify access token
-2. Calls `https://api.spotify.com/v1/me/player`
-3. Returns `{ isPlaying, title, artist, albumArt, songUrl }` or `{ isPlaying: false }`
+Personal website for Tiago Branco Mole. Hosted on **Netlify**, connected to GitHub:
+`https://github.com/current-tiago/tiagomole.com`
 
-**NOTE:** This function currently has debug responses mixed in (e.g. returns `{ debug: "..." }` instead of clean `{ isPlaying: false }` in error cases). Once confirmed working, clean these up to just return `{ isPlaying: false }`.
+Local path: `~/tiagomole.com`
 
-### `netlify.toml`
-Tells Netlify where the functions directory is:
-```toml
-[functions]
-  directory = "netlify/functions"
+Stack: pure HTML/CSS/JS — no build step, no framework. Deploy by pushing to `main`.
+
+---
+
+## Design system
+
+All pages share the same design tokens and fonts:
+
+| Token | Value |
+|-------|-------|
+| `--cream` | `#F5F0E8` — page background |
+| `--ink` | `#0D0D0D` — primary text |
+| `--ink-soft` | `#2A2A2A` |
+| `--red` | `#FF8800` — accent (links, labels, highlights) |
+| `--muted` | `#8A8070` |
+| `--line` | `rgba(13,13,13,0.12)` — dividers |
+
+**Fonts:** Cormorant Garamond (serif display) + DM Mono (labels, nav, mono elements). Both loaded from Google Fonts.
+
+**Shared patterns:** noise texture overlay on `body::before`, scroll-reveal via `IntersectionObserver` (`.reveal` → `.visible`), fixed header with gradient fade.
+
+---
+
+## File structure
+
+```
+index.html                  — homepage
+rockys-home.html            — poetry page (Rocky's Home)
+entrepreneurial-ventures.html
+historical-perspectives.html
+how-poland-caused-german-unification.html
+how-to-be-a-dictator.html
+macroeconomic-analysis.html
+policy-research.html
+work.html
+write-article.html
+netlify/functions/
+  now-playing.js            — Spotify serverless function
+netlify.toml
 ```
 
-### `juku/index.html` → actually `index.html` in root
-The main page. Added:
-- CSS for `#now-playing` widget (fixed bottom-right, pill shape, fade-in)
-- HTML for the widget (hidden by default, shown when playing)
-- JS that calls `/.netlify/functions/now-playing` on load and every 30 seconds
+---
+
+## Homepage (index.html)
+
+Sections in order:
+1. **Hero** — name, description, nav links to Writing / Ventures / Rocky's Home
+2. **Writing** (`#writing`) — numbered list of 6 articles
+3. **Ventures** (`#ventures`) — Swapdesk + placeholder
+4. **About** (`#about`) — bio + meta grid
+5. **Footer**
+6. **Spotify widget** — fixed bottom-right, fetches from `/.netlify/functions/now-playing` every 30s
+
+Nav links: Writing · Ventures · Rocky's Home · About · Contact
 
 ---
 
-## Netlify environment variables
-Set in Netlify → Site config → Environment variables:
+## Rocky's Home (rockys-home.html)
 
-| Key | Value |
+Poetry page. Linked from the main nav and hero. Dark-mode page (ink background, cream text) with the same font system.
+
+**Design:** Full-viewport hero with "Rocky's / *Home*" title, ghost "Rocky" watermark in outline text behind it. Poems listed below with Roman numeral indexing (I–V), large ghost numerals per poem, scroll-reveal fade-ins.
+
+**Poems (in order):**
+| # | Title |
+|---|-------|
+| I | Sample no.1 |
+| II | View of the Room |
+| III | T-3 Weeks |
+| IV | Studying |
+| V | Orpheus |
+
+**TODO:** The colour scheme of the poems section should match the main site (cream background, ink text) rather than the current dark theme. User requested this but it was not completed — needs a redesign of the `.poems` section to flip to light mode while keeping the dark hero. Stick figure SVG illustrations were also requested per poem but not yet added.
+
+---
+
+## Spotify now-playing widget
+
+Netlify serverless function at `netlify/functions/now-playing.js`.
+
+- Fetches current playback from Spotify API using a refresh token
+- Returns `{ isPlaying, title, artist, albumArt, songUrl }`
+- If paused, shows last played track labelled "Last Played"
+- Widget is fixed bottom-right, fades in when data is available
+
+**Environment variables** (set in Netlify dashboard — never commit):
+
+| Key | Notes |
 |-----|-------|
-| `SPOTIFY_CLIENT_ID` | (in Netlify — do not commit) |
-| `SPOTIFY_CLIENT_SECRET` | (in Netlify — do not commit) |
-| `SPOTIFY_REFRESH_TOKEN` | (in Netlify — do not commit) |
+| `SPOTIFY_CLIENT_ID` | From Spotify developer dashboard |
+| `SPOTIFY_CLIENT_SECRET` | From Spotify developer dashboard |
+| `SPOTIFY_REFRESH_TOKEN` | Regenerate if token becomes invalid |
 
-### Refresh token notes
-Refresh tokens get **invalidated every time you run get-token.js**. Keep only one valid token in Netlify at a time.
-Never commit token values to the repo — Netlify will block the deploy if it detects them.
-
-If the token stops working, regenerate using `get-token.js` (see below).
-
----
-
-## Spotify Developer App
-- Dashboard: https://developer.spotify.com/dashboard
-- App name: (whatever you named it)
-- Redirect URIs configured:
-  - `https://tiagomole.com/`
-  - `http://127.0.0.1:8888/callback`
-- Scopes used: `user-read-currently-playing user-read-playback-state`
-
----
-
-## How to regenerate the refresh token
-If the token becomes invalid (`{"error":"invalid_grant","error_description":"Invalid refresh token"}`):
-
-1. Recreate `get-token.js` in `~/tiagomole.com/` (ask Claude to regenerate it, it has the template)
+**To regenerate the refresh token:**
+1. Ask Claude to recreate `get-token.js` (it has the template)
 2. Run: `. "$HOME/.nvm/nvm.sh" && cd ~/tiagomole.com && node get-token.js`
 3. Log in to Spotify in the browser that opens
 4. Copy the printed refresh token
-5. Update `SPOTIFY_REFRESH_TOKEN` in Netlify environment variables
-6. Trigger a redeploy (or push any commit)
-7. Delete `get-token.js` and push
+5. Update `SPOTIFY_REFRESH_TOKEN` in Netlify → Site config → Environment variables
+6. Trigger a redeploy, then delete `get-token.js`
+
+**Spotify app settings:**
+- Dashboard: https://developer.spotify.com/dashboard
+- Redirect URIs: `https://tiagomole.com/` and `http://127.0.0.1:8888/callback`
+- Scopes: `user-read-currently-playing user-read-playback-state`
 
 ---
 
-## Current status (as of 2 June 2026)
-- Function is deployed and responding ✓
-- New refresh token just generated and updated in Netlify ✓
-- Debug responses still in `now-playing.js` — **needs cleanup once confirmed working**
-- Widget appears on page when `isPlaying: true` is returned ✓
+## Deployment
 
-## TODO
-- [ ] Confirm widget shows up after new token is deployed
-- [ ] Remove debug response lines from `now-playing.js` once working
-- [ ] Delete `get-token.js` if it still exists in the repo
+Push to `main` → Netlify auto-deploys. No build step needed.
+
+```bash
+git add <files>
+git commit -m "message"
+git push origin main
+```
+
+---
+
+## Outstanding TODOs
+
+- [ ] Flip Rocky's Home poem section to light (cream/ink) colour scheme — currently dark, user wants it to match the rest of the site
+- [ ] Add hand-drawn SVG stick figure illustrations next to each poem in Rocky's Home
+- [ ] Clean up debug responses in `now-playing.js` (returns `{ debug: "..." }` in some error paths instead of `{ isPlaying: false }`)
+- [ ] Confirm Spotify widget is working after last token refresh

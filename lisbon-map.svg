@@ -3,15 +3,33 @@
     Coordinate system:
     x = (9.245 - lon) / 0.185 * 600
     y = (38.810 - lat) / 0.130 * 400
-    Covers approx 9.060°W–9.245°W, 38.680°N–38.810°N
+    Bounding box: 9.060°W–9.245°W, 38.680°N–38.810°N
+
+    Key verified positions:
+    Oceanário     38.7633°N  9.0950°W  →  487, 144
+    Campo Pequeno 38.7390°N  9.1455°W  →  323, 218
+    Pça Comércio  38.7076°N  9.1364°W  →  352, 315
+    Marquês Pombal 38.7253°N 9.1491°W  →  311, 260
+
+    Tagus north bank (verified lat per longitude):
+    9.216°W (Belém)      38.692°N  →  94, 364
+    9.167°W (Alcântara)  38.700°N  → 253, 338
+    9.145°W (Sodré)      38.708°N  → 325, 316
+    9.136°W (Comércio)   38.707°N  → 352, 317
+    9.126°W (Sta Apolónia) 38.714°N → 385, 294
+    9.115°W (Beato)      38.722°N  → 419, 263
+    9.100°W (Xabregas)   38.730°N  → 468, 246  [river curves N steeply here]
+    9.095°W (PdN south)  38.758°N  → 484, 160  [Oceanário at y=144, ~400m from water]
+    9.085°W (PdN east)   38.760°N  → 519, 154
+    Far east             38.760°N  → 600, 152
   -->
   <defs>
     <style>
       .water     { fill: rgba(13,13,13,0.055); }
       .shore     { fill: none; stroke: rgba(13,13,13,0.10); stroke-width: 0.5; }
       .district  { fill: rgba(13,13,13,0.040); stroke: rgba(13,13,13,0.13); stroke-width: 0.5; stroke-linejoin: round; }
-      .district2 { fill: rgba(13,13,13,0.065); stroke: rgba(13,13,13,0.16); stroke-width: 0.5; stroke-linejoin: round; }
-      .park      { fill: rgba(13,13,13,0.030); stroke: rgba(13,13,13,0.08); stroke-width: 0.4; stroke-linejoin: round; }
+      .district2 { fill: rgba(13,13,13,0.068); stroke: rgba(13,13,13,0.16); stroke-width: 0.5; stroke-linejoin: round; }
+      .park      { fill: rgba(13,13,13,0.028); stroke: rgba(13,13,13,0.08); stroke-width: 0.4; stroke-linejoin: round; }
       .square    { fill: rgba(13,13,13,0.055); stroke: rgba(13,13,13,0.12); stroke-width: 0.4; }
       .r-hwy     { fill: none; stroke: rgba(13,13,13,0.22); stroke-width: 1.6; stroke-linecap: round; }
       .r-main    { fill: none; stroke: rgba(13,13,13,0.18); stroke-width: 1.1; stroke-linecap: round; }
@@ -20,7 +38,7 @@
       .r-minor   { fill: none; stroke: rgba(13,13,13,0.06); stroke-width: 0.35; stroke-linecap: round; }
       .d-label   { font-family: 'DM Mono', monospace; font-size: 6px; fill: rgba(13,13,13,0.28); letter-spacing: 0.10em; text-transform: uppercase; }
       .s-label   { font-family: 'DM Mono', monospace; font-size: 4.2px; fill: rgba(13,13,13,0.22); letter-spacing: 0.05em; }
-      .r-label   { font-family: 'DM Mono', monospace; font-size: 8px; fill: rgba(13,13,13,0.15); letter-spacing: 0.18em; }
+      .r-label   { font-family: 'DM Mono', monospace; font-size: 7.5px; fill: rgba(13,13,13,0.14); letter-spacing: 0.18em; }
       .dot-o1    { fill: none; stroke: #FF8800; stroke-width: 0.7; opacity: 0.25; }
       .dot-o2    { fill: none; stroke: #FF8800; stroke-width: 0.7; opacity: 0.50; }
       .dot-core  { fill: #FF8800; }
@@ -30,31 +48,34 @@
     </style>
   </defs>
 
-  <!-- ═══════════ TAGUS RIVER ═══════════ -->
+  <!-- ═══════════════════════════════════════════
+       TAGUS RIVER — north bank curves sharply
+       northward east of Alfama, reaching up to
+       y≈154 at Parque das Nações (the Oceanário
+       is at y=144, right at the water's edge)
+       ═══════════════════════════════════════════ -->
   <path class="water" d="
-    M 0,358
-    C 20,354 45,352 70,352
-    C 95,352 95,358 110,356
-    C 125,354 128,350 148,348
-    C 168,346 172,350 192,350
-    C 212,350 215,346 232,344
-    C 249,342 250,347 268,344
-    C 278,342 282,336 298,332
-    C 308,329 315,326 326,322
-    C 336,318 342,316 355,314
-    C 368,312 372,314 385,314
-    C 398,314 405,316 420,318
-    C 435,320 445,320 462,318
-    C 479,316 490,315 510,314
-    C 530,313 558,314 600,316
+    M 0,368
+    C 50,365 94,364 130,357
+    C 165,350 198,347 230,344
+    C 255,342 278,338 300,330
+    C 315,325 330,320 352,317
+    C 368,314 382,307 400,295
+    C 416,282 430,265 448,246
+    C 460,231 468,214 476,192
+    C 481,177 484,164 487,156
+    C 490,150 500,149 520,148
+    C 545,147 572,149 600,151
     L 600,400 L 0,400 Z
   "/>
-  <!-- Waterline shimmer -->
-  <path class="shore" d="M 0,358 C 20,354 45,352 70,352 C 95,352 95,358 110,356 C 125,354 128,350 148,348 C 168,346 172,350 192,350 C 212,350 215,346 232,344 C 249,342 250,347 268,344 C 278,342 282,336 298,332 C 308,329 315,326 326,322 C 336,318 342,316 355,314 C 368,312 372,314 385,314 C 398,314 405,316 420,318 C 435,320 445,320 462,318 C 479,316 490,315 510,314 C 530,313 558,314 600,316"/>
-  <path fill="none" stroke="rgba(13,13,13,0.04)" stroke-width="0.4" d="M 0,372 C 60,368 130,366 200,366 C 270,366 340,368 400,368 C 460,368 530,370 600,372"/>
-  <path fill="none" stroke="rgba(13,13,13,0.03)" stroke-width="0.4" d="M 20,384 C 100,381 200,380 300,381 C 400,382 500,382 590,382"/>
-  <text class="r-label" x="180" y="376" text-anchor="middle">RIO TEJO</text>
-  <text class="r-label" x="450" y="355" text-anchor="middle">RIO TEJO</text>
+  <!-- Shoreline -->
+  <path class="shore" d="M 0,368 C 50,365 94,364 130,357 C 165,350 198,347 230,344 C 255,342 278,338 300,330 C 315,325 330,320 352,317 C 368,314 382,307 400,295 C 416,282 430,265 448,246 C 460,231 468,214 476,192 C 481,177 484,164 487,156 C 490,150 500,149 520,148 C 545,147 572,149 600,151"/>
+  <!-- Shimmer lines on water -->
+  <path fill="none" stroke="rgba(13,13,13,0.04)" stroke-width="0.4" d="M 0,380 C 80,378 180,375 280,373 C 360,372 440,372 550,374 L 600,375"/>
+  <path fill="none" stroke="rgba(13,13,13,0.03)" stroke-width="0.4" d="M 0,392 C 120,390 260,388 380,388 C 480,388 560,390 600,392"/>
+  <!-- Tejo labels at different points -->
+  <text class="r-label" x="155" y="376" text-anchor="middle">RIO TEJO</text>
+  <text class="r-label" x="380" y="355" text-anchor="middle" opacity="0.7">ESTUÁRIO</text>
 
   <!-- ═══════════ DISTRICTS ═══════════ -->
 
@@ -68,22 +89,22 @@
   <path class="district" d="M 62,118 L 78,102 L 108,90 L 148,96 L 165,105 L 172,125 L 168,148 L 152,162 L 130,168 L 100,164 L 72,155 L 58,138 Z"/>
 
   <!-- OLIVAIS -->
-  <path class="district" d="M 298,52 L 375,48 L 418,58 L 432,82 L 435,115 L 428,148 L 415,165 L 395,172 L 368,170 L 348,158 L 335,138 L 328,108 L 320,82 L 302,68 Z"/>
+  <path class="district" d="M 298,52 L 375,48 L 418,58 L 432,80 L 435,112 L 428,145 L 415,162 L 395,170 L 368,168 L 348,156 L 335,136 L 328,108 L 320,82 L 302,68 Z"/>
 
-  <!-- PARQUE DAS NAÇÕES -->
-  <path class="district2" d="M 418,58 L 480,55 L 510,68 L 530,98 L 535,142 L 530,195 L 520,248 L 505,300 L 490,318 L 470,322 L 450,318 L 442,285 L 438,248 L 432,205 L 428,170 L 428,148 L 432,115 L 432,82 Z"/>
+  <!-- PARQUE DAS NAÇÕES — southern border follows river (y≈148–156) -->
+  <path class="district2" d="M 418,58 L 480,55 L 510,65 L 530,92 L 538,130 L 535,148 L 520,148 L 500,149 L 487,156 L 476,192 L 465,210 L 452,218 L 438,215 L 428,195 L 420,168 L 418,148 L 418,112 L 420,80 Z"/>
 
-  <!-- MARVILA -->
-  <path class="district" d="M 395,172 L 428,170 L 432,205 L 438,248 L 435,285 L 420,295 L 400,302 L 380,298 L 368,278 L 362,252 L 358,228 L 355,205 L 350,182 L 368,170 Z"/>
+  <!-- MARVILA — south border follows the river curve -->
+  <path class="district" d="M 395,170 L 428,168 L 428,195 L 438,215 L 452,218 L 462,238 L 450,245 L 432,250 L 415,248 L 400,242 L 388,230 L 378,212 L 368,192 Z"/>
 
   <!-- BEATO / XABREGAS -->
-  <path class="district" d="M 362,252 L 368,278 L 380,298 L 372,312 L 358,316 L 348,308 L 342,290 L 345,268 Z"/>
+  <path class="district" d="M 368,192 L 378,212 L 388,230 L 400,242 L 415,248 L 420,262 L 405,272 L 388,278 L 372,274 L 362,258 L 358,238 L 355,218 Z"/>
 
-  <!-- MOURARIA / GRAÇA / ALFAMA -->
-  <path class="district" d="M 345,268 L 342,290 L 348,308 L 372,312 L 378,305 L 375,292 L 368,278 L 362,252 L 355,245 Z"/>
+  <!-- MOURARIA / GRAÇA / ALFAMA — south border at river (y≈294) -->
+  <path class="district" d="M 355,218 L 358,238 L 362,258 L 372,274 L 380,285 L 378,298 L 372,308 L 355,316 L 345,310 L 340,292 L 342,272 Z"/>
 
-  <!-- SANTA MARIA MAIOR / BAIXA (tight Pombaline grid) -->
-  <path class="district2" d="M 328,278 L 345,268 L 355,245 L 362,248 L 365,262 L 360,282 L 355,298 L 348,308 L 338,314 L 325,314 L 320,302 L 318,290 Z"/>
+  <!-- SANTA MARIA MAIOR / BAIXA — tight Pombaline grid -->
+  <path class="district2" d="M 328,278 L 342,272 L 340,292 L 345,310 L 355,316 L 348,318 L 335,318 L 325,315 L 320,302 L 318,290 Z"/>
 
   <!-- MISERICÓRDIA / BAIRRO ALTO -->
   <path class="district" d="M 295,282 L 318,278 L 328,278 L 318,290 L 320,302 L 312,318 L 296,322 L 284,314 L 282,298 Z"/>
@@ -92,10 +113,10 @@
   <path class="district" d="M 288,248 L 312,243 L 328,248 L 332,258 L 332,278 L 318,278 L 295,282 L 282,275 L 278,260 Z"/>
 
   <!-- ARROIOS -->
-  <path class="district" d="M 325,215 L 365,208 L 375,228 L 372,252 L 362,252 L 355,245 L 345,248 L 332,258 L 328,248 L 322,232 Z"/>
+  <path class="district" d="M 325,215 L 358,208 L 368,224 L 365,248 L 355,255 L 342,258 L 332,258 L 328,248 L 322,232 Z"/>
 
   <!-- AVENIDAS NOVAS -->
-  <path class="district" d="M 272,175 L 335,170 L 368,175 L 368,208 L 325,215 L 322,232 L 328,248 L 312,243 L 288,248 L 276,238 L 265,218 Z"/>
+  <path class="district" d="M 272,175 L 330,170 L 365,175 L 368,208 L 325,215 L 322,232 L 328,248 L 312,243 L 288,248 L 276,238 L 265,218 Z"/>
 
   <!-- CAMPOLIDE / AMOREIRAS -->
   <path class="district" d="M 238,218 L 272,212 L 278,235 L 276,248 L 268,262 L 255,268 L 240,265 L 228,250 L 225,232 Z"/>
@@ -104,125 +125,90 @@
   <path class="district" d="M 255,268 L 268,262 L 282,268 L 282,282 L 284,298 L 275,312 L 260,320 L 246,315 L 240,300 L 242,280 Z"/>
 
   <!-- ALCÂNTARA / SANTOS -->
-  <path class="district" d="M 202,295 L 238,285 L 242,298 L 246,315 L 238,335 L 215,345 L 192,350 L 172,350 L 168,338 L 178,320 L 192,308 Z"/>
+  <path class="district" d="M 202,295 L 238,285 L 242,298 L 246,315 L 238,332 L 218,342 L 195,347 L 175,350 L 170,338 L 178,320 L 192,308 Z"/>
 
   <!-- BELÉM -->
-  <path class="district" d="M 72,322 L 128,318 L 158,320 L 172,338 L 172,350 L 148,352 L 110,356 L 78,358 L 62,352 L 65,338 Z"/>
+  <path class="district" d="M 72,322 L 128,318 L 158,320 L 170,336 L 172,348 L 148,352 L 110,356 L 78,358 L 62,352 L 65,338 Z"/>
 
   <!-- AJUDA / RESTELO -->
   <path class="district" d="M 128,265 L 182,258 L 208,262 L 225,278 L 228,298 L 202,298 L 185,305 L 162,305 L 142,298 L 128,285 Z"/>
 
-  <!-- ═══════════ PARKS / GREEN AREAS ═══════════ -->
+  <!-- MONSANTO -->
+  <path class="park" d="M 48,168 L 90,158 L 118,162 L 128,185 L 125,218 L 108,235 L 80,238 L 52,228 L 38,208 L 42,185 Z"/>
 
-  <!-- Parque Eduardo VII (rectangle N of Marquês de Pombal) -->
+  <!-- ═══════════ PARKS ═══════════ -->
+  <!-- Parque Eduardo VII -->
   <path class="park" d="M 298,235 L 318,232 L 320,255 L 300,258 Z"/>
-
-  <!-- Campo Grande (elongated park) -->
+  <!-- Campo Grande -->
   <path class="park" d="M 272,80 Q 278,78 284,80 Q 290,82 292,98 Q 294,112 288,118 Q 282,122 276,120 Q 270,118 268,102 Q 266,88 272,80 Z"/>
-
   <!-- Jardim da Estrela -->
   <path class="park" d="M 256,282 L 268,278 L 272,290 L 260,295 Z"/>
 
-  <!-- Monsanto hills (west, large) -->
-  <path class="park" d="M 48,168 L 90,158 L 118,162 L 128,185 L 125,218 L 108,235 L 80,238 L 52,228 L 38,208 L 42,185 Z"/>
-
   <!-- ═══════════ SQUARES ═══════════ -->
-
-  <!-- Rossio -->
   <rect class="square" x="337" y="296" width="15" height="9" rx="1"/>
-
-  <!-- Praça do Comércio -->
   <rect class="square" x="338" y="313" width="26" height="10" rx="1"/>
-
-  <!-- Marquês de Pombal roundabout -->
   <circle fill="rgba(13,13,13,0.04)" stroke="rgba(13,13,13,0.10)" stroke-width="0.4" cx="311" cy="260" r="6"/>
-
-  <!-- Rotunda do Areeiro -->
-  <circle fill="rgba(13,13,13,0.04)" stroke="rgba(13,13,13,0.08)" stroke-width="0.4" cx="362" cy="222" r="4"/>
-
-  <!-- Saldanha -->
+  <circle fill="rgba(13,13,13,0.03)" stroke="rgba(13,13,13,0.08)" stroke-width="0.4" cx="362" cy="222" r="4"/>
   <circle fill="rgba(13,13,13,0.03)" stroke="rgba(13,13,13,0.08)" stroke-width="0.4" cx="322" cy="238" r="3"/>
 
   <!-- ═══════════ HIGHWAYS ═══════════ -->
-
-  <!-- IC17 / CRIL (outer ring road, north) -->
+  <!-- IC17/CRIL outer ring -->
   <path class="r-hwy" d="M 0,118 C 28,112 58,106 88,102 C 118,98 148,96 178,95 C 210,94 242,95 272,98 C 302,101 332,105 358,110 C 384,115 408,120 432,126"/>
-
-  <!-- A5 / IC19 from west into city -->
+  <!-- A5/IC19 from west -->
   <path class="r-hwy" d="M 0,172 C 22,168 48,165 72,162 C 98,159 128,157 158,156 C 188,155 218,155 245,156 C 262,157 278,158 292,160"/>
-
   <!-- Vasco da Gama / A1 northeast -->
-  <path class="r-hwy" d="M 432,126 C 448,132 465,138 478,148 C 490,158 498,170 505,182 C 512,195 516,210 518,228"/>
-
+  <path class="r-hwy" d="M 432,126 C 448,132 465,138 478,148 C 490,158 498,168 504,180 C 510,192 514,208 516,226"/>
   <!-- 25 de Abril bridge approach (Alcântara) -->
-  <path class="r-hwy" d="M 220,340 C 228,342 235,346 240,352 C 245,358 246,364 248,370"/>
-  <path class="r-hwy" d="M 210,340 C 218,342 224,346 228,352 C 232,358 234,364 236,370"/>
+  <path class="r-hwy" d="M 218,340 C 226,343 232,348 236,356 C 240,363 240,370 242,378"/>
+  <path class="r-hwy" d="M 210,340 C 218,343 223,348 226,356 C 230,363 230,370 232,378"/>
 
   <!-- ═══════════ MAIN AVENUES ═══════════ -->
-
-  <!-- Avenida da Liberdade (NW-SE, most iconic) -->
+  <!-- Av. da Liberdade -->
   <path class="r-main" d="M 311,243 C 318,252 326,262 334,272 L 345,285"/>
-  <!-- Median / central walkway -->
   <path fill="none" stroke="rgba(13,13,13,0.06)" stroke-width="2.8" stroke-linecap="round" d="M 311,243 C 318,252 326,262 334,272 L 345,285"/>
-
-  <!-- Av. da República (N-S, Avenidas Novas spine) -->
+  <!-- Av. da República -->
   <path class="r-main" d="M 322,175 L 322,198 L 320,218 L 318,238 L 315,250 L 311,260"/>
-
-  <!-- Av. Almirante Reis (NW-SE, Mouraria spine) -->
-  <path class="r-main" d="M 358,160 L 360,182 L 362,205 L 364,228 L 365,250 L 365,272 L 363,290"/>
-
+  <!-- Av. Almirante Reis -->
+  <path class="r-main" d="M 358,160 L 360,182 L 362,205 L 364,228 L 365,250 L 364,272 L 362,285"/>
   <!-- Av. 5 de Outubro -->
   <path class="r-avenue" d="M 335,148 L 334,170 L 332,192 L 330,212 L 328,232 L 325,248"/>
-
   <!-- Av. João XXI / Roma (main E-W axis) -->
-  <path class="r-avenue" d="M 268,192 L 295,190 L 322,188 L 350,186 L 375,188 L 400,192 L 422,198"/>
-
+  <path class="r-avenue" d="M 268,192 L 295,190 L 322,188 L 350,186 L 375,188 L 400,192 L 425,198"/>
   <!-- Av. de Berna -->
   <path class="r-avenue" d="M 302,160 L 304,180 L 306,202 L 308,225 L 308,248"/>
-
-  <!-- Av. Fontes Pereira de Melo (connects Pombal to Saldanha) -->
+  <!-- Av. Fontes Pereira de Melo -->
   <path class="r-avenue" d="M 312,242 L 316,232 L 320,222 L 322,212"/>
-
   <!-- Av. Duque de Ávila -->
   <path class="r-avenue" d="M 295,228 L 312,225 L 330,222 L 348,220"/>
-
-  <!-- Av. Duque de Loulé / Elias Garcia area -->
+  <!-- Av. Duque de Loulé -->
   <path class="r-street" d="M 311,252 L 315,242 L 320,230 L 325,218"/>
   <path class="r-street" d="M 308,255 L 298,250 L 288,242 L 280,232"/>
-
-  <!-- Av. Columbano Bordalo Pinheiro (west Avenidas Novas) -->
-  <path class="r-avenue" d="M 278,165 L 278,188 L 276,212 L 274,232 L 272,252"/>
-
-  <!-- Eixo Norte-Sul / A37 (main N-S artery through city) -->
+  <!-- Eixo Norte-Sul -->
   <path class="r-main" d="M 290,48 L 290,78 L 290,108 L 290,138 L 292,160 L 295,185 L 298,208 L 302,232 L 306,252 L 308,268 L 310,282 L 310,295"/>
-
-  <!-- Av. de Moscavide (to Oriente) -->
-  <path class="r-avenue" d="M 388,148 L 395,158 L 405,170 L 415,182 L 425,198 L 432,215 L 438,235 L 440,255"/>
-
+  <!-- Av. Columbano Bordalo Pinheiro -->
+  <path class="r-avenue" d="M 278,165 L 278,188 L 276,212 L 274,232 L 272,252"/>
+  <!-- Av. dos EUA -->
+  <path class="r-avenue" d="M 305,170 L 332,168 L 360,168 L 385,170 L 408,175"/>
+  <!-- Av. do Brasil -->
+  <path class="r-avenue" d="M 238,148 L 258,148 L 282,148 L 305,150 L 325,152 L 348,155"/>
   <!-- 2ª Circular / IC17 inner -->
   <path class="r-avenue" d="M 78,155 C 108,148 138,144 168,142 C 198,140 228,140 255,142 C 275,144 295,148 315,152 C 335,156 358,162 382,168 C 402,174 420,180 438,188"/>
-
-  <!-- Av. do Brasil (connecting Campo Grande area) -->
-  <path class="r-avenue" d="M 238,148 L 258,148 L 282,148 L 305,150 L 325,152 L 348,155"/>
-
-  <!-- Av. dos Estados Unidos da América -->
-  <path class="r-avenue" d="M 305,170 L 332,168 L 360,168 L 385,170 L 408,175"/>
+  <!-- Av. de Moscavide (to Oriente) -->
+  <path class="r-avenue" d="M 388,148 L 395,158 L 408,172 L 420,185 L 430,200 L 438,218 L 444,238"/>
 
   <!-- ═══════════ BAIXA POMBALINE GRID ═══════════ -->
-  <!-- N-S streets (Rua do Ouro, Augusta, Prata, Correeiros, etc.) -->
-  <path class="r-street" d="M 338,299 L 337,290 L 336,278"/>
-  <path class="r-street" d="M 342,299 L 342,288 L 340,275"/>
-  <path class="r-street" d="M 347,299 L 346,288 L 345,272"/>
-  <path class="r-street" d="M 351,299 L 350,288 L 349,272"/>
-  <path class="r-street" d="M 355,298 L 354,288 L 353,272"/>
-  <path class="r-street" d="M 359,298 L 358,288 L 357,272"/>
-  <path class="r-street" d="M 363,297 L 362,286 L 361,270"/>
-  <!-- E-W cross streets -->
-  <path class="r-street" d="M 332,275 L 365,272"/>
-  <path class="r-street" d="M 330,280 L 364,277"/>
-  <path class="r-street" d="M 328,285 L 363,282"/>
-  <path class="r-street" d="M 326,291 L 362,288"/>
-  <path class="r-street" d="M 325,297 L 361,294"/>
+  <path class="r-street" d="M 337,298 L 336,288 L 335,276"/>
+  <path class="r-street" d="M 341,298 L 340,288 L 339,274"/>
+  <path class="r-street" d="M 345,298 L 344,288 L 343,272"/>
+  <path class="r-street" d="M 349,298 L 348,288 L 347,272"/>
+  <path class="r-street" d="M 353,298 L 352,288 L 351,272"/>
+  <path class="r-street" d="M 357,297 L 356,287 L 355,271"/>
+  <path class="r-street" d="M 361,296 L 360,286 L 359,270"/>
+  <path class="r-street" d="M 330,274 L 363,271"/>
+  <path class="r-street" d="M 328,280 L 362,277"/>
+  <path class="r-street" d="M 327,286 L 361,283"/>
+  <path class="r-street" d="M 325,292 L 360,289"/>
+  <path class="r-street" d="M 324,297 L 360,294"/>
 
   <!-- ═══════════ ALFAMA / MOURARIA organic streets ═══════════ -->
   <path class="r-minor" d="M 348,272 Q 354,265 362,260 Q 366,256 370,250"/>
@@ -247,13 +233,13 @@
 
   <!-- ═══════════ WATERFRONT ROADS ═══════════ -->
   <!-- Av. 24 de Julho -->
-  <path class="r-main" d="M 245,336 C 258,332 272,328 285,324 C 295,321 308,320 320,318 L 335,316"/>
+  <path class="r-main" d="M 245,334 C 260,330 275,326 292,322 C 305,319 318,318 332,316 L 345,315"/>
   <!-- Av. da Índia -->
-  <path class="r-avenue" d="M 152,346 L 172,344 L 192,342 L 215,340 L 235,338 L 248,336"/>
+  <path class="r-avenue" d="M 152,346 L 175,344 L 195,342 L 218,340 L 238,338 L 248,336"/>
   <!-- Av. Brasília (Belém) -->
-  <path class="r-avenue" d="M 65,354 L 92,350 L 120,347 L 148,346 L 162,346"/>
-  <!-- East docks road -->
-  <path class="r-street" d="M 335,316 L 350,315 L 368,314 L 388,315 L 410,317 L 438,320 L 465,320"/>
+  <path class="r-avenue" d="M 65,354 L 92,350 L 120,347 L 148,346 L 162,345"/>
+  <!-- East docks waterfront road -->
+  <path class="r-street" d="M 345,315 L 362,314 L 378,310 L 398,302 L 416,290 L 435,272 L 448,252"/>
 
   <!-- ═══════════ ALCÂNTARA / SANTOS streets ═══════════ -->
   <path class="r-street" d="M 200,300 L 220,295 L 242,290 L 258,285"/>
@@ -276,10 +262,11 @@
   <path class="r-street" d="M 85,178 Q 112,172 140,170 Q 168,168 198,168 L 228,168"/>
   <path class="r-street" d="M 82,192 Q 108,185 135,183 Q 162,181 195,180 L 225,180"/>
   <path class="r-street" d="M 80,205 Q 108,198 140,196 Q 168,194 200,194 L 232,194"/>
+  <!-- N-S Benfica spines -->
   <path class="r-avenue" d="M 152,108 L 154,128 L 155,148 L 158,168 L 162,188 L 165,208 L 168,228 L 172,248 L 176,268 L 180,285 L 185,302 L 188,318"/>
   <path class="r-avenue" d="M 175,108 L 178,130 L 180,152 L 183,172 L 186,195 L 189,215 L 192,235 L 195,255 L 198,272 L 200,290 L 202,310"/>
 
-  <!-- ═══════════ CAMPO GRANDE / LUMIAR roads ═══════════ -->
+  <!-- ═══════════ CAMPO GRANDE / LUMIAR ═══════════ -->
   <path class="r-avenue" d="M 268,52 L 268,72 L 268,92 L 268,115 L 270,138 L 272,160 L 273,182"/>
   <path class="r-avenue" d="M 290,48 L 290,70 L 290,95 L 290,118 L 292,142 L 295,165"/>
   <path class="r-street" d="M 248,68 L 252,90 L 255,115 L 258,140 L 260,162"/>
@@ -289,40 +276,47 @@
   <path class="r-street" d="M 125,88 L 125,108 L 123,132 L 120,155 L 118,178 L 116,202"/>
   <path class="r-street" d="M 142,92 L 142,112 L 140,135 L 138,158 L 136,180 L 134,205"/>
 
-  <!-- Oriente station approach roads -->
-  <path class="r-avenue" d="M 388,148 L 390,132 L 395,118 L 402,108 L 412,98 L 425,88 L 440,80"/>
-  <path class="r-street" d="M 460,115 L 464,138 L 468,162 L 472,188 L 474,212 L 476,238"/>
-  <path class="r-street" d="M 478,108 L 482,135 L 485,162 L 488,190 L 490,215 L 492,242"/>
-  <path class="r-street" d="M 500,125 L 502,152 L 505,178 L 508,205 L 510,232"/>
+  <!-- ═══════════ PARQUE DAS NAÇÕES internal roads ═══════════ -->
+  <!-- Main PdN boulevard -->
+  <path class="r-avenue" d="M 432,80 L 435,105 L 438,130 L 440,155 L 444,178 L 449,200 L 456,220 L 462,238"/>
+  <!-- Oriente approach -->
+  <path class="r-avenue" d="M 388,148 L 398,162 L 408,175 L 420,190 L 430,205"/>
+  <!-- Waterfront promenade (right at shore) -->
+  <path class="r-street" d="M 520,148 L 506,149 L 494,151 L 487,156 L 480,168 L 474,185 L 468,208 L 462,228"/>
+  <path class="r-street" d="M 460,115 L 462,132 L 464,150 L 466,168 L 468,188 L 472,208"/>
+  <path class="r-street" d="M 478,108 L 480,128 L 482,148 L 484,162 L 484,175 L 482,195"/>
+  <path class="r-street" d="M 498,108 L 500,130 L 502,152 L 504,172 L 506,190"/>
+  <path class="r-street" d="M 515,100 L 516,122 L 518,144 L 520,160"/>
+  <path class="r-minor" d="M 435,125 L 465,122 L 500,120 L 528,118"/>
+  <path class="r-minor" d="M 436,140 L 466,138 L 496,136 L 524,135"/>
+  <path class="r-minor" d="M 438,155 L 465,153 L 492,152"/>
 
   <!-- ═══════════ DISTRICT LABELS ═══════════ -->
-  <text class="d-label" x="490" y="185" text-anchor="middle">PARQUE DAS</text>
-  <text class="d-label" x="490" y="193" text-anchor="middle">NAÇÕES</text>
-  <text class="d-label" x="400" y="140" text-anchor="middle">OLIVAIS</text>
-  <text class="d-label" x="408" y="242" text-anchor="middle">MARVILA</text>
+  <text class="d-label" x="488" y="120" text-anchor="middle">PARQUE DAS</text>
+  <text class="d-label" x="488" y="128" text-anchor="middle">NAÇÕES</text>
+  <text class="d-label" x="398" y="130" text-anchor="middle">OLIVAIS</text>
+  <text class="d-label" x="418" y="218" text-anchor="middle">MARVILA</text>
   <text class="d-label" x="175" y="52" text-anchor="middle">LUMIAR</text>
   <text class="d-label" x="130" y="152" text-anchor="middle">BENFICA</text>
-  <text class="d-label" x="72" y="205" text-anchor="middle">MONSANTO</text>
+  <text class="d-label" x="78" y="205" text-anchor="middle">MONSANTO</text>
   <text class="d-label" x="300" y="202" text-anchor="middle">AV. NOVAS</text>
   <text class="d-label" x="252" y="240" text-anchor="middle">CAMPOLIDE</text>
-  <text class="d-label" x="265" y="295" text-anchor="middle">ESTRELA</text>
-  <text class="d-label" x="220" y="318" text-anchor="middle">ALCÂNTARA</text>
+  <text class="d-label" x="262" y="295" text-anchor="middle">ESTRELA</text>
+  <text class="d-label" x="218" y="320" text-anchor="middle">ALCÂNTARA</text>
   <text class="d-label" x="118" y="336" text-anchor="middle">BELÉM</text>
-  <text class="d-label" x="165" y="282" text-anchor="middle">AJUDA</text>
-  <text class="d-label" x="368" y="298" text-anchor="middle">ALFAMA</text>
+  <text class="d-label" x="162" y="282" text-anchor="middle">AJUDA</text>
+  <text class="d-label" x="365" y="292" text-anchor="middle">ALFAMA</text>
 
-  <!-- Avenue labels -->
+  <!-- Street labels -->
   <text class="s-label" transform="rotate(-38,328,265)" x="319" y="268">AV. DA LIBERDADE</text>
   <text class="s-label" transform="rotate(-88,362,228)" x="357" y="233">AV. ALMIRANTE REIS</text>
   <text class="s-label" transform="rotate(-88,320,215)" x="315" y="222">AV. DA REPÚBLICA</text>
   <text class="s-label" x="345" y="185" text-anchor="middle">AV. JOÃO XXI</text>
-  <text class="s-label" x="155" y="152" text-anchor="middle">AV. DA ÍNDIA</text>
 
   <!-- North arrow -->
   <text class="north" x="18" y="32">N</text>
   <path fill="rgba(13,13,13,0.30)" d="M 18,36 L 16,46 L 18,44 L 20,46 Z"/>
   <path fill="rgba(13,13,13,0.12)" d="M 18,44 L 16,46 L 18,36 Z"/>
-
   <!-- Scale bar -->
   <line x1="18" y1="55" x2="48" y2="55" stroke="rgba(13,13,13,0.28)" stroke-width="0.8"/>
   <line x1="18" y1="52" x2="18" y2="58" stroke="rgba(13,13,13,0.28)" stroke-width="0.8"/>
@@ -331,28 +325,30 @@
 
   <!-- ═══════════ ORANGE DOTS ═══════════ -->
 
-  <!-- 1. Oceanário de Lisboa — Parque das Nações (38.7633°N, 9.0950°W) → 487, 144 -->
+  <!-- 1. Oceanário de Lisboa (38.7633°N, 9.0950°W → 487, 144)
+       River edge is at y=156 here — dot sits right at the waterfront -->
   <circle class="dot-o1" cx="487" cy="144" r="14"/>
   <circle class="dot-o2" cx="487" cy="144" r="9"/>
   <circle class="dot-core" cx="487" cy="144" r="3.8"/>
-  <text class="p-name" x="487" y="127" text-anchor="middle">OCEANÁRIO</text>
-  <text class="p-sub"  x="487" y="133" text-anchor="middle">DE LISBOA</text>
+  <text class="p-name" x="487" y="128" text-anchor="middle">OCEANÁRIO</text>
+  <text class="p-sub"  x="487" y="134" text-anchor="middle">DE LISBOA</text>
 
-  <!-- 2. Campo Pequeno (38.7390°N, 9.1455°W) → 323, 218 -->
+  <!-- 2. Campo Pequeno (38.7390°N, 9.1455°W → 323, 218) -->
   <circle class="dot-o1" cx="323" cy="218" r="14"/>
   <circle class="dot-o2" cx="323" cy="218" r="9"/>
   <circle class="dot-core" cx="323" cy="218" r="3.8"/>
   <text class="p-name" x="300" y="206" text-anchor="middle">CAMPO</text>
   <text class="p-sub"  x="300" y="212" text-anchor="middle">PEQUENO</text>
 
-  <!-- 3. Praça do Comércio (38.7076°N, 9.1364°W) → 352, 315 -->
+  <!-- 3. Praça do Comércio (38.7076°N, 9.1364°W → 352, 315)
+       Right at the waterfront — river edge y=317 here -->
   <circle class="dot-o1" cx="352" cy="315" r="14"/>
   <circle class="dot-o2" cx="352" cy="315" r="9"/>
   <circle class="dot-core" cx="352" cy="315" r="3.8"/>
-  <text class="p-name" x="375" y="307" text-anchor="start">PÇA DO</text>
-  <text class="p-sub"  x="375" y="313" text-anchor="start">COMÉRCIO</text>
+  <text class="p-name" x="376" y="306" text-anchor="start">PÇA DO</text>
+  <text class="p-sub"  x="376" y="312" text-anchor="start">COMÉRCIO</text>
 
-  <!-- 4. Avenida da Liberdade — Marquês de Pombal (38.7253°N, 9.1491°W) → 311, 260 -->
+  <!-- 4. Avenida da Liberdade — Marquês de Pombal (38.7253°N, 9.1491°W → 311, 260) -->
   <circle class="dot-o1" cx="311" cy="260" r="14"/>
   <circle class="dot-o2" cx="311" cy="260" r="9"/>
   <circle class="dot-core" cx="311" cy="260" r="3.8"/>

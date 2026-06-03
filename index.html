@@ -80,6 +80,61 @@
 
     nav a:hover { color: var(--ink); }
 
+    /* ── ROCKY'S HOME PASSWORD MODAL ── */
+    #rocky-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(13,13,13,0.55);
+      z-index: 9000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(3px);
+    }
+    #rocky-overlay.open { display: flex; }
+
+    #rocky-modal {
+      background: var(--cream);
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--red);
+      padding: 2.5rem 3rem;
+      width: 320px;
+      box-shadow: 6px 6px 0 rgba(13,13,13,0.07);
+    }
+
+    #rocky-modal p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    #rocky-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      padding: 0.5rem 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      letter-spacing: 0.05em;
+    }
+    #rocky-input:focus { border-color: var(--ink); }
+    #rocky-input.wrong { border-color: var(--red); animation: shake 0.3s ease; }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25%       { transform: translateX(-6px); }
+      75%       { transform: translateX(6px); }
+    }
+
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
@@ -580,7 +635,6 @@
     <nav>
       <a href="#writing">Writing</a>
       <a href="#ventures">Ventures</a>
-      <a href="rockys-home.html">Rocky's Home</a>
       <a href="#about">About</a>
       <a href="mailto:tiagobrancomole@gmail.com">Contact</a>
     </nav>
@@ -602,7 +656,6 @@
       <div class="hero-links">
         <a href="#writing" class="hero-link">Read Writing</a>
         <a href="#ventures" class="hero-link">View Ventures</a>
-        <a href="rockys-home.html" class="hero-link">Rocky's Home</a>
       </div>
     </div>
     <div class="hero-right">
@@ -731,6 +784,21 @@
     <div class="footer-copy">© 2026 — All rights reserved</div>
   </footer>
 
+  <!-- HIDDEN ENTRY -->
+  <div style="text-align:center; padding: 1.2rem 0 1.8rem;">
+    <button id="rocky-trigger" onclick="document.getElementById('rocky-overlay').classList.add('open'); setTimeout(()=>document.getElementById('rocky-input').focus(),50);" style="background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;color:rgba(138,128,112,0.35);text-transform:uppercase;transition:color 0.3s;" onmouseover="this.style.color='rgba(138,128,112,0.7)'" onmouseout="this.style.color='rgba(138,128,112,0.35)'">rocky's home</button>
+  </div>
+
+  <!-- PASSWORD MODAL -->
+  <div id="rocky-overlay" onclick="if(event.target===this){closeRocky()}">
+    <div id="rocky-modal">
+      <p>Enter password</p>
+      <input id="rocky-input" type="password" autocomplete="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkRocky(); if(event.key==='Escape')closeRocky();"
+        placeholder="·····">
+    </div>
+  </div>
+
   <!-- SPOTIFY NOW PLAYING -->
   <a id="now-playing" href="#" target="_blank" rel="noopener" style="display:none">
     <img id="np-art" src="" alt="album art">
@@ -788,6 +856,22 @@
     }
     fetchNowPlaying();
     setInterval(fetchNowPlaying, 30000);
+
+    // Rocky's Home gate
+    function checkRocky() {
+      const input = document.getElementById('rocky-input');
+      if (input.value.trim().toLowerCase() === 'ruby') {
+        window.location.href = 'rockys-home.html';
+      } else {
+        input.classList.add('wrong');
+        input.value = '';
+        setTimeout(() => input.classList.remove('wrong'), 400);
+      }
+    }
+    function closeRocky() {
+      document.getElementById('rocky-overlay').classList.remove('open');
+      document.getElementById('rocky-input').value = '';
+    }
   </script>
 </body>
 </html>

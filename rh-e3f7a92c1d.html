@@ -256,6 +256,57 @@
       animation: fadeIn 0.8s ease 1.2s forwards;
     }
 
+    /* MOVIES SECTION */
+    .movies-section {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .movies-grid {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .movie-item {
+      display: grid;
+      grid-template-columns: 4rem 1fr auto;
+      align-items: baseline;
+      gap: 0 2.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--line);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .movie-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .movie-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+
+    .movie-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .movie-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
     /* POEMS SECTION */
     .poems-section {
       padding: 6rem 3rem;
@@ -603,22 +654,65 @@
 
   </div>
 
+  <div class="movies-section" id="movies">
+    <div class="section-label">Films We've Watched</div>
+    <div class="movies-grid">
+
+      <div class="movie-item">
+        <span class="movie-num">01</span>
+        <span class="movie-title">Inglourious Basterds</span>
+        <span class="movie-year">2009</span>
+      </div>
+
+      <div class="movie-item">
+        <span class="movie-num">02</span>
+        <span class="movie-title">Nightcrawler</span>
+        <span class="movie-year">2014</span>
+      </div>
+
+      <div class="movie-item">
+        <span class="movie-num">03</span>
+        <span class="movie-title">The Amazing Spider-Man</span>
+        <span class="movie-year">2012</span>
+      </div>
+
+      <div class="movie-item">
+        <span class="movie-num">04</span>
+        <span class="movie-title">Whiplash</span>
+        <span class="movie-year">2014</span>
+      </div>
+
+      <div class="movie-item">
+        <span class="movie-num">05</span>
+        <span class="movie-title">The Holdovers</span>
+        <span class="movie-year">2023</span>
+      </div>
+
+      <div class="movie-item">
+        <span class="movie-num">06</span>
+        <span class="movie-title">The Disappearance of Hannah Grace</span>
+        <span class="movie-year">2018</span>
+      </div>
+
+    </div>
+  </div>
+
   <footer>
     <div class="footer-name">Tiago Branco Mole</div>
     <a href="/" class="footer-back">← Back to tiagomole.com</a>
   </footer>
 
   <script>
-    const poems = document.querySelectorAll('.poem');
+    const revealEls = document.querySelectorAll('.poem, .movie-item');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
           observer.unobserve(e.target);
         }
       });
     }, { threshold: 0.08 });
-    poems.forEach(p => observer.observe(p));
+    revealEls.forEach(p => observer.observe(p));
 
     // Countdown to Rocky landing — June 6 2026, 09:00 Lisbon time (UTC+1)
     const landingTime = new Date('2026-06-06T09:00:00+01:00');

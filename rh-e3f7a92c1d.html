@@ -362,14 +362,13 @@
       background-clip: text;
     }
 
-    /* POEMS SECTION */
+    /* POEMS SECTION — newspaper broadsheet */
     .poems-section {
-      padding: 6rem 0 8rem;
+      padding: 6rem 3rem 8rem;
     }
 
     .poems-section > .section-label {
-      padding: 0 3rem;
-      margin-bottom: 5rem;
+      margin-bottom: 4rem;
     }
 
     .section-label {
@@ -390,21 +389,38 @@
       background: var(--line);
     }
 
-    /* POEM — centred broadsheet column */
-    .poem {
-      position: relative;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 5rem 0 5rem;
-      border-bottom: 1px solid var(--line);
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+    /* Newspaper grid */
+    .poems-grid {
+      columns: 3;
+      column-gap: 0;
+      column-rule: 1px solid var(--line);
     }
 
-    .poem.visible {
+    .poem {
+      break-inside: avoid;
+      padding: 2.5rem 3rem 2.5rem;
+      border-bottom: 1px solid var(--line);
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
+      transition: none;
+    }
+
+    /* T-3 Weeks is longest — span all columns */
+    .poem.poem-wide {
+      column-span: all;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .poem.poem-wide .poem-body {
+      padding: 2.5rem 3rem;
+      border-right: 1px solid var(--line);
+    }
+
+    .poem.poem-wide .poem-body:last-child {
+      border-right: none;
     }
 
     .poem-num {
@@ -416,27 +432,29 @@
     }
 
     .poem-title {
-      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-size: 1.4rem;
       font-weight: 300;
       font-style: italic;
-      line-height: 1.05;
+      line-height: 1.1;
       letter-spacing: -0.02em;
       color: var(--ink);
-      margin-bottom: 3rem;
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--line);
     }
 
     .poem-stanzas {
       display: flex;
       flex-direction: column;
-      gap: 2.2rem;
+      gap: 1.4rem;
     }
 
     .stanza p {
-      font-size: 1.2rem;
+      font-size: 0.95rem;
       font-weight: 300;
-      line-height: 2.1;
+      line-height: 1.95;
       color: var(--ink-soft);
-      letter-spacing: 0.01em;
+      letter-spacing: 0.005em;
     }
 
     .poem-side {
@@ -444,17 +462,14 @@
     }
 
     .poem-roman {
-      position: absolute;
-      top: 4.2rem;
-      right: -5rem;
-      font-size: clamp(5rem, 8vw, 8rem);
-      font-weight: 600;
-      font-style: italic;
-      color: rgba(13,13,13,0.045);
-      line-height: 1;
-      letter-spacing: -0.04em;
-      user-select: none;
-      pointer-events: none;
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      color: var(--red);
+      margin-bottom: 0.6rem;
     }
 
     /* FOOTER */
@@ -572,122 +587,137 @@
   <div class="poems-section" id="poems">
     <div class="section-label">Five Poems</div>
 
-    <article class="poem">
-      <div class="poem-body">
-        <span class="poem-roman">I</span>
-        <h2 class="poem-title">Sample no.1</h2>
-        <div class="poem-stanzas">
-          <div class="stanza">
-            <p>Light across the hallway floor</p>
-            <p>Emerging from an oft-closed door</p>
-            <p>Nervous now it is to shine</p>
-            <p>So brightly yet it awaits the time</p>
-          </div>
-          <div class="stanza">
-            <p>A picture yet not fully known</p>
-            <p>Reflections of a thought ungrown</p>
-            <p>The time grows close at hand</p>
-            <p>Imagine the light bouncing off the sand</p>
-          </div>
-        </div>
-      </div>
-    </article>
+    <div class="poems-grid">
 
-    <article class="poem">
-      <div class="poem-body">
-        <span class="poem-roman">II</span>
-        <h2 class="poem-title">View of the Room</h2>
-        <div class="poem-stanzas">
-          <div class="stanza">
-            <p>Records dot your blanked out wall</p>
-            <p>You clear your breathe, stutter and stall</p>
-            <p>How clearly now I can see</p>
-            <p>The thoughts within that seek to flee</p>
-          </div>
-          <div class="stanza">
-            <p>The vinyl turns, the words fall out</p>
-            <p>How red you turn a rose could sprout</p>
-            <p>And yet it renders me stuck and frozen</p>
-            <p>How glad I am of the path i've chosen</p>
+      <article class="poem">
+        <div class="poem-body">
+          <span class="poem-roman">I</span>
+          <h2 class="poem-title">Sample no.1</h2>
+          <div class="poem-stanzas">
+            <div class="stanza">
+              <p>Light across the hallway floor</p>
+              <p>Emerging from an oft-closed door</p>
+              <p>Nervous now it is to shine</p>
+              <p>So brightly yet it awaits the time</p>
+            </div>
+            <div class="stanza">
+              <p>A picture yet not fully known</p>
+              <p>Reflections of a thought ungrown</p>
+              <p>The time grows close at hand</p>
+              <p>Imagine the light bouncing off the sand</p>
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <article class="poem">
-      <div class="poem-body">
-        <span class="poem-roman">III</span>
-        <h2 class="poem-title">T-3 Weeks</h2>
-        <div class="poem-stanzas">
-          <div class="stanza">
-            <p>An orange hue colours your face</p>
-            <p>As red nails flow across the place</p>
-            <p>Pink lips flash as if to chase</p>
-            <p>The yellow Smints you lost to space</p>
-          </div>
-          <div class="stanza">
-            <p>Blue eyes I profess I use to gaze</p>
-            <p>Upon the brown hair adorning your pretty face</p>
-            <p>Green with envy I admit to have been</p>
-            <p>At the golden bracelet adorning your skin</p>
-          </div>
-          <div class="stanza">
-            <p>How gracefully smoothly your mouth contorts</p>
-            <p>Smiling already at the forthcoming retort</p>
-            <p>Almost proud enough to say</p>
-            <p>With your words you've kept me at bay</p>
-          </div>
-          <div class="stanza">
-            <p>How happily now you sit and stare</p>
-            <p>When months before you would resort to glare</p>
-            <p>At the silence passing between your fingers</p>
-            <p>It feels as if the words now linger</p>
+      <article class="poem">
+        <div class="poem-body">
+          <span class="poem-roman">II</span>
+          <h2 class="poem-title">View of the Room</h2>
+          <div class="poem-stanzas">
+            <div class="stanza">
+              <p>Records dot your blanked out wall</p>
+              <p>You clear your breathe, stutter and stall</p>
+              <p>How clearly now I can see</p>
+              <p>The thoughts within that seek to flee</p>
+            </div>
+            <div class="stanza">
+              <p>The vinyl turns, the words fall out</p>
+              <p>How red you turn a rose could sprout</p>
+              <p>And yet it renders me stuck and frozen</p>
+              <p>How glad I am of the path i've chosen</p>
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <article class="poem">
-      <div class="poem-body">
-        <span class="poem-roman">IV</span>
-        <h2 class="poem-title">Studying</h2>
-        <div class="poem-stanzas">
-          <div class="stanza">
-            <p>Not every smile, a thought</p>
-            <p>Yet not every glance is caught</p>
-            <p>Words unspoken but still persist</p>
-            <p>Dreams of mine I can't resist</p>
-          </div>
-          <div class="stanza">
-            <p>Even as I sit and write</p>
-            <p>My mind is occupied by a sight</p>
-            <p>Hands in motion, looks exchanged</p>
-            <p>Clothes quickly become estranged</p>
+      <article class="poem">
+        <div class="poem-body">
+          <span class="poem-roman">IV</span>
+          <h2 class="poem-title">Studying</h2>
+          <div class="poem-stanzas">
+            <div class="stanza">
+              <p>Not every smile, a thought</p>
+              <p>Yet not every glance is caught</p>
+              <p>Words unspoken but still persist</p>
+              <p>Dreams of mine I can't resist</p>
+            </div>
+            <div class="stanza">
+              <p>Even as I sit and write</p>
+              <p>My mind is occupied by a sight</p>
+              <p>Hands in motion, looks exchanged</p>
+              <p>Clothes quickly become estranged</p>
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <article class="poem">
-      <div class="poem-body">
-        <span class="poem-roman">V</span>
-        <h2 class="poem-title">Orpheus</h2>
-        <div class="poem-stanzas">
-          <div class="stanza">
-            <p>I never understood Orpheus</p>
-            <p>And his inability to parry the gaze</p>
-            <p>Of the one he found himself attached to</p>
-            <p>In life and life again before the death</p>
-          </div>
-          <div class="stanza">
-            <p>But now I recognise the thoughts he wondered</p>
-            <p>Imagining his woman torn asunder</p>
-            <p>He had to look one last time</p>
-            <p>At what I know to be mine</p>
+      <!-- T-3 Weeks spans all 3 columns as a full-width feature -->
+      <article class="poem poem-wide">
+        <div class="poem-body">
+          <span class="poem-roman">III</span>
+          <h2 class="poem-title">T-3 Weeks</h2>
+          <div class="poem-stanzas">
+            <div class="stanza">
+              <p>An orange hue colours your face</p>
+              <p>As red nails flow across the place</p>
+              <p>Pink lips flash as if to chase</p>
+              <p>The yellow Smints you lost to space</p>
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+        <div class="poem-body">
+          <div class="poem-stanzas" style="margin-top:0">
+            <div class="stanza">
+              <p>Blue eyes I profess I use to gaze</p>
+              <p>Upon the brown hair adorning your pretty face</p>
+              <p>Green with envy I admit to have been</p>
+              <p>At the golden bracelet adorning your skin</p>
+            </div>
+            <div class="stanza">
+              <p>How gracefully smoothly your mouth contorts</p>
+              <p>Smiling already at the forthcoming retort</p>
+              <p>Almost proud enough to say</p>
+              <p>With your words you've kept me at bay</p>
+            </div>
+          </div>
+        </div>
+        <div class="poem-body">
+          <div class="poem-stanzas" style="margin-top:0">
+            <div class="stanza">
+              <p>How happily now you sit and stare</p>
+              <p>When months before you would resort to glare</p>
+              <p>At the silence passing between your fingers</p>
+              <p>It feels as if the words now linger</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="poem" style="column-span: all; display: grid; grid-template-columns: repeat(3,1fr); border-bottom: none;">
+        <div style="padding: 2.5rem 3rem; border-right: 1px solid var(--line);">
+          <span class="poem-roman">V</span>
+          <h2 class="poem-title">Orpheus</h2>
+          <div class="poem-stanzas">
+            <div class="stanza">
+              <p>I never understood Orpheus</p>
+              <p>And his inability to parry the gaze</p>
+              <p>Of the one he found himself attached to</p>
+              <p>In life and life again before the death</p>
+            </div>
+            <div class="stanza">
+              <p>But now I recognise the thoughts he wondered</p>
+              <p>Imagining his woman torn asunder</p>
+              <p>He had to look one last time</p>
+              <p>At what I know to be mine</p>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 2.5rem 3rem; border-right: 1px solid var(--line);"></div>
+        <div style="padding: 2.5rem 3rem;"></div>
+      </article>
+
+    </div>
 
   </div>
 

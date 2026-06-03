@@ -215,6 +215,18 @@
       color: var(--red);
     }
 
+    .hero-crab {
+      position: absolute;
+      top: 50%;
+      left: 58%;
+      transform: translate(-50%, -50%) rotate(-12deg);
+      width: 160px;
+      opacity: 0.07;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      animation: fadeIn 1.5s ease 1.4s both;
+    }
+
     .hero-meta {
       font-family: 'DM Mono', monospace;
       font-size: 0.6rem;
@@ -417,6 +429,7 @@
   </header>
 
   <div class="hero">
+    <img src="rocky-crab.webp" alt="" class="hero-crab">
     <div class="hero-line"></div>
     <div class="hero-left">
       <div class="hero-eyebrow">Poetry · Tiago Branco Mole</div>

@@ -1427,18 +1427,20 @@
 
     // ─── DAILY LOTTERY ───────────────────────────────────────────
     const THINGS = [
-      "The way you read the last page of a book before deciding whether to start it.",
-      "How you hold a coffee cup with both hands, even in summer.",
-      "That you write in the margins of books as if in quiet argument with the author.",
-      "The particular shade your cheeks go when you laugh too hard.",
-      "How you make silence feel like something worth staying in.",
-      "That you always know which wine to order without consulting the list.",
-      "The very specific face you make when someone mispronounces a word.",
-      "How you fall asleep mid-sentence and carry on as though you never left.",
-      "That you take photographs of things most people simply walk past.",
-      "The way you say 'fine' when you mean the opposite, and expect me to notice.",
-      "How you remember the exact moment a film first made you feel something.",
-      "That you are the reason this page exists."
+      "The mischievous grin when I catch you looking at me when we watch a movie.",
+      "The way you try and hide your Smints consumption.",
+      "The fact your favourite number is 2, which fits so well with your character.",
+      "The way your face curls into the bed or your arm when you ask me what I'm thinking a few times in a row.",
+      "The way your voice goes higher when you ask for something or get nervous.",
+      "How happy you get when Jess messages you.",
+      "The way you pout your lips when you find something cute.",
+      "How competitive you get about Wordle and Connections.",
+      "When you nod your head a lot when you want me to do something.",
+      "How dramatic you are when you get scared of bugs.",
+      "The smile you get when I come back from the bathroom or the kitchen.",
+      "When you get really scared and start saying fuck off.",
+      "When you start looking around after saying something like \"I guess I should kill myself\".",
+      "When you get shy when I give you a compliment you didn't expect."
     ];
 
     const NUMERALS = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
@@ -1502,7 +1504,7 @@
         <p class="ticket-win-text">&ldquo;${text}&rdquo;</p>
         <div class="ticket-meta">
           <span>${fmtDate()}</span>
-          <span>${count} of ${THINGS.length} found</span>
+          <span>&nbsp;</span>
         </div>`);
     }
 
@@ -1515,7 +1517,7 @@
 
     function showTicketComplete() {
       setTicketContent(`
-        <span class="ticket-win-label">Collection Complete</span>
+        <span class="ticket-win-label">That&rsquo;s all of them</span>
         <p class="ticket-win-text">You&rsquo;ve found everything.<br>Every single one.</p>`);
     }
 

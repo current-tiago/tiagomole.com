@@ -1,6 +1,6 @@
 # Handover File — tiagomole.com
 
-Last updated: 3 June 2026 (evening session)
+Last updated: 3 June 2026
 
 ---
 
@@ -9,7 +9,7 @@ Last updated: 3 June 2026 (evening session)
 Personal website for Tiago Branco Mole. Hosted on **Netlify**, connected to GitHub:
 `https://github.com/current-tiago/tiagomole.com`
 
-Local path: `~/tiagomole.com`
+Local path: `/Users/tiagobranco-mole/Desktop/tiagomole.com`
 
 Stack: pure HTML/CSS/JS — no build step, no framework. Deploy by pushing to `main`.
 
@@ -37,9 +37,9 @@ All pages share the same design tokens and fonts:
 ## File structure
 
 ```
-index.html                  — homepage
-europe-map.svg              — Western Europe map used in hero-right
-rockys-home.html            — poetry page (Rocky's Home)
+index.html                        — homepage
+europe-map.svg                    — Western Europe SVG map used in hero-right
+rh-e3f7a92c1d.html                — Rocky's Home (password-gated, secret filename)
 entrepreneurial-ventures.html
 historical-perspectives.html
 how-poland-caused-german-unification.html
@@ -49,8 +49,9 @@ policy-research.html
 work.html
 write-article.html
 netlify/functions/
-  now-playing.js            — Spotify serverless function
-netlify.toml
+  now-playing.js                  — Spotify serverless function
+  rocky-auth.js                   — Server-side password auth for Rocky's Home
+netlify.toml                      — Functions directory + redirect rules
 ```
 
 ---
@@ -60,14 +61,13 @@ netlify.toml
 Sections in order:
 1. **Hero** — two-column layout split by a vertical line
    - Left: name, eyebrow, description, CTA links
-   - Right: faded Western Europe map (`europe-map.svg`) with city markers, coordinates text overlaid at bottom-right
-2. **Writing** (`#writing`) — numbered list of 6 articles
+   - Right: faded Western Europe SVG map with city markers, coordinates at bottom-right
+2. **Writing** (`#writing`) — numbered horizontal list (01–06), each row: number · tag · title · description
 3. **Ventures** (`#ventures`) — Swapdesk + placeholder
 4. **About** (`#about`) — bio + meta grid
 5. **Footer**
-6. **Spotify widget** — fixed bottom-right, fetches from `/.netlify/functions/now-playing` every 30s
-
-Nav links: Writing · Ventures · Rocky's Home · About · Contact
+6. **Spotify widget** — fixed bottom-right, always expanded, fetches every 30s. Shows "Now Playing" or "Last Played" (retains last track when paused)
+7. **Rocky's Home modal** — hidden password button in footer triggers overlay; password validated server-side via `rocky-auth` function
 
 ---
 
@@ -78,41 +78,52 @@ Generated from **Natural Earth 10m cultural data** (`ne_10m_admin_0_countries.sh
 - **Projection**: Mercator
 - **Bounds**: 25°W → 35°E, 34°N → 71.5°N
 - **Countries**: 55 (Western + Central + Eastern Europe edge, Iceland, Greenland fringe, Russia/Belarus/Ukraine clipped to bounds)
-- **Highlights**: Portugal (`PRT`) and UK (`GBR`) filled slightly darker — countries Tiago is from
-- **City markers**: Lisbon, Barcelona, Frankfurt — cities Tiago has lived in — orange dot (`#FF8800`) + monospace label
+- **Highlights**: Portugal (`PRT`) and UK (`GBR`) filled slightly darker
+- **City markers**: Lisbon (2050–present), Barcelona (2006–2008), Frankfurt (2008–2014) — orange dot + monospace label + date range
 - **Style**: cream/ink palette, all borders stroke `rgba(13,13,13,0.18)`, fills very low opacity
 
-**To regenerate** (e.g. to add a new city or change highlight colours): run the Python script below. Requires `pip install pyshp` and the `ne_10m_admin_0_countries.shp` file from Natural Earth cultural dataset.
+**Known quirk:** France and Norway have `ISO_A3 = -99` in Natural Earth — always fall back to `ADM0_A3` when `ISO_A3` is `-99`.
 
-Key known quirk: France and Norway have `ISO_A3 = -99` in Natural Earth — always fall back to `ADM0_A3` when `ISO_A3` is `-99`.
-
-**To add a city marker**: add a tuple to the `cities` list in the generation script:
+**To add a city marker**, add a tuple to the `cities` list in the generation script:
 ```python
 cities = [
-    ("Lisbon",    -9.14, 38.72, 4, -6),   # (name, lon, lat, label_dx, label_dy)
-    ("Barcelona",  2.17, 41.39, 4, -5),
-    ("Frankfurt",  8.68, 50.11, 4, -5),
+    ("Lisbon",    -9.14, 38.72, "2050–present",  4, -6),
+    ("Barcelona",  2.17, 41.39, "2006–2008",      4, -5),
+    ("Frankfurt",  8.68, 50.11, "2008–2014",      4, -5),
 ]
 ```
 
 ---
 
-## Rocky's Home (rockys-home.html)
+## Rocky's Home (rh-e3f7a92c1d.html)
 
-Poetry page. Linked from the main nav and hero. Dark-mode page (ink background, cream text) with the same font system.
+Private page for Rocky (Tiago's girlfriend). Accessed via a hidden password button in the footer of the main site.
 
-**Design:** Full-viewport hero with "Rocky's / *Home*" title, ghost "Rocky" watermark in outline text behind it. Poems listed below with Roman numeral indexing (I–V), large ghost numerals per poem, scroll-reveal fade-ins.
+**Security model:**
+- The real file is `rh-e3f7a92c1d.html` (unguessable filename)
+- `/rockys-home.html` returns 404 via netlify.toml redirect
+- Password is validated **server-side** by `netlify/functions/rocky-auth.js`
+- No hash or password is exposed in any public JS
+- On correct password, the auth function returns `{ ok: true, path: '/rh-e3f7a92c1d.html' }`
 
-**Poems (in order):**
-| # | Title |
-|---|-------|
-| I | Sample no.1 |
-| II | View of the Room |
-| III | T-3 Weeks |
-| IV | Studying |
-| V | Orpheus |
+**Netlify env var required:**
 
-**TODO:** The colour scheme of the poems section should match the main site (cream background, ink text) rather than the current dark theme. User requested this but it was not completed — needs a redesign of the `.poems` section to flip to light mode while keeping the dark hero. Stick figure SVG illustrations were also requested per poem but not yet added.
+| Key | Value |
+|-----|-------|
+| `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (set in Netlify dashboard) |
+
+**Page contents:**
+- Hero: "Rocky's / *Home*" title, subtitle "A little section just for your eyes", countdown timer (top-right), meta block (bottom-right)
+- **Countdown**: ticks down to June 6 2026 09:00 Lisbon time (UTC+1). Shows "Arriving in Lisbon" once it hits zero.
+- **Five poems** (scroll-reveal): Sample no.1 · View of the Room · T-3 Weeks · Studying · Orpheus
+- **Films We've Watched** section: numbered list with dual star ratings
+  - **T** = Tiago's rating (orange `#FF8800` stars)
+  - **R** = Rocky's rating (pink `#e8829a` stars)
+  - Stars out of 5, half stars supported via CSS gradient trick
+  - Current films: Project Hail Mary · Inglourious Basterds · Nightcrawler · The Amazing Spider-Man · Whiplash · The Holdovers · The Disappearance of Hannah Grace
+  - **Note:** Most ratings are placeholders — update with real scores when provided
+
+**To add a film**, copy an existing `.movie-item` block in `rh-e3f7a92c1d.html` and update the number, title, year, and star spans. Star classes: `star-t` (orange), `star-r` (pink), `star-empty`, `star-half-t`, `star-half-r`.
 
 ---
 
@@ -121,9 +132,11 @@ Poetry page. Linked from the main nav and hero. Dark-mode page (ink background, 
 Netlify serverless function at `netlify/functions/now-playing.js`.
 
 - Fetches current playback from Spotify API using a refresh token
-- Returns `{ isPlaying, title, artist, albumArt, songUrl }`
-- If paused, shows last played track labelled "Last Played"
-- Widget is fixed bottom-right, fades in when data is available
+- Returns `{ isPlaying, title, artist, albumArt, songUrl }` or `{ isPlaying: false }`
+- No debug responses — all error paths return clean `{ isPlaying: false }`
+- CORS locked to `https://tiagomole.com` only
+- Widget is always expanded (no hover resize)
+- Shows "Last Played" with last track when paused; hides only if no track has played this session
 
 **Environment variables** (set in Netlify dashboard — never commit):
 
@@ -148,21 +161,30 @@ Netlify serverless function at `netlify/functions/now-playing.js`.
 
 ---
 
+## Security
+
+- Password check for Rocky's Home is **server-side only** (`rocky-auth.js`)
+- `ROCKY_PASSWORD_HASH` lives in Netlify env vars — not in any file
+- `/rockys-home.html` is blocked via 404 redirect in `netlify.toml`
+- Spotify credentials are env vars only — never in source
+- Wayback Machine has no snapshots of Rocky's Home (confirmed June 2026)
+
+---
+
 ## Deployment
 
-Push to `main` → Netlify auto-deploys. No build step needed.
+Push to `main` → Netlify auto-deploys in ~15 seconds. No build step needed.
 
 ```bash
 git add <files>
 git commit -m "message"
-git push origin main
+git push
 ```
 
 ---
 
 ## Outstanding TODOs
 
-- [ ] Flip Rocky's Home poem section to light (cream/ink) colour scheme — currently dark, user wants it to match the rest of the site
-- [ ] Add hand-drawn SVG stick figure illustrations next to each poem in Rocky's Home
-- [ ] Clean up debug responses in `now-playing.js` (returns `{ debug: "..." }` in some error paths instead of `{ isPlaying: false }`)
-- [ ] Confirm Spotify widget is working after last token refresh
+- [ ] Update film star ratings with accurate scores from Tiago and Rocky
+- [ ] Consider adding more content sections to Rocky's Home (photos, letter, places to visit together)
+- [ ] Writing section on homepage — scroll reveal animations can be slow, may want to tune timing

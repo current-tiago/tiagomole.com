@@ -1,220 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>historical perspectives - tiago branco mole</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: #FF2400;
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            color: white;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 2rem;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .back-link {
-            font-size: 0.9rem;
-            font-weight: 300;
-            text-transform: lowercase;
-            color: white;
-            text-decoration: none;
-            border-bottom: none;
-            padding-bottom: 0.05rem;
-            opacity: 0.8;
-            transition: opacity 0.3s ease, border-bottom 0.3s ease, transform 0.3s ease;
-            margin-top: auto;
-            text-align: center;
-            display: inline-block;
-        }
-        
-        .back-link:hover {
-            opacity: 1;
-            border-bottom-color: white;
-            transform: scale(1.05);
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-            text-transform: lowercase;
-            transition: transform 0.3s ease;
-        }
-        
-        h1:hover {
-            transform: scale(1.05);
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            font-weight: 400;
-            opacity: 0.9;
-            text-transform: lowercase;
-        }
-        
-        .content-layout {
-            display: flex;
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            flex: 1;
-        }
-        
-        .article-list {
-            flex: 0 0 300px;
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .article-item {
-            margin-bottom: 2rem;
-            padding: 1rem;
-            border-left: 2px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .article-item:hover {
-            border-left-color: white;
-            transform: translateX(0.5rem);
-        }
-        
-        .article-title {
-            font-size: 1.1rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-            text-transform: lowercase;
-            cursor: pointer;
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .article-title:hover {
-            opacity: 0.8;
-            transform: translateX(0.2rem);
-        }
-        
-        .article-date {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            text-transform: lowercase;
-        }
-        
-        .article-content {
-            flex: 1;
-            text-align: left;
-        }
-        
-        .medium-embed {
-            margin-top: 1rem;
-            opacity: 0.9;
-        }
-        
-        #medium-widget {
-            background: transparent;
-        }
-        
-        #medium-widget * {
-            color: white !important;
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-        }
-        
-        #medium-widget a {
-            text-decoration: none !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-            transition: border-bottom 0.3s ease !important;
-        }
-        
-        #medium-widget a:hover {
-            border-bottom-color: white !important;
-        }
-        
-        @media (max-width: 768px) {
-            .content-layout {
-                flex-direction: column;
-                gap: 2rem;
-            }
-            
-            .article-list {
-                flex: none;
-            }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .back-link {
-                position: static;
-                margin-bottom: 2rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historical Perspectives — Tiago Branco Mole</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #FF8800;
+      --cream: #F5F0E8;
+      --ink: #0D0D0D;
+      --ink-soft: #2A2A2A;
+      --muted: #8A8070;
+      --line: rgba(13,13,13,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, var(--cream) 60%, transparent);
+    }
+
+    .logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--ink); }
+
+    /* ── CATEGORY HERO ── */
+    .category-hero {
+      padding: 10rem 3rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .category-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .category-tag::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .category-title {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+    }
+
+    .category-desc {
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    /* ── ARTICLE LIST ── */
+    .article-list {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .writing-item {
+      display: grid;
+      grid-template-columns: 3rem 1fr auto;
+      align-items: baseline;
+      gap: 0 2.5rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .writing-item:hover { background: rgba(255,136,0,0.02); }
+
+    .writing-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      padding-top: 0.2rem;
+    }
+
+    .writing-main { display: flex; flex-direction: column; gap: 0.3rem; }
+
+    .writing-title {
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    .writing-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .writing-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .writing-item::after {
+      content: '↗';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      color: var(--muted);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .writing-item:hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translate(3px, -3px);
+    }
+
+    /* dimmed placeholder items */
+    .writing-item.placeholder {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* ── FOOTER NAV ── */
+    .section-footer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 3rem 5rem;
+    }
+
+    .back-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--ink); }
+    .back-link::before { content: '← '; }
+
+    footer {
+      padding: 3rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 1.25rem 1.5rem; }
+      nav { gap: 1.5rem; }
+      .category-hero { padding: 8rem 1.5rem 3rem; }
+      .article-list { padding: 0 1.5rem; }
+      .writing-item { grid-template-columns: 2.5rem 1fr; }
+      .writing-tag { display: none; }
+      .section-footer { padding: 2.5rem 1.5rem 4rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <h1>historical perspectives</h1>
-        <div class="subtitle">exploring the intersections of economic history and human behavior</div>
+
+  <header>
+    <a href="/" class="logo">TBM</a>
+    <nav>
+      <a href="/#writing">Writing</a>
+      <a href="/#ventures">Ventures</a>
+      <a href="/#about">About</a>
+      <a href="mailto:tiagobrancomole@gmail.com">Contact</a>
+    </nav>
+  </header>
+
+  <div class="category-hero">
+    <div class="category-tag">Category</div>
+    <h1 class="category-title">Historical Perspectives</h1>
+    <p class="category-desc">Long-form essays on events that continue to shape the present.</p>
+  </div>
+
+  <div class="article-list">
+
+    <a href="how-to-be-a-dictator.html" class="writing-item">
+      <span class="writing-num">01</span>
+      <div class="writing-main">
+        <div class="writing-title">How to Be a Dictator</div>
+        <div class="writing-date">December 2024</div>
+      </div>
+      <div class="writing-tag">History · Politics</div>
+    </a>
+
+    <a href="how-poland-caused-german-unification.html" class="writing-item">
+      <span class="writing-num">02</span>
+      <div class="writing-main">
+        <div class="writing-title">How Poland Caused German Unification</div>
+        <div class="writing-date">November 2024</div>
+      </div>
+      <div class="writing-tag">History · Europe</div>
+    </a>
+
+    <div class="writing-item placeholder">
+      <span class="writing-num">03</span>
+      <div class="writing-main">
+        <div class="writing-title">The Great Depression and Modern Parallels</div>
+        <div class="writing-date">Coming soon</div>
+      </div>
+      <div class="writing-tag">History · Economics</div>
     </div>
-    
-    <div class="article-list">
-        <div class="article-item">
-            <a href="how-to-be-a-dictator.html" class="article-title">how to be a dictator: lessons from bismarck</a>
-            <div class="article-date">december 2024</div>
-        </div>
-        <div class="article-item">
-            <a href="how-poland-caused-german-unification.html" class="article-title">how poland caused german unification</a>
-            <div class="article-date">november 2024</div>
-        </div>
-        <div class="article-item">
-            <div class="article-title">the great depression and modern parallels</div>
-            <div class="article-date">november 2024</div>
-        </div>
-        <div class="article-item">
-            <div class="article-title">the fall of constantinople</div>
-            <div class="article-date">october 2024</div>
-        </div>
-        <div class="article-item">
-            <div class="article-title">the rise and fall of the hanseatic league</div>
-            <div class="article-date">september 2024</div>
-        </div>
+
+    <div class="writing-item placeholder">
+      <span class="writing-num">04</span>
+      <div class="writing-main">
+        <div class="writing-title">The Fall of Constantinople</div>
+        <div class="writing-date">Coming soon</div>
+      </div>
+      <div class="writing-tag">History</div>
     </div>
-    
-    <a href="work.html" class="back-link">back to work</a>
-    
-    <script>
-        // Preserve URL parameters in all links
-        const urlParams = new URLSearchParams(window.location.search);
-        const editMode = urlParams.get('edit');
-        const secretKey = urlParams.get('key');
-        
-        if (editMode === 'true' && secretKey === 'tiago2024') {
-            // Add URL parameters to all links
-            const links = document.querySelectorAll('a');
-            links.forEach(link => {
-                const href = link.getAttribute('href');
-                if (href && !href.startsWith('http') && !href.startsWith('mailto:')) {
-                    link.href = `${href}?edit=true&key=tiago2024`;
-                }
-            });
-        }
-    </script>
+
+    <div class="writing-item placeholder">
+      <span class="writing-num">05</span>
+      <div class="writing-main">
+        <div class="writing-title">The Rise and Fall of the Hanseatic League</div>
+        <div class="writing-date">Coming soon</div>
+      </div>
+      <div class="writing-tag">History · Trade</div>
+    </div>
+
+  </div>
+
+  <div class="section-footer">
+    <a href="/#writing" class="back-link">All Writing</a>
+  </div>
+
+  <footer>
+    <div class="footer-name">Tiago Branco Mole</div>
+    <div class="footer-copy">© 2026 — All rights reserved</div>
+  </footer>
+
 </body>
-</html> 
+</html>

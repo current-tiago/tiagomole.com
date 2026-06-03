@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juku V1 — Whitepaper — Tiago Branco Mole</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #FF8800;
+      --cream: #F5F0E8;
+      --ink: #0D0D0D;
+      --ink-soft: #2A2A2A;
+      --muted: #8A8070;
+      --line: rgba(13,13,13,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, var(--cream) 60%, transparent);
+    }
+
+    .logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--ink); }
+
+    .page-hero {
+      padding: 10rem 3rem 4rem;
+      max-width: 760px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .page-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .page-tag::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .page-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .archived-notice {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 0.45rem 0.8rem;
+    }
+
+    .archived-notice::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.5;
+    }
+
+    .whitepaper-body {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4rem 3rem 6rem;
+    }
+
+    .wp-abstract {
+      font-size: 1.15rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 3rem;
+    }
+
+    .wp-section {
+      margin-bottom: 3rem;
+    }
+
+    .wp-section-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.2rem;
+    }
+
+    .wp-subsection-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+      margin-top: 1.8rem;
+    }
+
+    .wp-p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-soft);
+      margin-bottom: 1.2rem;
+    }
+
+    .wp-list {
+      list-style: none;
+      margin: 1rem 0 1.2rem 0;
+    }
+
+    .wp-list li {
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-soft);
+      padding-left: 1.5rem;
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
+
+    .wp-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 3rem 0;
+    }
+
+    .section-footer {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 3rem 5rem;
+    }
+
+    .back-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--ink); }
+    .back-link::before { content: '← '; }
+
+    footer {
+      padding: 3rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 1.25rem 1.5rem; }
+      nav { gap: 1.5rem; }
+      .page-hero { padding: 8rem 1.5rem 3rem; }
+      .whitepaper-body { padding: 3rem 1.5rem 5rem; }
+      .section-footer { padding: 0 1.5rem 4rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">TBM</a>
+    <nav>
+      <a href="/#writing">Writing</a>
+      <a href="/#ventures">Ventures</a>
+      <a href="/#about">About</a>
+      <a href="mailto:tiagobrancomole@gmail.com">Contact</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-tag">Venture · Archived</div>
+    <h1 class="page-title">Juku V1</h1>
+    <p class="page-subtitle">A Digital Microfinance Platform for Credit Lending</p>
+    <div class="archived-notice">Archived project — no longer active</div>
+  </div>
+
+  <div class="whitepaper-body">
+
+    <div class="wp-abstract">
+      Juku is an online platform facilitating small to medium scale investments in entrepreneurs to expand their current production or to begin a new endeavour, without having to rely on predatory loans in areas typically under-served by traditional banking institutions. We believe that we can provide effective capital to entrepeneurs while providing both institutional lenders and our own investors with strong returns. Current microfinance institutions have done meaningful work expanding financial access, but the interest rates they charge too often push people into debt spirals rather than out of poverty. We believe the root cause is an information problem: without reliable data on borrowers, lenders are forced to spend heavily on verification or accept high default rates, and in either case they push the cost onto borrowers through prohibitive interest rates. Juku addresses this directly through a multi-modal, AI-assisted credit risk model that cuts operational costs while maintaining rigorous borrower assessment. We operate on a dual-revenue model, lending our own capital and earning the full interest on those loans, while also licensing our borrower pipeline and credit scoring infrastructure to banks that want access to these markets but lack the tools to enter them safely. As our loan book grows, the model is retrained on real performance data, reducing defaults, enabling lower rates, and making the platform licence more valuable to institutional partners over time.
+    </div>
+
+    <div class="wp-section">
+      <div class="wp-section-title">1. Introduction</div>
+      <p class="wp-p">Banking has been part of human society for over two thousand years, with merchants offering grain-secured loans in what is today Syria. The word itself comes from the Italian 'banca' — the wooden bench behind which traders conducted their business. States like Venice and the early Dutch Republic, which built robust financial systems early, grew far faster than those that kept lending a royal privilege. As economic historian Niall Ferguson put it, poverty has more to do with the lack of financial institutions "the absence of banks, not their presence."</p>
+      <p class="wp-p">Nobel laureate Mohammed Yunus, whose work founding the Grameen Bank changed how the world thinks about lending to the poor, spoke of building a 'social stock market', a place where investors could find companies that were both socially beneficial and financially profitable. We share that conviction. In our view, financial returns are the most reliable way to sustain the flow of capital towards underserved borrowers over the long run. Philanthropy can start a movement, but it is profit that scales it.</p>
+      <p class="wp-p">There are two fundamental reasons why microloans fail to be repaid: interest rates that are simply too high, and borrowers misusing the principal. We believe these are deeply connected. When lenders have poor information about who they are lending to, they face an unpleasant choice: spend heavily on in-person verification to reduce that uncertainty, which drives up operating costs, or accept high default rates from bad-faith borrowers. Either way, the lender ends up charging higher interest rates to compensate, which in turn makes repayment harder for the very borrowers the loan was meant to help. What the market needs is a platform that cuts those operational costs, uses better credit tools to keep rates affordable, and turns its information advantage into a product that institutional lenders can access. That is what Juku is designed to do.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="wp-section">
+      <div class="wp-section-title">2. Business Model and Regulatory Framework</div>
+      <p class="wp-p">Juku's commercial model runs on two engines that reinforce each other.</p>
+
+      <div class="wp-subsection-title">2.1 Direct Lending</div>
+      <p class="wp-p">Juku lends its own capital and keeps the full interest on those loans. There is no investor to pay a return to: our cost of capital is the floor, and everything above it is operating revenue. This matters because it means our financial interests are completely aligned with repayment: we only do well when our borrowers do well, which gives us every reason to maintain rigorous credit standards. The initial lending capital comes from grant funding and competition proceeds, enough to run a structured pilot cohort. Following a succesful pilot, we would look to fund the loan book through a combination of equity raised into Juku and debt facilities secured against the seasoned loan book, a standard fintech capital structure that becomes available once we have a repayment track record to show.</p>
+
+      <div class="wp-subsection-title">2.2 Platform Licensing</div>
+      <p class="wp-p">The second revenue stream comes from licensing platform access to banks and institutional lenders. Subscribing institutions get two things: access to our sourced and credit-scored borrower pipeline, and the use of our credit model to underwrite their own lending in markets they could not safely enter before. Simply put, we are selling our information advantage to institutions that have the capital but not the tools to deploy it in underserved markets. Our direct lending generates the repayment data that trains and validates the credit model, and it is precisely the demonstrated performance of that model that determines what institutional lenders will pay to access it.</p>
+
+      <div class="wp-subsection-title">2.3 Regulatory Framework</div>
+      <p class="wp-p">Our launch market is Kenya. We believe Kenya offers the most favourable conditions of any market we considered: it has the most developed mobile money infrastructure on the continent in M-Pesa, a regulatory framework for microfinance institutions under the Microfinance Act, a growing fintech ecosystem, and a large unbanked population concentrated in rural and peri-urban areas. Nigeria is our principal year-two expansion target given its scale. We intend to operate under an MFI licence in Kenya, with the regulatory application process beginning after the completion of our proof-of-concept pilot.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="wp-section">
+      <div class="wp-section-title">3. Credit Risk Analysis Model</div>
+      <p class="wp-p">At the heart of microfinance is the question of how to price risk accurately. Microfinance operates in markets that are almost entirely cut off from formal financial systems, with no centralised credit bureaus and no history of formal borrowing. How do you carry out rigorous credit assessment in these conditions while keeping operational costs low enough to make the interest rate affordable? That is the core problem Juku is built to solve.</p>
+      <p class="wp-p">We propose a fully digital, multi-modal assessment that all prospective borrowers complete before onboarding. The process runs on the borrower's own device and includes security features such as device-locking and biometric verification to ensure its integrity. It has four components:</p>
+      <ul class="wp-list">
+        <li><strong>Financial Literacy Assessment:</strong> A structured test of the borrower's core financial knowledge, designed to assess whether they have the capacity to manage a loan responsibly.</li>
+        <li><strong>Video Business Proposal:</strong> A recorded submission in which the borrower presents their plan and how they intend to use the capital. Our model analyses this using AI-assisted natural language processing, assessing the coherence, specificity, and credibility of what is being proposed.</li>
+        <li><strong>Market Viability Analysis:</strong> This is our key differentiator. No existing MFI performs an automated assessment of the competitive landscape and market conditions surrounding a borrower's proposed business as a credit input. We do. A creditworthy person with an unviable business idea is a different risk from a creditworthy person with a well-reasoned, competitively positioned venture, and our model will treat them accordingly.</li>
+        <li><strong>Socioeconomic and Geographic Profiling:</strong> Standard inputs such as area of residence, income level, educational attainment will be incorporated as contextual signals in the composite credit score.</li>
+      </ul>
+      <p class="wp-p">The composite score determines three things: whether the borrower qualifies at all, what their maximum loan amount is, and what interest rate they are charged. As our loan book grows and we accumulate real repayment data, we retrain the model on observed behaviour, improving its accuracy and enabling us to push interest rates lower over time. And the better the model performs, the more institutional lenders will pay to license it, connecting the quality of our credit work directly to the value of our B2B revenue stream.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="wp-section">
+      <div class="wp-section-title">4. The Interest Rate Question</div>
+      <p class="wp-p">What is a fair interest rate? For too long, this question has been answered in favour of the institution. To operate profitably in low-information markets, MFIs must invest heavily in physical infrastructure, paying for field officers, local offices, in-person supervision, pushing marginal costs to levels that make affordable lending essentially impossible. That cost gets transferred to the borrower, at times in the form of annual interest rates exceeding 40% in Sub-Saharan markets. Faced with this constraint, many institutions have either withdrawn from these markets or entered only as non-profits. Grameen Bank puts social mission ahead of financial returns; Kiva operates explicitly as a non-profit intermediary. Neither model scales commercially.</p>
+      <p class="wp-p">Our view is that AI-assisted credit assessment removes the information asymmetry that makes high operational costs necessary in the first, allowing us to charge interest rates that are commercially viable for Juku while remaining materially lower than what incumbents charge. Because we lend our own capital and keep the full interest earned, we capture the entire efficiency gain rather than sharing it with a third-party investor.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="wp-section">
+      <div class="wp-section-title">5. Digital Structure for Payment and Repayment</div>
+      <p class="wp-p">Most governments now recognise the benefits of digitalising financial transactions, though the success of these efforts varies significantly. Urban areas have benefited most, as better infrastructure, stronger government presence, more market competition, and higher levels of technological literacy all compound to make digitalisation easier in cities than in rural areas.</p>
+      <p class="wp-p">Rural areas face a different reality. Connectivity is often insufficient, government reach is limited, and technological literacy remains low due to chronically underfunded school systems. That said, the direction of travel is positive, as internet usage in Sub-Saharan Africa has grown at approximately 10.7% annually over the past decade, against a 6% global average.</p>
+      <p class="wp-p">We plan to leverage Kenya's M-Pesa infrastructure as our primary payment rail, disbursing loans and collecting repayments through mobile money in areas with adequate coverage, with no need for bank accounts or physical cash handling. We also intend to develop software integrations directly with platforms like M-Pesa in Kenya and Pix in Brasil as we expand, embedding Juku into the payment infrastructure that borrowers already use rather than asking them to adopt something new.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="wp-section">
+      <div class="wp-section-title">6. Competitive Landscape</div>
+      <p class="wp-p">We believe that Juku fills a hole in the market that competitors have not yet spotted. To understand why, we must look at existing players and how we are different. The landscape breaks into three broad groups: traditional MFIs with physical branch networks, non-profit lending platforms, and technology-enabled fintech lenders.</p>
+      <p class="wp-p">Traditional MFIs, of which Grameen Bank is the clearest example, pioneered group lending, that being small cohorts of borrowers assuming collective liability for each other's repayments, as a way to manage credit risk without formal credit data. It worked well enough to prove that lending to the poor was viable at all, which is no small achievement. But the model is expensive to run, requires significant human capital to administer, and has shown little capacity for cost reduction over decades of operation. The high interest rates that result are not a policy failure; they are a structural consequence of the model itself. Grameen and its descendants have demonstrated repayment rates above 95% in certain contexts, but only by spending heavily to achieve them.</p>
+      <p class="wp-p">Non-profit platforms like Kiva occupy a different position. Kiva channels zero-interest capital from individual lenders in developed markets to borrowers in underserved regions. The social story is compelling, but the model cannot scale without continuous philanthropic subsidy, meaning that it offers no financial return to its lenders, which caps the pool of capital available to it. Kiva also does not conduct its own credit assessment; that is outsourced to local partner MFIs, which means the quality of its lending decisions is bounded by the quality of those partners. These are not criticisms of Kiva's mission, but they are reasons why its model cannot serve as a commercial template.</p>
+      <p class="wp-p">Technology-enabled fintech lenders are the most directly comparable competitors. Platforms like Branch and Tala originate consumer loans directly in Sub-Saharan Africa and South Asia, using mobile data as credit signals, and firms like Lendable deploy institutional capital into emerging market fintech lenders at scale. These platforms have proven that digital credit assessment works in low-information markets. But they are almost entirely focused on consumer lending rather than entrepreneurial lending to people building businesses. Their credit models assess individual creditworthiness using mobile usage patterns and transaction history. These are valuable inputs, but they say nothing about whether the business the borrower is proposing is actually viable. We believe that distinction matters enormously.</p>
+      <p class="wp-p">M-Pesa and equivalent mobile money platforms are not competitors but infrastructure, and we plan on building on top of them. Their transaction data is a valuable supplementary input to our credit model, and their payment rails dramatically reduce our cost base in areas with adequate mobile coverage.</p>
+      <p class="wp-p">No single competitor combines commercial sustainability, AI-driven credit assessment, entrepreneurial origination, and a B2B licensing layer. Traditional MFIs lack the technology; fintech lenders lack the entrepreneurial focus; non-profits lack the financial model. That is where we believe Juku fits.</p>
+      <p class="wp-p">The idea of the data flywheel, a self-reinforcing loop in which data produces better models, better models produce better outcomes, and better outcomes attract more participants who generate more data, is well established in platform economics. In credit markets, the flywheel is particularly powerful because the scarcity of high-quality repayment data in underserved markets is the primary barrier to entry for any new lender. A platform that accumulates that data at scale builds a compounding informational advantage that later entrants simply cannot replicate quickly.</p>
+      <p class="wp-p">Juku's flywheel runs through five stages. In the first, pilot capital funds an initial borrower cohort who complete our multi-modal assessment and receive loans. In the second, their repayment behaviour, such as on-time payments, partial payments, early repayments, and defaults, generates a proprietary dataset linked to every assessment input we collected. In the third stage, we retrain the credit model on this observed performance data, improving its ability to distinguish reliable borrowers from risky ones. The improvement operates in two directions simultaneously: reducing false positives, meaning approved borrowers who default, which lowers the default rate and therefore the risk-adjusted interest rate we need to charge, and reducing false negatives, that being creditworthy borrowers we incorrectly declined, which will expand the borrower pool without increasing default risk, driving both revenue growth and greater social impact.</p>
+      <p class="wp-p">In the fourth stage, lower interest rates attract a better pool of borrowers. High rates disproportionately deter creditworthy borrowers, who have more alternatives, and attract desperate or bad-faith ones who do not. Lower rates prevent this. The fifth stage is where the B2B licensing model becomes most powerful. A model trained on two years of repayment data from five hundred borrowers is worth something. A model trained on five years of data from fifty thousand borrowers is worth considerably more. As the dataset grows and the model's accuracy improves, the platform licence scales independently of our own balance sheet, allowing for us to sell access to the model to institutions, regardless of whether Juku itself is the one deploying the capital.</p>
+      <p class="wp-p">This is how Juku's growth eventually decouples from the availability of its own lending capital. The information asset we build through direct lending becomes a separately monetisable product that scales with data rather than with capital.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="wp-section">
+      <div class="wp-section-title">8. Social Return on Investment</div>
+      <p class="wp-p">The welfare economics case for expanding credit access in underserved markets is well established. Banerjee and Duflo's foundational work on poverty showed that the absence of affordable credit is one of the most binding constraints on entrepreneurial activity among low-income populations. It is not because the poor lack viable ideas or the capacity to execute them, but because they cannot access the capital to try. The social return from well-run microfinance therefore extends well beyond the direct financial return to the lender.</p>
+      <p class="wp-p">Randomised control trial evidence from Karlan and Zinman shows that expanding credit access to previously excluded borrowers produces measurable improvements in household income, consumption smoothing, and small business survival rates. These effects are not uniform across interest rate levels, however. Field and Pande's work on repayment structures in India found that the design of loan contracts (including the rate charged, the repayment frequency, and the principal schedule) materially affects both repayment rates and borrower welfare. High interest rates reduce the probability of repayment not only through direct affordability constraints but through the psychological burden of escalating debt, which impairs the cognitive bandwidth available to borrowers for actually running their businesses.</p>
+      <p class="wp-p">Juku's social return operates through two channels. The first is direct: by charging materially lower interest rates than incumbent MFIs, which is made possible by our AI-assisted credit model, we increase the net benefit to each borrower, reduce the probability of a debt spiral, and improve the odds that the funded business generates enough income to sustain itself beyond the loan period. The World Bank estimates that 1.4 billion adults remain unbanked globally, with the majority in Sub-Saharan Africa and South Asia. Even marginal improvements in credit affordability in these regions produce welfare gains at significant scale. The second channel is indirect and operates through the platform licensing model. When we license our credit infrastructure to institutional lenders, we enable them to extend capital into markets they could not previously serve.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="wp-section">
+      <div class="wp-section-title">9. Risks and Mitigations</div>
+      <p class="wp-p">We must now reconcile our positive outlook with some risks we forsee. We see four principal ones: credit model risk, regulatory risk, technology adoption risk, and capital availability risk. We believe each of them, however threatening they may be, are surmountable.</p>
+
+      <div class="wp-subsection-title">9.1 Credit Model Risk</div>
+      <p class="wp-p">The most fundamental risk is that our credit model simply does not perform as anticipated. This would in practice mean that the default rate exceeds projections and renders the direct lending operation unprofitable. This risk is highest in the early periods, before we have accumulated enough real repayment data to train the model on observed rather than hypothetical behaviour. Our mitigation is twofold. First, the pilot cohort is deliberately sized to be loss-tolerant, with competition and grant proceeds deployed with the explicit understanding that the pilot is a learning exercise, not a profit-generating one. A high default rate in the pilot period is painful in financial terms, and yet we believe it can be informative, because even defaulted loans generate repayment data that informs model recalibration. Second, the multi-modal nature of our assessment provides structural redundancy. If the market viability component proves less predictive than we expect, the financial literacy and biometric components continue to provide credit signal.</p>
+
+      <div class="wp-subsection-title">9.2 Regulatory Risk</div>
+      <p class="wp-p">Operating as a lender anywhere requires regulatory authorisation, and obtaining an MFI licence in Kenya carries both time and execution risk. Regulatory frameworks for digital lenders are also evolving rapidly across Sub-Saharan Africa, with several jurisdictions introducing new requirements around data localisation, algorithmic transparency, and consumer protection that could increase compliance costs or restrict parts of our credit model. Our approach here is to treat regulatory engagement as a first-order priority. We will engage legal counsel with specific expertise in Kenyan financial regulation during the pilot phase, before any lending activity begins, and we will seek early engagement with the Central Bank of Kenya to establish a cooperative relationship with the primary regulator from the outset.</p>
+
+      <div class="wp-subsection-title">9.3 Technology Adoption Risk</div>
+      <p class="wp-p">Our model assumes that borrowers have access to a smartphone or connected device capable of completing the digital assessment and managing repayments through M-Pesa or an equivalent platform. In areas where smartphone penetration is still low or connectivity is unreliable, that assumption may not hold. The risk is that our addressable market in early periods is smaller than projected, concentrating the loan book in relatively more connected populations and limiting both the social impact and the diversity of our repayment dataset. The mitigation is pragmatic. we will target our pilot in areas of Kenya with demonstrably adequate mobile infrastructure, accepting a short-term constraint on the addressable market in exchange for operational reliability. As smartphone penetration continues to grow across Sub-Saharan Africa at its current pace, the addressable market expands without requiring any change to our model.</p>
+
+      <div class="wp-subsection-title">9.4 Capital Availability Risk</div>
+      <p class="wp-p">Direct lending requires us to deploy our own capital, which creates a funding constraint that marketplace models avoid. Scaling the loan book beyond the initial pilot requires either equity raises into Juku or debt facilities secured against the loan book. Both of these options depend on demonstrating a credible repayment track record to external capital providers. If pilot default rates are high, or if macroeconomic conditions reduce institutional appetite for emerging market credit risk, our ability to scale lending operations could be materially constrained. Here, the platform licensing stream provides a genuine buffer. Because it generates revenue from access fees rather than from capital deployment, it allows Juku to maintain revenue and continue accumulating data through licensing partnerships even in periods where our own balance sheet is constrained. The data flywheel keeps turning even when the lending tap is partly closed.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="wp-section">
+      <div class="wp-section-title">10. Conclusion</div>
+      <p class="wp-p">Juku is a materially different approach to the structural failures of incumbent microfinance. By combining AI-assisted multi-modal credit scoring with a direct lending model and a dual-revenue architecture, we believe we can resolve the core tension between operational cost and interest rate affordability that has constrained financial inclusion in underserved markets for decades.</p>
+      <p class="wp-p">Our competitive position is defensible because our primary moat, a proprietary dataset of credit performance observations linked to multi-modal assessment inputs, cannot be replicated without originating loans and waiting for them to season. The data flywheel ensures that moat compounds with scale, which is why early market entry and aggressive data accumulation are our most important early-phase objectives.</p>
+      <p class="wp-p">The social return on investment, is a consequence of commercial sustainability rather than a substitute for it. Our success metrics are in our view linear. A lower default rate than incumbent MFIs proves the credit model works; a lower interest rate proves it creates real value for borrowers; and the number of entrepreneurs served proves it scales. Direct lending builds the proof-of-concept and generates the data asset. Platform licensing converts that asset into a scalable B2B revenue stream. Together, they represent a commercially viable path to meaningful financial inclusion.</p>
+      <p class="wp-p">As Niall Ferguson observed, it is the absence of financial institutions, not their presence, that perpetuates poverty. We built Juku to make that absence a correctable condition.</p>
+    </div>
+
+  </div>
+
+  <div class="section-footer">
+    <a href="/" class="back-link">Back to home</a>
+  </div>
+
+  <footer>
+    <div class="footer-name">Tiago Branco Mole</div>
+    <div class="footer-copy">© 2026 — All rights reserved</div>
+  </footer>
+
+</body>
+</html>

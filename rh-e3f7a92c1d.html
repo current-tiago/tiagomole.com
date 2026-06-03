@@ -169,6 +169,52 @@
       padding-bottom: 6rem;
     }
 
+    .hero-countdown {
+      position: absolute;
+      top: 7rem;
+      right: 3rem;
+      text-align: right;
+      opacity: 0;
+      animation: fadeUp 0.9s ease 0.8s forwards;
+    }
+
+    .hero-countdown-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-countdown-time {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .hero-countdown-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 0.6rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1.1rem;
+    }
+
+    .hero-countdown-landed {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--red);
+    }
+
     .hero-meta {
       font-family: 'DM Mono', monospace;
       font-size: 0.6rem;
@@ -385,6 +431,14 @@
         <a href="#poems">Read the poems</a>
       </div>
     </div>
+    <div class="hero-countdown" id="countdown-wrap">
+      <div class="hero-countdown-label">She lands in</div>
+      <div class="hero-countdown-time" id="countdown-time">—</div>
+      <div class="hero-countdown-sub" id="countdown-sub">
+        <span>days</span><span>hrs</span><span>min</span><span>sec</span>
+      </div>
+    </div>
+
     <div class="hero-right">
       <div class="hero-meta">
         V poems<br>
@@ -552,6 +606,35 @@
       });
     }, { threshold: 0.08 });
     poems.forEach(p => observer.observe(p));
+
+    // Countdown to Rocky landing — June 6 2026, 09:00 Lisbon time (UTC+1)
+    const landingTime = new Date('2026-06-06T09:00:00+01:00');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = landingTime - now;
+      const timeEl = document.getElementById('countdown-time');
+      const subEl = document.getElementById('countdown-sub');
+      const labelEl = document.querySelector('.hero-countdown-label');
+
+      if (diff <= 0) {
+        labelEl.textContent = '';
+        timeEl.innerHTML = '<span class="hero-countdown-landed">She\'s here ♡</span>';
+        subEl.style.display = 'none';
+        return;
+      }
+
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+
+      const pad = n => String(n).padStart(2, '0');
+      timeEl.textContent = `${pad(d)}:${pad(h)}:${pad(m)}:${pad(s)}`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>

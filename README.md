@@ -93,7 +93,7 @@ A private page accessible via a hidden button in the footer. Password is validat
 |-----|-------|
 | `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (Netlify dashboard) |
 
-Contains: five poems (accordion layout), a countdown to her arrival in Lisbon, and a **Films We've Watched** section with dual star ratings (T = Tiago in orange, R = Imy in pink). 16 films currently listed. The film(s) with the highest combined T+R score have their title rendered in soft gold (`top-rated` class → `.movie-title` colour `#D4A017`).
+Contains: five poems (accordion layout), a countdown to her arrival in Lisbon, and a **Films We've Watched** section with dual star ratings (T = Tiago in orange, R = Imy in pink). 16 films currently listed. Clicking a film title expands an IMDB-style description panel (director, synopsis, genre) below that row. The film(s) with the highest combined T+R score have their title in soft gold (`top-rated` class → `#D4A017`).
 
 ---
 
@@ -105,7 +105,7 @@ Contains: five poems (accordion layout), a countdown to her arrival in Lisbon, a
 3. Add to the relevant category page (e.g. `policy-research.html`)
 
 ### New film to the Atelier
-Open the Atelier and copy an existing `.movie-item` block, update number/title/year and star spans. Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`. After adding, recalculate combined T+R scores and add/move the `top-rated` class to the highest-scoring film(s) — this turns the title soft gold (`#D4A017`).
+Copy an existing `.movie-item` block — it contains a `.movie-item-row` (num / title / ratings grid) and a `.movie-desc-wrap` (the hidden description panel). Update the number, title, year, star spans, and description fields (director, synopsis, genre). Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`. After adding, recalculate combined T+R scores and move the `top-rated` class to the highest-scoring film(s).
 
 ### New venture
 Add a new `<a class="venture-item">` block in the **Ventures** section of `index.html`.

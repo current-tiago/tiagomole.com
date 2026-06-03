@@ -162,7 +162,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
   - **R** = Imy's rating (pink `#e8829a` stars)
   - Stars out of 5; half-stars supported via CSS `linear-gradient` clip trick
   - Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`
-  - Film(s) with the highest combined T+R score get class `top-rated` — only the title text is coloured soft gold (`#C9A55A`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
+  - Film(s) with the highest combined T+R score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
 
 **Current film list (in order):**
 
@@ -185,7 +185,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 | 15 | Ozark | 2017 | ★★★★☆ | ★★★★☆ | 8 |
 | 16 | The Holdovers | 2023 | ★½☆☆☆ | ★★★★★ | 6.5 |
 
-**To add a film**, open the Atelier and copy an existing `.movie-item` block, update the number, title, year, and star spans. After adding, recalculate totals and move the `top-rated` class to whichever film(s) score highest — this colours only the title in soft gold (`#C9A55A`), no background change.
+**To add a film**, open the Atelier and copy an existing `.movie-item` block, update the number, title, year, and star spans. After adding, recalculate totals and move the `top-rated` class to whichever film(s) score highest — this colours only the title in soft gold (`#D4A017`), no background change.
 
 ---
 

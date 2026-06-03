@@ -547,6 +547,168 @@
       letter-spacing: 0.01em;
     }
 
+    /* DRAW SECTION */
+    .draw-section {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .draw-wrap {
+      max-width: 400px;
+      margin: 3rem auto 0;
+    }
+
+    .lottery-ticket {
+      border: 1px solid rgba(13,13,13,0.18);
+      background: var(--cream);
+      position: relative;
+    }
+
+    @keyframes ticketShake {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      15%       { transform: translateX(-5px) rotate(-0.6deg); }
+      30%       { transform: translateX(5px)  rotate(0.6deg); }
+      45%       { transform: translateX(-4px) rotate(-0.4deg); }
+      60%       { transform: translateX(4px)  rotate(0.4deg); }
+      75%       { transform: translateX(-2px) rotate(-0.2deg); }
+      90%       { transform: translateX(2px)  rotate(0.1deg); }
+    }
+
+    .lottery-ticket.shaking { animation: ticketShake 0.55s ease; }
+
+    .ticket-header {
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed rgba(13,13,13,0.15);
+    }
+
+    .ticket-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .ticket-odds {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      color: var(--red);
+    }
+
+    .ticket-content {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      min-height: 148px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.6rem;
+      transition: opacity 0.22s ease;
+    }
+
+    .ticket-prompt {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .ticket-draw-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: none;
+      border: 1px solid rgba(13,13,13,0.28);
+      padding: 0.55rem 2.4rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .ticket-draw-btn:hover:not(:disabled) { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+    .ticket-draw-btn:disabled             { opacity: 0.4; cursor: default; }
+
+    .ticket-win-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .ticket-win-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.7;
+      max-width: 300px;
+      margin: 0;
+    }
+
+    .ticket-loss-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+
+    .ticket-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.48rem;
+      letter-spacing: 0.12em;
+      color: rgba(13,13,13,0.28);
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .draw-collection { margin-top: 2.5rem; }
+
+    .collection-item {
+      border-top: 1px solid var(--line);
+      padding: 1.4rem 0;
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 0 1.5rem;
+      align-items: baseline;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .collection-numeral {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--red);
+    }
+
+    .collection-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .draw-section { padding: 4rem 1.5rem; }
+      .draw-wrap { max-width: 100%; }
+    }
+
     /* LISBON MAP SECTION */
     .lisbon-section {
       padding: 6rem 3rem;
@@ -1160,6 +1322,26 @@
     </div>
   </div>
 
+  <div class="draw-section" id="daily-draw">
+    <div class="section-label">Something I Like About You</div>
+    <div class="draw-wrap">
+
+      <div class="lottery-ticket" id="lottery-ticket">
+        <div class="ticket-header">
+          <span class="ticket-tag">Daily Draw</span>
+          <span class="ticket-odds">1 in 4</span>
+        </div>
+        <div class="ticket-content" id="ticket-content">
+          <p class="ticket-prompt">Once each day, a chance<br>to find something out.</p>
+          <button class="ticket-draw-btn" id="ticket-draw-btn" onclick="runLottery()">Draw</button>
+        </div>
+      </div>
+
+      <div class="draw-collection" id="draw-collection"></div>
+
+    </div>
+  </div>
+
   <div class="lisbon-section">
     <div class="section-label">Lisbon</div>
     <div class="lisbon-map-wrap">
@@ -1242,6 +1424,112 @@
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    // ─── DAILY LOTTERY ───────────────────────────────────────────
+    const THINGS = [
+      "The way you read the last page of a book before deciding whether to start it.",
+      "How you hold a coffee cup with both hands, even in summer.",
+      "That you write in the margins of books as if in quiet argument with the author.",
+      "The particular shade your cheeks go when you laugh too hard.",
+      "How you make silence feel like something worth staying in.",
+      "That you always know which wine to order without consulting the list.",
+      "The very specific face you make when someone mispronounces a word.",
+      "How you fall asleep mid-sentence and carry on as though you never left.",
+      "That you take photographs of things most people simply walk past.",
+      "The way you say 'fine' when you mean the opposite, and expect me to notice.",
+      "How you remember the exact moment a film first made you feel something.",
+      "That you are the reason this page exists."
+    ];
+
+    const NUMERALS = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+
+    function getLottery()       { return JSON.parse(localStorage.getItem('rocky_lottery_v2') || '{}'); }
+    function saveLottery(data)  { localStorage.setItem('rocky_lottery_v2', JSON.stringify(data)); }
+    function todayStr()         { return new Date().toLocaleDateString('en-CA'); }
+
+    function initLottery() {
+      const state = getLottery();
+      renderCollection(state.seen || []);
+      if (state.lastDraw === todayStr()) {
+        state.lastWon ? showTicketWin(THINGS[state.lastIdx], state.seen.length, true)
+                      : showTicketLoss(true);
+      }
+    }
+
+    function runLottery() {
+      const state  = getLottery();
+      const today  = todayStr();
+      const seen   = state.seen || [];
+
+      const ticket = document.getElementById('lottery-ticket');
+      const btn    = document.getElementById('ticket-draw-btn');
+      if (btn) btn.disabled = true;
+      ticket.classList.add('shaking');
+      setTimeout(() => ticket.classList.remove('shaking'), 560);
+
+      setTimeout(() => {
+        if (Math.random() < 0.25) {
+          const unseen = THINGS.map((_,i) => i).filter(i => !seen.includes(i));
+          if (!unseen.length) {
+            saveLottery({ ...state, lastDraw: today, lastWon: false });
+            showTicketComplete(); return;
+          }
+          const idx     = unseen[Math.floor(Math.random() * unseen.length)];
+          const newSeen = [...seen, idx];
+          saveLottery({ lastDraw: today, lastWon: true, lastIdx: idx, seen: newSeen });
+          showTicketWin(THINGS[idx], newSeen.length, false);
+          renderCollection(newSeen);
+        } else {
+          saveLottery({ ...state, lastDraw: today, lastWon: false });
+          showTicketLoss(false);
+        }
+      }, 580);
+    }
+
+    function setTicketContent(html) {
+      const el = document.getElementById('ticket-content');
+      el.style.opacity = '0';
+      setTimeout(() => { el.innerHTML = html; el.style.opacity = '1'; }, 230);
+    }
+
+    function fmtDate() {
+      return new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+    }
+
+    function showTicketWin(text, count, repeat) {
+      setTicketContent(`
+        <span class="ticket-win-label">${repeat ? 'You found this today' : 'You won'}</span>
+        <p class="ticket-win-text">&ldquo;${text}&rdquo;</p>
+        <div class="ticket-meta">
+          <span>${fmtDate()}</span>
+          <span>${count} of ${THINGS.length} found</span>
+        </div>`);
+    }
+
+    function showTicketLoss(repeat) {
+      setTicketContent(`
+        <span class="ticket-loss-text">— not today —</span>
+        <p class="ticket-prompt">${repeat ? 'You&rsquo;ve already drawn today.' : 'Come back tomorrow.'}</p>
+        <div class="ticket-meta"><span>${fmtDate()}</span><span>&nbsp;</span></div>`);
+    }
+
+    function showTicketComplete() {
+      setTicketContent(`
+        <span class="ticket-win-label">Collection Complete</span>
+        <p class="ticket-win-text">You&rsquo;ve found everything.<br>Every single one.</p>`);
+    }
+
+    function renderCollection(seen) {
+      const el = document.getElementById('draw-collection');
+      if (!seen.length) { el.innerHTML = ''; return; }
+      el.innerHTML = seen.map((idx, pos) => `
+        <div class="collection-item" style="animation-delay:${pos * 0.07}s">
+          <span class="collection-numeral">${NUMERALS[pos] || pos + 1}</span>
+          <p class="collection-text">${THINGS[idx]}</p>
+        </div>`).join('');
+    }
+
+    initLottery();
   </script>
 </body>
 </html>

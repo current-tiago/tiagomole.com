@@ -1426,6 +1426,10 @@
     setInterval(updateCountdown, 1000);
 
     // ─── DAILY LOTTERY ───────────────────────────────────────────
+    // Source of truth is the server (lottery-draw Netlify function).
+    // localStorage is used only as a same-day cache so revisiting the
+    // page doesn't trigger a second network call.
+
     const THINGS = [
       "The mischievous grin when I catch you looking at me when we watch a movie.",
       "The way you try and hide your Smints consumption.",
@@ -1443,57 +1447,68 @@
       "When you get shy when I give you a compliment you didn't expect."
     ];
 
-    const NUMERALS = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+    const NUMERALS = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV'];
 
-    function getLottery()       { return JSON.parse(localStorage.getItem('rocky_lottery_v3') || '{}'); }
-    function saveLottery(data)  { localStorage.setItem('rocky_lottery_v3', JSON.stringify(data)); }
-    function todayStr()         { return new Date().toLocaleDateString('en-CA'); }
+    // v4: data shape changed — seenItems replaces seen/lastIdx
+    function getLottery()      { return JSON.parse(localStorage.getItem('rocky_lottery_v4') || '{}'); }
+    function saveLottery(data) { localStorage.setItem('rocky_lottery_v4', JSON.stringify(data)); }
+    function todayStr()        { return new Date().toLocaleDateString('en-CA'); }
 
     function initLottery() {
-      const state = getLottery();
-      renderCollection(state.seen || []);
-      if (state.lastDraw === todayStr()) {
-        state.lastWon ? showTicketWin(THINGS[state.lastIdx], state.seen.length, true)
+      const cache = getLottery();
+      // Always show whatever the cache has for the collection
+      renderCollection(cache.seenItems || []);
+      // If already drew today (from cache), restore the result without a network call
+      if (cache.lastDraw === todayStr()) {
+        cache.lastWon ? showTicketWin(THINGS[cache.itemIdx], true)
                       : showTicketLoss(true);
       }
     }
 
-    function runLottery() {
-      const state  = getLottery();
-      const today  = todayStr();
+    async function runLottery() {
+      const cache = getLottery();
+      const today = todayStr();
 
-      // Hard guard — already drew today, just show result again
-      if (state.lastDraw === today) {
-        state.lastWon ? showTicketWin(THINGS[state.lastIdx], false)
+      // Hard guard — serve from cache, never re-roll
+      if (cache.lastDraw === today) {
+        cache.lastWon ? showTicketWin(THINGS[cache.itemIdx], true)
                       : showTicketLoss(true);
         return;
       }
-
-      const seen   = state.seen || [];
 
       const ticket = document.getElementById('lottery-ticket');
       const btn    = document.getElementById('ticket-draw-btn');
       if (btn) btn.disabled = true;
       ticket.classList.add('shaking');
-      setTimeout(() => ticket.classList.remove('shaking'), 560);
 
-      setTimeout(() => {
-        if (Math.random() < 0.25) {
-          const unseen = THINGS.map((_,i) => i).filter(i => !seen.includes(i));
-          if (!unseen.length) {
-            saveLottery({ ...state, lastDraw: today, lastWon: false });
-            showTicketComplete(); return;
-          }
-          const idx     = unseen[Math.floor(Math.random() * unseen.length)];
-          const newSeen = [...seen, idx];
-          saveLottery({ lastDraw: today, lastWon: true, lastIdx: idx, seen: newSeen });
-          showTicketWin(THINGS[idx], newSeen.length, false);
-          renderCollection(newSeen);
-        } else {
-          saveLottery({ ...state, lastDraw: today, lastWon: false });
-          showTicketLoss(false);
-        }
-      }, 580);
+      let data;
+      try {
+        // Run the shake animation and the fetch in parallel
+        [, data] = await Promise.all([
+          new Promise(r => setTimeout(r, 600)),
+          fetch('/.netlify/functions/lottery-draw', { method: 'POST' })
+            .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+        ]);
+      } catch (e) {
+        // Network/function error — re-enable the button so they can try again
+        ticket.classList.remove('shaking');
+        if (btn) btn.disabled = false;
+        return;
+      }
+
+      ticket.classList.remove('shaking');
+
+      // Cache the result locally so revisits within the same day don't re-call
+      saveLottery({
+        lastDraw:  today,
+        lastWon:   data.won,
+        itemIdx:   data.itemIdx,
+        seenItems: data.seenItems,
+      });
+
+      renderCollection(data.seenItems);
+      data.won ? showTicketWin(THINGS[data.itemIdx], data.alreadyDrawn)
+               : showTicketLoss(data.alreadyDrawn);
     }
 
     function setTicketContent(html) {
@@ -1502,22 +1517,17 @@
       setTimeout(() => { el.innerHTML = html; el.style.opacity = '1'; }, 230);
     }
 
-    function fmtDate() {
-      return new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
-    }
-
-    function showTicketWin(text, count, repeat) {
+    // repeat = true when showing a cached result (no new win happening)
+    function showTicketWin(text, repeat) {
       setTicketContent(`
         <span class="ticket-win-label">${repeat ? 'You found this today' : 'You won'}</span>
-        <p class="ticket-win-text">&ldquo;${text}&rdquo;</p>
-        `);
+        <p class="ticket-win-text">&ldquo;${text}&rdquo;</p>`);
     }
 
     function showTicketLoss(repeat) {
       setTicketContent(`
         <span class="ticket-loss-text">— not today —</span>
-        <p class="ticket-prompt">${repeat ? 'You&rsquo;ve already drawn today.' : 'Come back tomorrow.'}</p>
-        `);
+        <p class="ticket-prompt">${repeat ? 'You&rsquo;ve already drawn today.' : 'Come back tomorrow.'}</p>`);
     }
 
     function showTicketComplete() {
@@ -1526,10 +1536,10 @@
         <p class="ticket-win-text">You&rsquo;ve found everything.<br>Every single one.</p>`);
     }
 
-    function renderCollection(seen) {
+    function renderCollection(seenItems) {
       const el = document.getElementById('draw-collection');
-      if (!seen.length) { el.innerHTML = ''; return; }
-      el.innerHTML = seen.map((idx, pos) => `
+      if (!seenItems || !seenItems.length) { el.innerHTML = ''; return; }
+      el.innerHTML = seenItems.map((idx, pos) => `
         <div class="collection-item" style="animation-delay:${pos * 0.07}s">
           <span class="collection-numeral">${NUMERALS[pos] || pos + 1}</span>
           <p class="collection-text">${THINGS[idx]}</p>

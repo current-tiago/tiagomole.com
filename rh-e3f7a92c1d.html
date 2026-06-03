@@ -364,7 +364,12 @@
 
     /* POEMS SECTION */
     .poems-section {
-      padding: 6rem 3rem;
+      padding: 6rem 0 8rem;
+    }
+
+    .poems-section > .section-label {
+      padding: 0 3rem;
+      margin-bottom: 5rem;
     }
 
     .section-label {
@@ -373,7 +378,6 @@
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--red);
-      margin-bottom: 4rem;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -386,16 +390,16 @@
       background: var(--line);
     }
 
-    /* POEM */
+    /* POEM — centred broadsheet column */
     .poem {
-      display: grid;
-      grid-template-columns: 4rem 1fr auto;
-      gap: 0 3rem;
-      padding: 4rem 0;
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 5rem 0 5rem;
       border-bottom: 1px solid var(--line);
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(28px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .poem.visible {
@@ -404,59 +408,53 @@
     }
 
     .poem-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding-top: 0.5rem;
+      display: none;
     }
 
     .poem-body {
-      max-width: 540px;
+      width: 100%;
     }
 
     .poem-title {
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
       font-weight: 300;
       font-style: italic;
-      line-height: 1.1;
+      line-height: 1.05;
       letter-spacing: -0.02em;
       color: var(--ink);
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
     }
 
     .poem-stanzas {
       display: flex;
       flex-direction: column;
-      gap: 1.8rem;
+      gap: 2.2rem;
     }
 
     .stanza p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 300;
-      line-height: 1.95;
+      line-height: 2.1;
       color: var(--ink-soft);
-      letter-spacing: 0.005em;
+      letter-spacing: 0.01em;
     }
 
     .poem-side {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-end;
-      padding-top: 0.5rem;
-      min-width: 80px;
+      display: none;
     }
 
     .poem-roman {
-      font-size: clamp(4rem, 6vw, 6rem);
+      position: absolute;
+      top: 4.2rem;
+      right: -5rem;
+      font-size: clamp(5rem, 8vw, 8rem);
       font-weight: 600;
       font-style: italic;
-      color: rgba(13,13,13,0.04);
+      color: rgba(13,13,13,0.045);
       line-height: 1;
       letter-spacing: -0.04em;
       user-select: none;
+      pointer-events: none;
     }
 
     /* FOOTER */
@@ -575,8 +573,8 @@
     <div class="section-label">Five Poems</div>
 
     <article class="poem">
-      <div class="poem-num">01</div>
       <div class="poem-body">
+        <span class="poem-roman">I</span>
         <h2 class="poem-title">Sample no.1</h2>
         <div class="poem-stanzas">
           <div class="stanza">
@@ -593,14 +591,11 @@
           </div>
         </div>
       </div>
-      <div class="poem-side">
-        <span class="poem-roman">I</span>
-      </div>
     </article>
 
     <article class="poem">
-      <div class="poem-num">02</div>
       <div class="poem-body">
+        <span class="poem-roman">II</span>
         <h2 class="poem-title">View of the Room</h2>
         <div class="poem-stanzas">
           <div class="stanza">
@@ -617,14 +612,11 @@
           </div>
         </div>
       </div>
-      <div class="poem-side">
-        <span class="poem-roman">II</span>
-      </div>
     </article>
 
     <article class="poem">
-      <div class="poem-num">03</div>
       <div class="poem-body">
+        <span class="poem-roman">III</span>
         <h2 class="poem-title">T-3 Weeks</h2>
         <div class="poem-stanzas">
           <div class="stanza">
@@ -653,14 +645,11 @@
           </div>
         </div>
       </div>
-      <div class="poem-side">
-        <span class="poem-roman">III</span>
-      </div>
     </article>
 
     <article class="poem">
-      <div class="poem-num">04</div>
       <div class="poem-body">
+        <span class="poem-roman">IV</span>
         <h2 class="poem-title">Studying</h2>
         <div class="poem-stanzas">
           <div class="stanza">
@@ -677,14 +666,11 @@
           </div>
         </div>
       </div>
-      <div class="poem-side">
-        <span class="poem-roman">IV</span>
-      </div>
     </article>
 
     <article class="poem">
-      <div class="poem-num">05</div>
       <div class="poem-body">
+        <span class="poem-roman">V</span>
         <h2 class="poem-title">Orpheus</h2>
         <div class="poem-stanzas">
           <div class="stanza">
@@ -700,9 +686,6 @@
             <p>At what I know to be mine</p>
           </div>
         </div>
-      </div>
-      <div class="poem-side">
-        <span class="poem-roman">V</span>
       </div>
     </article>
 

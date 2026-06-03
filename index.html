@@ -842,7 +842,7 @@
   <a id="now-playing" href="#" target="_blank" rel="noopener" style="display:none">
     <img id="np-art" src="" alt="album art">
     <div class="np-text">
-      <span class="np-label" id="np-label">Now Playing</span>
+      <span class="np-label" id="np-label">Tiago is playing</span>
       <span class="np-title" id="np-title"></span>
       <span class="np-artist" id="np-artist"></span>
     </div>
@@ -872,7 +872,7 @@
         const label = document.getElementById('np-label');
         if (data.isPlaying) {
           lastPlayed = { title: data.title, artist: data.artist, albumArt: data.albumArt, songUrl: data.songUrl };
-          label.textContent = 'Now Playing';
+          label.textContent = 'Tiago is playing';
           document.getElementById('np-title').textContent = data.title;
           document.getElementById('np-artist').textContent = data.artist;
           document.getElementById('np-art').src = data.albumArt;
@@ -895,6 +895,14 @@
     }
     fetchNowPlaying();
     setInterval(fetchNowPlaying, 30000);
+
+    // Re-fetch when returning to the page (bfcache restore or tab switch)
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) fetchNowPlaying();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') fetchNowPlaying();
+    });
 
     // Rocky's Home gate
     async function checkRocky() {

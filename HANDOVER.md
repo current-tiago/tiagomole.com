@@ -115,10 +115,9 @@ Private page for Rocky (Tiago's girlfriend). Accessed via a hidden password butt
 **Page contents:**
 - Hero: "Rocky's / *Home*" title, subtitle "A little section just for your eyes", countdown timer (top-right), meta block (bottom-right)
 - **Countdown**: ticks down to June 6 2026 09:00 Lisbon time (UTC+1). Shows "Arriving in Lisbon" once it hits zero.
-- **Five poems** — newspaper 3-column broadsheet layout (no scroll reveal, everything visible at once):
-  - Top row: I · Sample no.1 | II · View of the Room | IV · Studying
-  - Full-width feature row: III · T-3 Weeks (4 stanzas split across 3 columns)
-  - Bottom: V · Orpheus (left column)
+- **Five poems** — centred broadsheet column layout (600px max-width, centred on page, scroll-reveal fade-in):
+  - I · Sample no.1 · II · View of the Room · III · T-3 Weeks · IV · Studying · V · Orpheus
+  - Large italic title (up to 3.5rem), generous line-height verse text (1.2rem), ghost Roman numeral floating right of each title
 - **Films We've Watched** section: numbered list with dual star ratings
   - **T** = Tiago's rating (orange `#FF8800` stars)
   - **R** = Rocky's rating (pink `#e8829a` stars)

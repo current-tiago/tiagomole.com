@@ -80,7 +80,7 @@ A private page (`rh-e3f7a92c1d.html`) accessible via a hidden button in the foot
 |-----|-------|
 | `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (Netlify dashboard) |
 
-Contains: poems in a 3-column newspaper broadsheet layout, a countdown to her arrival in Lisbon, and a films-watched section with dual star ratings (T = Tiago in orange, R = Rocky in pink).
+Contains: poems in a centred broadsheet column layout, a countdown to her arrival in Lisbon, and a films-watched section with dual star ratings (T = Tiago in orange, R = Rocky in pink).
 
 ---
 

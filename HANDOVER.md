@@ -1,6 +1,6 @@
 # Handover File — tiagomole.com
 
-Last updated: 3 June 2026
+Last updated: 3 June 2026 (evening session)
 
 ---
 
@@ -38,6 +38,7 @@ All pages share the same design tokens and fonts:
 
 ```
 index.html                  — homepage
+europe-map.svg              — Western Europe map used in hero-right
 rockys-home.html            — poetry page (Rocky's Home)
 entrepreneurial-ventures.html
 historical-perspectives.html
@@ -57,7 +58,9 @@ netlify.toml
 ## Homepage (index.html)
 
 Sections in order:
-1. **Hero** — name, description, nav links to Writing / Ventures / Rocky's Home
+1. **Hero** — two-column layout split by a vertical line
+   - Left: name, eyebrow, description, CTA links
+   - Right: faded Western Europe map (`europe-map.svg`) with city markers, coordinates text overlaid at bottom-right
 2. **Writing** (`#writing`) — numbered list of 6 articles
 3. **Ventures** (`#ventures`) — Swapdesk + placeholder
 4. **About** (`#about`) — bio + meta grid
@@ -65,6 +68,32 @@ Sections in order:
 6. **Spotify widget** — fixed bottom-right, fetches from `/.netlify/functions/now-playing` every 30s
 
 Nav links: Writing · Ventures · Rocky's Home · About · Contact
+
+---
+
+## Europe map (europe-map.svg)
+
+Generated from **Natural Earth 10m cultural data** (`ne_10m_admin_0_countries.shp`).
+
+- **Projection**: Mercator
+- **Bounds**: 25°W → 35°E, 34°N → 71.5°N
+- **Countries**: 55 (Western + Central + Eastern Europe edge, Iceland, Greenland fringe, Russia/Belarus/Ukraine clipped to bounds)
+- **Highlights**: Portugal (`PRT`) and UK (`GBR`) filled slightly darker — countries Tiago is from
+- **City markers**: Lisbon, Barcelona, Frankfurt — cities Tiago has lived in — orange dot (`#FF8800`) + monospace label
+- **Style**: cream/ink palette, all borders stroke `rgba(13,13,13,0.18)`, fills very low opacity
+
+**To regenerate** (e.g. to add a new city or change highlight colours): run the Python script below. Requires `pip install pyshp` and the `ne_10m_admin_0_countries.shp` file from Natural Earth cultural dataset.
+
+Key known quirk: France and Norway have `ISO_A3 = -99` in Natural Earth — always fall back to `ADM0_A3` when `ISO_A3` is `-99`.
+
+**To add a city marker**: add a tuple to the `cities` list in the generation script:
+```python
+cities = [
+    ("Lisbon",    -9.14, 38.72, 4, -6),   # (name, lon, lat, label_dx, label_dy)
+    ("Barcelona",  2.17, 41.39, 4, -5),
+    ("Frankfurt",  8.68, 50.11, 4, -5),
+]
+```
 
 ---
 

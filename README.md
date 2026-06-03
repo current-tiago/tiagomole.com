@@ -19,6 +19,8 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 ```
 /
 ├── index.html                        # Main portfolio page (hero, writing, ventures, about)
+├── europe-map.svg                    # Western Europe map for hero-right panel
+├── rockys-home.html                  # Password-gated poetry page
 ├── work.html                         # Full article archive
 ├── entrepreneurial-ventures.html
 ├── historical-perspectives.html
@@ -42,6 +44,14 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 - **Fonts**: Cormorant Garamond (serif, headings) + DM Mono (metadata, labels)
 - **Colours**: Cream `#F5F0E8` background · Ink `#0D0D0D` · Orange accent `#FF8800`
 - **Style**: Editorial / high-end print — asymmetric grid, noise texture overlay, scroll reveals
+
+---
+
+## Europe Map
+
+The hero-right panel shows a faded SVG map of Western Europe (`europe-map.svg`), generated from Natural Earth 10m country data using a Mercator projection. Portugal and the UK are shaded slightly darker. Three cities are marked with orange dots: **Lisbon**, **Barcelona**, and **Frankfurt**.
+
+See `HANDOVER.md` for regeneration instructions and how to add new city markers.
 
 ---
 

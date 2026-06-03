@@ -1,6 +1,6 @@
 # Handover File — tiagomole.com
 
-Last updated: 3 June 2026
+Last updated: 3 June 2026 (evening)
 
 ---
 
@@ -115,7 +115,10 @@ Private page for Rocky (Tiago's girlfriend). Accessed via a hidden password butt
 **Page contents:**
 - Hero: "Rocky's / *Home*" title, subtitle "A little section just for your eyes", countdown timer (top-right), meta block (bottom-right)
 - **Countdown**: ticks down to June 6 2026 09:00 Lisbon time (UTC+1). Shows "Arriving in Lisbon" once it hits zero.
-- **Five poems** (scroll-reveal): Sample no.1 · View of the Room · T-3 Weeks · Studying · Orpheus
+- **Five poems** — newspaper 3-column broadsheet layout (no scroll reveal, everything visible at once):
+  - Top row: I · Sample no.1 | II · View of the Room | IV · Studying
+  - Full-width feature row: III · T-3 Weeks (4 stanzas split across 3 columns)
+  - Bottom: V · Orpheus (left column)
 - **Films We've Watched** section: numbered list with dual star ratings
   - **T** = Tiago's rating (orange `#FF8800` stars)
   - **R** = Rocky's rating (pink `#e8829a` stars)

@@ -12,7 +12,7 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 
 - Pure HTML/CSS/JS — no framework
 - Hosted on **Netlify** (auto-deploys from `main` branch on GitHub)
-- Serverless functions for Spotify integration and Rocky's Home auth
+- Serverless functions for Spotify integration and the Atelier auth
 
 ---
 
@@ -38,13 +38,13 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 ├── work.html                                   # Full article archive
 ├── write-article.html
 │
-├── [private]                                   # Rocky's Home (password-gated)
+├── [private]                                   # the Atelier (password-gated)
 │
 ├── netlify.toml                                # Netlify config (functions + redirect rules)
 ├── netlify/
 │   └── functions/
 │       ├── now-playing.js                      # Spotify "now playing" serverless function
-│       └── rocky-auth.js                       # Server-side password auth for Rocky's Home
+│       └── rocky-auth.js                       # Server-side password auth for the Atelier
 ├── HANDOVER.md                                 # Full context for new Claude sessions
 └── README.md
 ```
@@ -83,7 +83,7 @@ Fixed bottom-right widget. Shows current track as **"Tiago is playing"** or **"L
 
 ---
 
-## Rocky's Home
+## the Atelier
 
 A private page accessible via a hidden button in the footer. Password is validated server-side by `rocky-auth.js` — no credentials in public source.
 
@@ -104,8 +104,8 @@ Contains: five poems, a countdown to her arrival in Lisbon, and a **Films We've 
 2. Add a new `.writing-item` row in the **Writing** section of `index.html` (increment the number)
 3. Add to the relevant category page (e.g. `policy-research.html`)
 
-### New film to Rocky's Home
-Open Rocky's Home and copy an existing `.movie-item` block, update number/title/year and star spans. Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`.
+### New film to the Atelier
+Open the Atelier and copy an existing `.movie-item` block, update number/title/year and star spans. Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`.
 
 ### New venture
 Add a new `<a class="venture-item">` block in the **Ventures** section of `index.html`.

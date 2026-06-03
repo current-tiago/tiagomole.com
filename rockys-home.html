@@ -295,6 +295,49 @@
       user-select: none;
     }
 
+    /* FILMS SECTION */
+    .films-section {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .films-grid {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .film-item {
+      display: grid;
+      grid-template-columns: 3rem 1fr auto;
+      align-items: baseline;
+      gap: 0 2.5rem;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .film-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.52rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .film-title {
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+
+    .film-stars {
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .film-stars .filled { color: var(--red); }
+    .film-stars .empty  { color: rgba(13,13,13,0.18); }
+
     /* FOOTER */
     footer {
       padding: 3rem;
@@ -352,6 +395,8 @@
       .hero-year { display: none; }
 
       .poems-section { padding: 4rem 1.5rem; }
+      .films-section { padding: 4rem 1.5rem; }
+      .film-item { grid-template-columns: 2.5rem 1fr auto; gap: 0 1.5rem; }
 
       .poem {
         grid-template-columns: 3rem 1fr;
@@ -534,6 +579,103 @@
       </div>
     </article>
 
+  </div>
+
+  <div class="films-section">
+    <div class="section-label">Imy's Ratings</div>
+    <div class="films-grid">
+
+      <div class="film-item">
+        <span class="film-num">01</span>
+        <span class="film-title">Train Dreams</span>
+        <span class="film-stars"><span class="filled">★★★★★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">02</span>
+        <span class="film-title">Blair Witch Project</span>
+        <span class="film-stars"><span class="filled">★★★</span><span class="empty">★★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">03</span>
+        <span class="film-title">Creep</span>
+        <span class="film-stars"><span class="filled">★★★★</span><span class="empty">★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">04</span>
+        <span class="film-title">Creep 2?</span>
+        <span class="film-stars"><span class="filled">★★</span><span class="empty">★★★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">05</span>
+        <span class="film-title">Murder Mystery</span>
+        <span class="film-stars"><span class="filled">★★★</span><span class="empty">★★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">06</span>
+        <span class="film-title">Inglorious Basterds</span>
+        <span class="film-stars"><span class="filled">★★★★</span><span class="empty">★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">07</span>
+        <span class="film-title">Pursuit of Happiness</span>
+        <span class="film-stars"><span class="filled">★★★</span><span class="empty">★★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">08</span>
+        <span class="film-title">Nightcrawler</span>
+        <span class="film-stars"><span class="filled">★★★★</span><span class="empty">★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">09</span>
+        <span class="film-title">Oppenheimer</span>
+        <span class="film-stars"><span class="filled">★★★★</span><span class="empty">★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">10</span>
+        <span class="film-title">Project Hail Mary</span>
+        <span class="film-stars"><span class="filled">★★★★★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">11</span>
+        <span class="film-title">Spiderman</span>
+        <span class="film-stars"><span class="filled">★★★</span><span class="empty">★★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">12</span>
+        <span class="film-title">Whiplash</span>
+        <span class="film-stars"><span class="filled">★★★★</span><span class="empty">★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">13</span>
+        <span class="film-title">The Taking of Deborah Logan</span>
+        <span class="film-stars"><span class="filled">★★★★</span><span class="empty">★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">14</span>
+        <span class="film-title">Ratatouille</span>
+        <span class="film-stars"><span class="filled">★★★★★</span></span>
+      </div>
+
+      <div class="film-item">
+        <span class="film-num">15</span>
+        <span class="film-title">Ozark</span>
+        <span class="film-stars"><span class="filled">★★★★</span><span class="empty">★</span></span>
+      </div>
+
+    </div>
   </div>
 
   <footer>

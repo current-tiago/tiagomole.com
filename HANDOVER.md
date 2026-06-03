@@ -1,6 +1,6 @@
 # Handover File — tiagomole.com
 
-Last updated: 3 June 2026 (evening)
+Last updated: 3 June 2026 (evening, session 2)
 
 ---
 
@@ -28,7 +28,7 @@ All pages share the same design tokens and fonts:
 | `--muted` | `#8A8070` |
 | `--line` | `rgba(13,13,13,0.12)` — dividers |
 
-**Fonts:** Cormorant Garamond (serif display) + DM Mono (labels, nav, mono elements). Both loaded from Google Fonts.
+**Fonts:** Cormorant Garamond (serif display + body) + DM Mono (labels, nav, mono elements). Both loaded from Google Fonts.
 
 **Shared patterns:** noise texture overlay on `body::before`, scroll-reveal via `IntersectionObserver` (`.reveal` → `.visible`), fixed header with gradient fade.
 
@@ -37,21 +37,31 @@ All pages share the same design tokens and fonts:
 ## File structure
 
 ```
-index.html                        — homepage
-europe-map.svg                    — Western Europe SVG map used in hero-right
-rh-e3f7a92c1d.html                — Rocky's Home (password-gated, secret filename)
-entrepreneurial-ventures.html
-historical-perspectives.html
-how-poland-caused-german-unification.html
+index.html                                — homepage
+europe-map.svg                            — Western Europe SVG map used in hero-right
+
+— Full article pages (word-for-word from source material) —
 how-to-be-a-dictator.html
+how-poland-caused-german-unification.html
+antiqua-et-nova.html                      — The Church's Teachings on AI (Policy Research)
+argentina-on-the-rise.html                — Milei & Austrian economics (Macroeconomic Analysis)
+
+— Category index pages —
+historical-perspectives.html
 macroeconomic-analysis.html
 policy-research.html
-work.html
+entrepreneurial-ventures.html
+
+work.html                                 — article archive
 write-article.html
+
+rh-e3f7a92c1d.html                        — Rocky's Home (password-gated, secret filename)
+rockys-home.html                          — public stub, returns 404 via netlify.toml
+
 netlify/functions/
-  now-playing.js                  — Spotify serverless function
-  rocky-auth.js                   — Server-side password auth for Rocky's Home
-netlify.toml                      — Functions directory + redirect rules
+  now-playing.js                          — Spotify serverless function
+  rocky-auth.js                           — server-side password auth for Rocky's Home
+netlify.toml                              — functions directory + redirect rules
 ```
 
 ---
@@ -62,12 +72,37 @@ Sections in order:
 1. **Hero** — two-column layout split by a vertical line
    - Left: name, eyebrow, description, CTA links
    - Right: faded Western Europe SVG map with city markers, coordinates at bottom-right
-2. **Writing** (`#writing`) — numbered horizontal list (01–06), each row: number · tag · title · description
+2. **Writing** (`#writing`) — numbered horizontal list (01–08), each row: number · tag · title · description
+   - 01 How to Be a Dictator · 02 How Poland Caused German Unification · 03 Macroeconomic Analysis · 04 Historical Perspectives · 05 Policy Research · 06 Entrepreneurial Ventures · 07 Antiqua et Nova · 08 Argentina on the Rise
 3. **Ventures** (`#ventures`) — Swapdesk + placeholder
 4. **About** (`#about`) — bio + meta grid
 5. **Footer**
-6. **Spotify widget** — fixed bottom-right, always expanded, fetches every 30s. Shows "Now Playing" or "Last Played" (retains last track when paused)
-7. **Rocky's Home modal** — hidden password button in footer triggers overlay; password validated server-side via `rocky-auth` function
+6. **Spotify widget** — fixed bottom-right, label says "Tiago is playing" (active) or "Last Played" (paused). Fetches every 30s, also refreshes on `pageshow` (bfcache restore) and `visibilitychange` (tab focus) to prevent stale data.
+7. **Rocky's Home modal** — hidden password button below footer triggers overlay; password validated server-side via `rocky-auth` function
+
+---
+
+## Article pages
+
+All article pages use the same template design:
+- Fixed header: TBM logo + nav (Writing / Ventures / About / Contact)
+- Article hero: orange tag eyebrow, large serif title, italic subtitle, date
+- Article body: max-width 680px, 1.2rem Cormorant body text, drop cap on first paragraph, section headers in DM Mono orange, 2rem paragraph spacing
+- Footer bar: ← All Writing back link
+- Page footer
+
+**Important:** Articles should be reproduced **word for word** from source material. Only remove student numbers, academic metadata, and purely presentational layout artefacts (e.g. PowerPoint column labels). Do not rewrite or paraphrase.
+
+### Current full articles
+| File | Title | Category | Source |
+|------|-------|----------|--------|
+| `how-to-be-a-dictator.html` | How to Be a Dictator | History · Politics | Medium (Dec 2024) |
+| `how-poland-caused-german-unification.html` | How Poland Caused German Unification | History · Europe | Medium (Nov 2024) |
+| `antiqua-et-nova.html` | Antiqua et Nova: The Church's Teachings on AI | Policy · Technology | University assignment (2025) |
+| `argentina-on-the-rise.html` | Argentina on the Rise | Economics · Latin America | PPTX presentation (Mar 2025) |
+
+### Category pages
+Each category page lists its articles (active items are `<a>` tags; upcoming ones are `.placeholder` divs with `opacity: 0.35; pointer-events: none`).
 
 ---
 
@@ -97,7 +132,7 @@ cities = [
 
 ## Rocky's Home (rh-e3f7a92c1d.html)
 
-Private page for Rocky (Tiago's girlfriend). Accessed via a hidden password button in the footer of the main site.
+Private page for Rocky (Tiago's girlfriend, also referred to as Imy). Accessed via a hidden password button in the footer of the main site.
 
 **Security model:**
 - The real file is `rh-e3f7a92c1d.html` (unguessable filename)
@@ -118,14 +153,36 @@ Private page for Rocky (Tiago's girlfriend). Accessed via a hidden password butt
 - **Five poems** — centred broadsheet column layout (600px max-width, centred on page, scroll-reveal fade-in):
   - I · Sample no.1 · II · View of the Room · III · T-3 Weeks · IV · Studying · V · Orpheus
   - Large italic title (up to 3.5rem), generous line-height verse text (1.2rem), ghost Roman numeral floating right of each title
-- **Films We've Watched** section: numbered list with dual star ratings
+- **Films We've Watched** section — numbered list of 17 films with dual star ratings:
   - **T** = Tiago's rating (orange `#FF8800` stars)
-  - **R** = Rocky's rating (pink `#e8829a` stars)
-  - Stars out of 5, half stars supported via CSS gradient trick
-  - Current films: Project Hail Mary · Inglourious Basterds · Nightcrawler · The Amazing Spider-Man · Whiplash · The Holdovers · The Disappearance of Hannah Grace
-  - **Note:** Most ratings are placeholders — update with real scores when provided
+  - **R** = Rocky/Imy's rating (pink `#e8829a` stars)
+  - Stars out of 5; half-stars supported via CSS `linear-gradient` clip trick
+  - Films without a T rating only show the R row
+  - Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`
 
-**To add a film**, copy an existing `.movie-item` block in `rh-e3f7a92c1d.html` and update the number, title, year, and star spans. Star classes: `star-t` (orange), `star-r` (pink), `star-empty`, `star-half-t`, `star-half-r`.
+**Current film list (in order):**
+
+| # | Title | Year | T | R |
+|---|-------|------|---|---|
+| 01 | Train Dreams | 2022 | — | ★★★★★ |
+| 02 | Blair Witch Project | 1999 | — | ★★★☆☆ |
+| 03 | Creep | 2014 | — | ★★★★☆ |
+| 04 | Creep 2 | 2017 | — | ★★☆☆☆ |
+| 05 | Murder Mystery | 2019 | — | ★★★☆☆ |
+| 06 | Inglourious Basterds | 2009 | ★★★★★ | ★★★★☆ |
+| 07 | Pursuit of Happyness | 2006 | — | ★★★☆☆ |
+| 08 | Nightcrawler | 2014 | ★★★★★ | ★★★★☆ |
+| 09 | Oppenheimer | 2023 | — | ★★★★☆ |
+| 10 | Project Hail Mary | 2025 | ★★★★★ | ★★★★★ |
+| 11 | The Amazing Spider-Man | 2012 | ★★★½☆ | ★★★☆☆ |
+| 12 | Whiplash | 2014 | ★★★★★ | ★★★★☆ |
+| 13 | The Taking of Deborah Logan | 2014 | — | ★★★★☆ |
+| 14 | Ratatouille | 2007 | — | ★★★★★ |
+| 15 | Ozark | 2017 | — | ★★★★☆ |
+| 16 | The Holdovers | 2023 | ★★★★☆ | ★★★★★ |
+| 17 | The Disappearance of Hannah Grace | 2018 | ★★½☆☆ | ★★★½☆ |
+
+**To add a film**, copy an existing `.movie-item` block in `rh-e3f7a92c1d.html` and update the number, title, year, and star spans.
 
 ---
 
@@ -137,8 +194,10 @@ Netlify serverless function at `netlify/functions/now-playing.js`.
 - Returns `{ isPlaying, title, artist, albumArt, songUrl }` or `{ isPlaying: false }`
 - No debug responses — all error paths return clean `{ isPlaying: false }`
 - CORS locked to `https://tiagomole.com` only
-- Widget is always expanded (no hover resize)
-- Shows "Last Played" with last track when paused; hides only if no track has played this session
+- Widget label reads **"Tiago is playing"** when active, **"Last Played"** when paused
+- Fetches every 30s via `setInterval`, also re-fetches immediately on:
+  - `pageshow` with `event.persisted === true` (browser back/forward bfcache restore)
+  - `visibilitychange` when `document.visibilityState === 'visible'` (tab switch)
 
 **Environment variables** (set in Netlify dashboard — never commit):
 
@@ -187,6 +246,6 @@ git push
 
 ## Outstanding TODOs
 
-- [ ] Update film star ratings with accurate scores from Tiago and Rocky
-- [ ] Consider adding more content sections to Rocky's Home (photos, letter, places to visit together)
+- [ ] T ratings missing for 10 films in Rocky's Home — fill in when Tiago has watched them
 - [ ] Writing section on homepage — scroll reveal animations can be slow, may want to tune timing
+- [ ] Consider adding more content sections to Rocky's Home (photos, letter, places to visit together)

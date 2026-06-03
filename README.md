@@ -18,23 +18,33 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 
 ```
 /
-├── index.html                        # Main portfolio page (hero, writing, ventures, about)
-├── europe-map.svg                    # Western Europe SVG map for hero-right panel
-├── rh-e3f7a92c1d.html               # Rocky's Home (password-gated, private)
-├── work.html                         # Full article archive
-├── entrepreneurial-ventures.html
-├── historical-perspectives.html
-├── how-poland-caused-german-unification.html
+├── index.html                                  # Main portfolio page (hero, writing, ventures, about)
+├── europe-map.svg                              # Western Europe SVG map for hero-right panel
+│
+├── — Full article pages —
 ├── how-to-be-a-dictator.html
+├── how-poland-caused-german-unification.html
+├── antiqua-et-nova.html                        # The Church's Teachings on AI (Policy Research)
+├── argentina-on-the-rise.html                  # Milei & Austrian economics (Macroeconomic Analysis)
+│
+├── — Category index pages —
+├── historical-perspectives.html
 ├── macroeconomic-analysis.html
 ├── policy-research.html
+├── entrepreneurial-ventures.html
+│
+├── work.html                                   # Full article archive
 ├── write-article.html
-├── netlify.toml                      # Netlify config (functions + redirect rules)
+│
+├── rh-e3f7a92c1d.html                         # Rocky's Home (password-gated, private)
+├── rockys-home.html                            # Public redirect stub (returns 404 via netlify.toml)
+│
+├── netlify.toml                                # Netlify config (functions + redirect rules)
 ├── netlify/
 │   └── functions/
-│       ├── now-playing.js            # Spotify "now playing" serverless function
-│       └── rocky-auth.js             # Server-side password auth for Rocky's Home
-├── HANDOVER.md                       # Full context for new Claude sessions
+│       ├── now-playing.js                      # Spotify "now playing" serverless function
+│       └── rocky-auth.js                       # Server-side password auth for Rocky's Home
+├── HANDOVER.md                                 # Full context for new Claude sessions
 └── README.md
 ```
 
@@ -42,9 +52,11 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 
 ## Design
 
-- **Fonts**: Cormorant Garamond (serif, headings) + DM Mono (metadata, labels)
+- **Fonts**: Cormorant Garamond (serif, headings/body) + DM Mono (metadata, labels, nav)
 - **Colours**: Cream `#F5F0E8` background · Ink `#0D0D0D` · Orange accent `#FF8800`
 - **Style**: Editorial / high-end print — asymmetric grid, noise texture overlay, scroll reveals
+
+All article pages share the same template: fixed header, hero with orange tag + large serif title, article body with drop cap, section headers in DM Mono orange, footer nav.
 
 ---
 
@@ -58,7 +70,7 @@ See `HANDOVER.md` for regeneration instructions and how to add new city markers.
 
 ## Spotify "Now Playing" Widget
 
-Fixed bottom-right widget — always expanded. Shows current track or "Last Played" when paused. Calls `/.netlify/functions/now-playing` every 30 seconds.
+Fixed bottom-right widget. Shows current track as **"Tiago is playing"** or **"Last Played"** when paused. Calls `/.netlify/functions/now-playing` every 30 seconds, and also refreshes immediately on tab focus and browser back-navigation (bfcache restore).
 
 **Env vars required in Netlify:**
 
@@ -72,7 +84,7 @@ Fixed bottom-right widget — always expanded. Shows current track or "Last Play
 
 ## Rocky's Home
 
-A private page (`rh-e3f7a92c1d.html`) accessible via a hidden button in the footer. Password is validated server-side by `rocky-auth.js` — no credentials in public source. The old URL `/rockys-home.html` returns 404.
+A private page (`rh-e3f7a92c1d.html`) accessible via a hidden button in the footer. Password is validated server-side by `rocky-auth.js` — no credentials in public source.
 
 **Env var required:**
 
@@ -80,16 +92,16 @@ A private page (`rh-e3f7a92c1d.html`) accessible via a hidden button in the foot
 |-----|-------|
 | `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (Netlify dashboard) |
 
-Contains: poems in a centred broadsheet column layout, a countdown to her arrival in Lisbon, and a films-watched section with dual star ratings (T = Tiago in orange, R = Rocky in pink).
+Contains: five poems, a countdown to her arrival in Lisbon, and a **Films We've Watched** section with dual star ratings (T = Tiago in orange, R = Rocky/Imy in pink). 17 films currently listed.
 
 ---
 
 ## Adding Content
 
 ### New article
-1. Create a new `.html` file (copy an existing one as a template)
-2. Add a new `.movie-item` row in the **Writing** section of `index.html`
-3. Update number, tag, title, and description
+1. Create a new `.html` file (copy `how-to-be-a-dictator.html` as template)
+2. Add a new `.writing-item` row in the **Writing** section of `index.html` (increment the number)
+3. Add to the relevant category page (e.g. `policy-research.html`)
 
 ### New film to Rocky's Home
 Copy an existing `.movie-item` block in `rh-e3f7a92c1d.html`, update number/title/year and star spans. Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`.

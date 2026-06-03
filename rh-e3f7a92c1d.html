@@ -369,7 +369,7 @@
 
     .poems-section > .section-label {
       padding: 0 3rem;
-      margin-bottom: 5rem;
+      margin-bottom: 3rem;
     }
 
     .section-label {
@@ -390,45 +390,84 @@
       background: var(--line);
     }
 
-    /* POEM — centred broadsheet column */
-    .poem {
-      position: relative;
+    /* POEM ACCORDION */
+    .poem-accordion {
       max-width: 600px;
       margin: 0 auto;
-      padding: 5rem 0 5rem;
       border-bottom: 1px solid var(--line);
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
-    .poem.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .poem-num {
-      display: none;
-    }
-
-    .poem-body {
+    .poem-header {
       width: 100%;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.8rem 0;
+      cursor: pointer;
+      background: none;
+      border: none;
+      text-align: left;
+      gap: 2rem;
+    }
+
+    .poem-header-left {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+    }
+
+    .poem-numeral {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      flex-shrink: 0;
     }
 
     .poem-title {
-      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
       font-weight: 300;
       font-style: italic;
-      line-height: 1.05;
+      line-height: 1.1;
       letter-spacing: -0.02em;
       color: var(--ink);
-      margin-bottom: 3rem;
+      transition: color 0.2s;
+    }
+
+    .poem-header:hover .poem-title { color: var(--red); }
+
+    .poem-toggle {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+
+    .poem-accordion.open .poem-toggle { color: var(--red); }
+
+    .poem-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.55s ease;
+    }
+
+    .poem-accordion.open .poem-content {
+      grid-template-rows: 1fr;
+    }
+
+    .poem-content-inner {
+      overflow: hidden;
     }
 
     .poem-stanzas {
       display: flex;
       flex-direction: column;
       gap: 2.2rem;
+      padding-bottom: 3rem;
     }
 
     .stanza p {
@@ -437,24 +476,6 @@
       line-height: 2.1;
       color: var(--ink-soft);
       letter-spacing: 0.01em;
-    }
-
-    .poem-side {
-      display: none;
-    }
-
-    .poem-roman {
-      position: absolute;
-      top: 4.2rem;
-      right: -5rem;
-      font-size: clamp(5rem, 8vw, 8rem);
-      font-weight: 600;
-      font-style: italic;
-      color: rgba(13,13,13,0.045);
-      line-height: 1;
-      letter-spacing: -0.04em;
-      user-select: none;
-      pointer-events: none;
     }
 
     /* FOOTER */
@@ -514,12 +535,7 @@
       .hero-year { display: none; }
 
       .poems-section { padding: 4rem 1.5rem; }
-
-      .poem {
-        grid-template-columns: 3rem 1fr;
-        gap: 0 1.5rem;
-      }
-      .poem-side { display: none; }
+      .poem-accordion { max-width: 100%; }
 
       footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
     }
@@ -535,7 +551,7 @@
   <div class="hero">
     <div class="hero-line"></div>
     <div class="hero-left">
-      <div class="hero-eyebrow">Poetry · Tiago Branco Mole</div>
+      <div class="hero-eyebrow">For Imy · from Tiago</div>
       <h1 class="hero-title">
         Rocky's<br>
         <em>Home</em>
@@ -544,7 +560,7 @@
         A little section just for your eyes.
       </p>
       <div class="hero-cta">
-        <a href="#poems">Read the poems</a>
+        <a href="#poems">Poems</a>&ensp;&ensp;<a href="#movies">Films</a>
       </div>
     </div>
     <div class="hero-countdown" id="countdown-wrap">
@@ -558,12 +574,10 @@
     <div class="hero-right">
       <div class="hero-meta">
         V poems<br>
+        XVII films<br>
         <span>2024 — 2025</span>
         ——<br>
-        Observation<br>
-        Memory<br>
-        ——<br>
-        <span>Poetry</span>
+        <span>For you</span>
       </div>
     </div>
     <div class="hero-year">MMXXVI</div>
@@ -572,118 +586,153 @@
   <div class="poems-section" id="poems">
     <div class="section-label">Five Poems</div>
 
-    <article class="poem">
-      <div class="poem-body">
-        <span class="poem-roman">I</span>
-        <h2 class="poem-title">Sample no.1</h2>
-        <div class="poem-stanzas">
-          <div class="stanza">
-            <p>Light across the hallway floor</p>
-            <p>Emerging from an oft-closed door</p>
-            <p>Nervous now it is to shine</p>
-            <p>So brightly yet it awaits the time</p>
-          </div>
-          <div class="stanza">
-            <p>A picture yet not fully known</p>
-            <p>Reflections of a thought ungrown</p>
-            <p>The time grows close at hand</p>
-            <p>Imagine the light bouncing off the sand</p>
+    <article class="poem-accordion">
+      <button class="poem-header" aria-expanded="false" onclick="togglePoem(this)">
+        <div class="poem-header-left">
+          <span class="poem-numeral">I</span>
+          <h2 class="poem-title">Sample no.1</h2>
+        </div>
+        <span class="poem-toggle">+</span>
+      </button>
+      <div class="poem-content">
+        <div class="poem-content-inner">
+          <div class="poem-stanzas">
+            <div class="stanza">
+              <p>Light across the hallway floor</p>
+              <p>Emerging from an oft-closed door</p>
+              <p>Nervous now it is to shine</p>
+              <p>So brightly yet it awaits the time</p>
+            </div>
+            <div class="stanza">
+              <p>A picture yet not fully known</p>
+              <p>Reflections of a thought ungrown</p>
+              <p>The time grows close at hand</p>
+              <p>Imagine the light bouncing off the sand</p>
+            </div>
           </div>
         </div>
       </div>
     </article>
 
-    <article class="poem">
-      <div class="poem-body">
-        <span class="poem-roman">II</span>
-        <h2 class="poem-title">View of the Room</h2>
-        <div class="poem-stanzas">
-          <div class="stanza">
-            <p>Records dot your blanked out wall</p>
-            <p>You clear your breathe, stutter and stall</p>
-            <p>How clearly now I can see</p>
-            <p>The thoughts within that seek to flee</p>
-          </div>
-          <div class="stanza">
-            <p>The vinyl turns, the words fall out</p>
-            <p>How red you turn a rose could sprout</p>
-            <p>And yet it renders me stuck and frozen</p>
-            <p>How glad I am of the path i've chosen</p>
+    <article class="poem-accordion">
+      <button class="poem-header" aria-expanded="false" onclick="togglePoem(this)">
+        <div class="poem-header-left">
+          <span class="poem-numeral">II</span>
+          <h2 class="poem-title">View of the Room</h2>
+        </div>
+        <span class="poem-toggle">+</span>
+      </button>
+      <div class="poem-content">
+        <div class="poem-content-inner">
+          <div class="poem-stanzas">
+            <div class="stanza">
+              <p>Records dot your blanked out wall</p>
+              <p>You clear your breathe, stutter and stall</p>
+              <p>How clearly now I can see</p>
+              <p>The thoughts within that seek to flee</p>
+            </div>
+            <div class="stanza">
+              <p>The vinyl turns, the words fall out</p>
+              <p>How red you turn a rose could sprout</p>
+              <p>And yet it renders me stuck and frozen</p>
+              <p>How glad I am of the path i've chosen</p>
+            </div>
           </div>
         </div>
       </div>
     </article>
 
-    <article class="poem">
-      <div class="poem-body">
-        <span class="poem-roman">III</span>
-        <h2 class="poem-title">T-3 Weeks</h2>
-        <div class="poem-stanzas">
-          <div class="stanza">
-            <p>An orange hue colours your face</p>
-            <p>As red nails flow across the place</p>
-            <p>Pink lips flash as if to chase</p>
-            <p>The yellow Smints you lost to space</p>
-          </div>
-          <div class="stanza">
-            <p>Blue eyes I profess I use to gaze</p>
-            <p>Upon the brown hair adorning your pretty face</p>
-            <p>Green with envy I admit to have been</p>
-            <p>At the golden bracelet adorning your skin</p>
-          </div>
-          <div class="stanza">
-            <p>How gracefully smoothly your mouth contorts</p>
-            <p>Smiling already at the forthcoming retort</p>
-            <p>Almost proud enough to say</p>
-            <p>With your words you've kept me at bay</p>
-          </div>
-          <div class="stanza">
-            <p>How happily now you sit and stare</p>
-            <p>When months before you would resort to glare</p>
-            <p>At the silence passing between your fingers</p>
-            <p>It feels as if the words now linger</p>
+    <article class="poem-accordion">
+      <button class="poem-header" aria-expanded="false" onclick="togglePoem(this)">
+        <div class="poem-header-left">
+          <span class="poem-numeral">III</span>
+          <h2 class="poem-title">T-3 Weeks</h2>
+        </div>
+        <span class="poem-toggle">+</span>
+      </button>
+      <div class="poem-content">
+        <div class="poem-content-inner">
+          <div class="poem-stanzas">
+            <div class="stanza">
+              <p>An orange hue colours your face</p>
+              <p>As red nails flow across the place</p>
+              <p>Pink lips flash as if to chase</p>
+              <p>The yellow Smints you lost to space</p>
+            </div>
+            <div class="stanza">
+              <p>Blue eyes I profess I use to gaze</p>
+              <p>Upon the brown hair adorning your pretty face</p>
+              <p>Green with envy I admit to have been</p>
+              <p>At the golden bracelet adorning your skin</p>
+            </div>
+            <div class="stanza">
+              <p>How gracefully smoothly your mouth contorts</p>
+              <p>Smiling already at the forthcoming retort</p>
+              <p>Almost proud enough to say</p>
+              <p>With your words you've kept me at bay</p>
+            </div>
+            <div class="stanza">
+              <p>How happily now you sit and stare</p>
+              <p>When months before you would resort to glare</p>
+              <p>At the silence passing between your fingers</p>
+              <p>It feels as if the words now linger</p>
+            </div>
           </div>
         </div>
       </div>
     </article>
 
-    <article class="poem">
-      <div class="poem-body">
-        <span class="poem-roman">IV</span>
-        <h2 class="poem-title">Studying</h2>
-        <div class="poem-stanzas">
-          <div class="stanza">
-            <p>Not every smile, a thought</p>
-            <p>Yet not every glance is caught</p>
-            <p>Words unspoken but still persist</p>
-            <p>Dreams of mine I can't resist</p>
-          </div>
-          <div class="stanza">
-            <p>Even as I sit and write</p>
-            <p>My mind is occupied by a sight</p>
-            <p>Hands in motion, looks exchanged</p>
-            <p>Clothes quickly become estranged</p>
+    <article class="poem-accordion">
+      <button class="poem-header" aria-expanded="false" onclick="togglePoem(this)">
+        <div class="poem-header-left">
+          <span class="poem-numeral">IV</span>
+          <h2 class="poem-title">Studying</h2>
+        </div>
+        <span class="poem-toggle">+</span>
+      </button>
+      <div class="poem-content">
+        <div class="poem-content-inner">
+          <div class="poem-stanzas">
+            <div class="stanza">
+              <p>Not every smile, a thought</p>
+              <p>Yet not every glance is caught</p>
+              <p>Words unspoken but still persist</p>
+              <p>Dreams of mine I can't resist</p>
+            </div>
+            <div class="stanza">
+              <p>Even as I sit and write</p>
+              <p>My mind is occupied by a sight</p>
+              <p>Hands in motion, looks exchanged</p>
+              <p>Clothes quickly become estranged</p>
+            </div>
           </div>
         </div>
       </div>
     </article>
 
-    <article class="poem">
-      <div class="poem-body">
-        <span class="poem-roman">V</span>
-        <h2 class="poem-title">Orpheus</h2>
-        <div class="poem-stanzas">
-          <div class="stanza">
-            <p>I never understood Orpheus</p>
-            <p>And his inability to parry the gaze</p>
-            <p>Of the one he found himself attached to</p>
-            <p>In life and life again before the death</p>
-          </div>
-          <div class="stanza">
-            <p>But now I recognise the thoughts he wondered</p>
-            <p>Imagining his woman torn asunder</p>
-            <p>He had to look one last time</p>
-            <p>At what I know to be mine</p>
+    <article class="poem-accordion">
+      <button class="poem-header" aria-expanded="false" onclick="togglePoem(this)">
+        <div class="poem-header-left">
+          <span class="poem-numeral">V</span>
+          <h2 class="poem-title">Orpheus</h2>
+        </div>
+        <span class="poem-toggle">+</span>
+      </button>
+      <div class="poem-content">
+        <div class="poem-content-inner">
+          <div class="poem-stanzas">
+            <div class="stanza">
+              <p>I never understood Orpheus</p>
+              <p>And his inability to parry the gaze</p>
+              <p>Of the one he found himself attached to</p>
+              <p>In life and life again before the death</p>
+            </div>
+            <div class="stanza">
+              <p>But now I recognise the thoughts he wondered</p>
+              <p>Imagining his woman torn asunder</p>
+              <p>He had to look one last time</p>
+              <p>At what I know to be mine</p>
+            </div>
           </div>
         </div>
       </div>
@@ -970,7 +1019,26 @@
   </footer>
 
   <script>
-    const revealEls = document.querySelectorAll('.poem, .movie-item');
+    // Accordion
+    function togglePoem(btn) {
+      const accordion = btn.closest('.poem-accordion');
+      const isOpen = accordion.classList.contains('open');
+
+      document.querySelectorAll('.poem-accordion.open').forEach(a => {
+        a.classList.remove('open');
+        a.querySelector('.poem-header').setAttribute('aria-expanded', 'false');
+        a.querySelector('.poem-toggle').textContent = '+';
+      });
+
+      if (!isOpen) {
+        accordion.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.querySelector('.poem-toggle').textContent = '×';
+      }
+    }
+
+    // Film scroll reveal
+    const revealEls = document.querySelectorAll('.movie-item');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {

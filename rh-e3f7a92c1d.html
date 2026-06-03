@@ -1502,17 +1502,14 @@
       setTicketContent(`
         <span class="ticket-win-label">${repeat ? 'You found this today' : 'You won'}</span>
         <p class="ticket-win-text">&ldquo;${text}&rdquo;</p>
-        <div class="ticket-meta">
-          <span>${fmtDate()}</span>
-          <span>&nbsp;</span>
-        </div>`);
+        `);
     }
 
     function showTicketLoss(repeat) {
       setTicketContent(`
         <span class="ticket-loss-text">— not today —</span>
         <p class="ticket-prompt">${repeat ? 'You&rsquo;ve already drawn today.' : 'Come back tomorrow.'}</p>
-        <div class="ticket-meta"><span>${fmtDate()}</span><span>&nbsp;</span></div>`);
+        `);
     }
 
     function showTicketComplete() {

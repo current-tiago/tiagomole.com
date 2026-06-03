@@ -1445,8 +1445,8 @@
 
     const NUMERALS = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
 
-    function getLottery()       { return JSON.parse(localStorage.getItem('rocky_lottery_v2') || '{}'); }
-    function saveLottery(data)  { localStorage.setItem('rocky_lottery_v2', JSON.stringify(data)); }
+    function getLottery()       { return JSON.parse(localStorage.getItem('rocky_lottery_v3') || '{}'); }
+    function saveLottery(data)  { localStorage.setItem('rocky_lottery_v3', JSON.stringify(data)); }
     function todayStr()         { return new Date().toLocaleDateString('en-CA'); }
 
     function initLottery() {

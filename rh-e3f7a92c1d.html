@@ -547,6 +547,45 @@
       letter-spacing: 0.01em;
     }
 
+    /* LISBON MAP SECTION */
+    .lisbon-section {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .lisbon-map-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 860px;
+      margin: 3rem auto 0;
+    }
+
+    .lisbon-map-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0;
+      animation: fadeIn 1.4s ease 0.3s forwards;
+    }
+
+    .lisbon-map-caption {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .lisbon-map-caption span {
+      color: var(--red);
+    }
+
+    @media (max-width: 768px) {
+      .lisbon-section { padding: 4rem 1.5rem; }
+    }
+
     /* FOOTER */
     footer {
       padding: 3rem;
@@ -1119,6 +1158,16 @@
 
     </div>
     </div>
+  </div>
+
+  <div class="lisbon-section">
+    <div class="section-label">Lisbon</div>
+    <div class="lisbon-map-wrap">
+      <img src="lisbon-map.svg" alt="Map of Lisbon">
+    </div>
+    <p class="lisbon-map-caption">
+      <span>●</span> Oceanário &ensp;·&ensp; <span>●</span> Campo Pequeno &ensp;·&ensp; <span>●</span> Praça do Comércio &ensp;·&ensp; <span>●</span> Av. da Liberdade
+    </p>
   </div>
 
   <footer>

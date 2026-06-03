@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320">
+  <defs>
+    <style>
+      .water { fill: rgba(13,13,13,0.04); }
+      .district { fill: rgba(13,13,13,0.05); stroke: rgba(13,13,13,0.18); stroke-width: 0.6; stroke-linejoin: round; }
+      .road { fill: none; stroke: rgba(13,13,13,0.12); stroke-width: 0.8; stroke-linecap: round; }
+      .road-main { fill: none; stroke: rgba(13,13,13,0.16); stroke-width: 1.2; stroke-linecap: round; }
+      .river { fill: rgba(13,13,13,0.06); }
+      .label { font-family: 'DM Mono', monospace; font-size: 6px; fill: rgba(13,13,13,0.35); letter-spacing: 0.08em; }
+      .dot-pulse { fill: #FF8800; }
+      .dot-ring { fill: none; stroke: #FF8800; stroke-width: 0.8; opacity: 0.4; }
+      .poi-label { font-family: 'DM Mono', monospace; font-size: 5.5px; fill: rgba(13,13,13,0.55); letter-spacing: 0.06em; }
+    </style>
+  </defs>
+
+  <!-- Tagus River (wide band at bottom) -->
+  <path class="river" d="M 0,240 Q 80,232 160,238 Q 240,244 320,236 Q 360,232 400,238 L 400,320 L 0,320 Z" opacity="0.7"/>
+  <path fill="none" stroke="rgba(13,13,13,0.1)" stroke-width="0.5" d="M 0,240 Q 80,232 160,238 Q 240,244 320,236 Q 360,232 400,238"/>
+
+  <!-- ── DISTRICTS (simplified polygons) ── -->
+
+  <!-- Parque das Nações (far east) -->
+  <path class="district" d="M 340,120 L 380,115 L 390,150 L 385,200 L 370,215 L 350,210 L 338,185 L 335,155 Z"/>
+
+  <!-- Marvila / Beato -->
+  <path class="district" d="M 270,130 L 340,120 L 335,155 L 338,185 L 320,195 L 295,190 L 275,175 L 265,150 Z"/>
+
+  <!-- Mouraria / Alfama / Baixa (historic centre) -->
+  <path class="district" d="M 155,155 L 210,140 L 265,150 L 275,175 L 260,195 L 230,210 L 195,215 L 165,205 L 148,185 L 145,165 Z"/>
+
+  <!-- Bairro Alto / Chiado / Príncipe Real -->
+  <path class="district" d="M 95,148 L 155,155 L 145,165 L 148,185 L 130,200 L 100,195 L 82,178 L 80,160 Z"/>
+
+  <!-- Avenidas Novas / Campo Pequeno area -->
+  <path class="district" d="M 120,80 L 200,72 L 230,85 L 235,115 L 225,135 L 210,140 L 155,155 L 130,142 L 112,120 L 112,95 Z"/>
+
+  <!-- Benfica / Campolide west -->
+  <path class="district" d="M 20,90 L 90,78 L 120,80 L 112,95 L 112,120 L 95,148 L 70,155 L 40,148 L 18,128 Z"/>
+
+  <!-- Lumiar / Odivelas north -->
+  <path class="district" d="M 60,20 L 200,15 L 240,35 L 230,85 L 200,72 L 120,80 L 90,78 L 55,58 Z"/>
+
+  <!-- Olivais east-centre -->
+  <path class="district" d="M 230,85 L 295,75 L 340,88 L 340,120 L 270,130 L 265,150 L 235,115 Z"/>
+
+  <!-- ── MAIN ROADS ── -->
+
+  <!-- Avenida da Liberdade (N-S spine, central) -->
+  <path class="road-main" d="M 162,72 L 158,108 L 155,140 L 153,165"/>
+
+  <!-- Av. Almirante Reis -->
+  <path class="road-main" d="M 175,72 L 178,120 L 182,155 L 188,185"/>
+
+  <!-- 2nd ring road east -->
+  <path class="road-main" d="M 200,72 L 210,140 L 225,190 L 228,215"/>
+
+  <!-- Tagus waterfront (Ribeira) -->
+  <path class="road-main" d="M 80,220 L 140,218 L 210,215 L 270,210 L 330,205"/>
+
+  <!-- Av. 24 de Julho / Santos shore -->
+  <path class="road" d="M 85,210 L 150,207 L 200,205"/>
+
+  <!-- Av. da India (western waterfront) -->
+  <path class="road" d="M 20,230 L 85,225 L 130,220"/>
+
+  <!-- Cross streets downtown -->
+  <path class="road" d="M 100,175 L 200,170 L 270,168"/>
+  <path class="road" d="M 108,195 L 195,192 L 260,188"/>
+  <path class="road" d="M 140,148 L 240,135 L 300,128"/>
+  <path class="road" d="M 112,120 L 235,115 L 295,108"/>
+
+  <!-- East connector to Parque das Nações -->
+  <path class="road-main" d="M 270,130 L 310,122 L 355,118"/>
+  <path class="road" d="M 275,175 L 320,168 L 355,162"/>
+
+  <!-- Circular to north -->
+  <path class="road" d="M 90,78 L 160,68 L 230,65 L 295,75"/>
+  <path class="road" d="M 55,58 L 120,52 L 195,48 L 270,55 L 310,68"/>
+
+  <!-- ── DISTRICT LABELS ── -->
+  <text class="label" x="354" y="165" text-anchor="middle">PARQUE DAS</text>
+  <text class="label" x="354" y="173" text-anchor="middle">NAÇÕES</text>
+  <text class="label" x="300" y="162" text-anchor="middle">MARVILA</text>
+  <text class="label" x="205" y="180" text-anchor="middle">ALFAMA</text>
+  <text class="label" x="108" y="175" text-anchor="middle">BAIRRO</text>
+  <text class="label" x="108" y="182" text-anchor="middle">ALTO</text>
+  <text class="label" x="165" y="118" text-anchor="middle">AV. NOVAS</text>
+  <text class="label" x="50" y="125" text-anchor="middle">BENFICA</text>
+  <text class="label" x="290" y="100" text-anchor="middle">OLIVAIS</text>
+
+  <!-- Tagus label -->
+  <text class="label" x="200" y="268" text-anchor="middle" opacity="0.6">RIO TEJO</text>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- ORANGE DOTS with pulse rings           -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <!-- 1. Oceanário de Lisboa — Parque das Nações -->
+  <!-- coords: ~38.7633°N, 9.0950°W → map ~365, 162 -->
+  <circle class="dot-ring" cx="365" cy="162" r="9"/>
+  <circle class="dot-ring" cx="365" cy="162" r="6"/>
+  <circle class="dot-pulse" cx="365" cy="162" r="3.5"/>
+  <text class="poi-label" x="365" y="150" text-anchor="middle">OCEANÁRIO</text>
+
+  <!-- 2. Campo Pequeno — Avenidas Novas -->
+  <!-- coords: ~38.7390°N, 9.1455°W → map ~183, 105 -->
+  <circle class="dot-ring" cx="183" cy="105" r="9"/>
+  <circle class="dot-ring" cx="183" cy="105" r="6"/>
+  <circle class="dot-pulse" cx="183" cy="105" r="3.5"/>
+  <text class="poi-label" x="183" y="93" text-anchor="middle">CAMPO PEQUENO</text>
+
+  <!-- 3. Praça do Comércio — Baixa waterfront -->
+  <!-- coords: ~38.7076°N, 9.1364°W → map ~192, 210 -->
+  <circle class="dot-ring" cx="192" cy="210" r="9"/>
+  <circle class="dot-ring" cx="192" cy="210" r="6"/>
+  <circle class="dot-pulse" cx="192" cy="210" r="3.5"/>
+  <text class="poi-label" x="192" y="198" text-anchor="middle">PÇA DO COMÉRCIO</text>
+
+  <!-- 4. Avenida da Liberdade — top end (Marquês de Pombal) -->
+  <!-- coords: ~38.7253°N, 9.1491°W → map ~158, 140 -->
+  <circle class="dot-ring" cx="158" cy="140" r="9"/>
+  <circle class="dot-ring" cx="158" cy="140" r="6"/>
+  <circle class="dot-pulse" cx="158" cy="140" r="3.5"/>
+  <text class="poi-label" x="130" y="128" text-anchor="start">AV. LIBERDADE</text>
+
+</svg>

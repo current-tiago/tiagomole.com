@@ -218,10 +218,41 @@
 
     .hero-right {
       display: flex;
+      flex-direction: column;
       align-items: flex-end;
       justify-content: flex-end;
       padding-bottom: 6rem;
       position: relative;
+    }
+
+    .hero-countries {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.2s forwards;
+    }
+
+    .country-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .country-icon svg {
+      display: block;
+    }
+
+    .country-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.45rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      opacity: 0.6;
+      text-transform: uppercase;
     }
 
     .hero-coords {
@@ -658,6 +689,40 @@
       </div>
     </div>
     <div class="hero-right">
+      <div class="hero-countries">
+        <!-- Portugal: tall & narrow, east side has staircase border with Spain -->
+        <div class="country-icon" title="Portugal">
+          <svg width="22" height="58" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4,0 L28,0 L34,3 L37,9 L32,14 L37,21 L32,28 L37,35 L32,43 L37,51 L32,59 L36,65 L28,73 L20,82 L12,91 L6,100 L2,97 L0,85 L1,73 L0,61 L1,49 L0,37 L1,25 L4,12 Z"
+              fill="rgba(13,13,13,0.12)" stroke="rgba(13,13,13,0.38)" stroke-width="2" stroke-linejoin="miter"/>
+          </svg>
+          <span class="country-label">PT</span>
+        </div>
+        <!-- Spain: wide pentagonal Iberian bulk -->
+        <div class="country-icon" title="Spain">
+          <svg width="52" height="43" viewBox="0 0 100 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6,38 L4,30 L6,22 L13,16 L22,13 L32,11 L44,8 L56,6 L68,8 L80,13 L90,20 L97,30 L98,42 L94,54 L86,64 L74,72 L60,78 L44,80 L30,76 L16,68 L7,56 L4,46 Z"
+              fill="rgba(13,13,13,0.06)" stroke="rgba(13,13,13,0.22)" stroke-width="2" stroke-linejoin="miter"/>
+          </svg>
+          <span class="country-label">ES</span>
+        </div>
+        <!-- Germany: roughly hexagonal, wider at north -->
+        <div class="country-icon" title="Germany">
+          <svg width="40" height="52" viewBox="0 0 76 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M28,0 L44,0 L54,2 L64,7 L72,14 L76,24 L74,36 L76,46 L72,58 L64,70 L54,80 L42,90 L32,98 L20,100 L10,94 L2,82 L0,70 L2,58 L0,46 L4,34 L2,22 L8,14 L18,7 Z"
+              fill="rgba(13,13,13,0.06)" stroke="rgba(13,13,13,0.22)" stroke-width="2" stroke-linejoin="miter"/>
+          </svg>
+          <span class="country-label">DE</span>
+        </div>
+        <!-- Canada: very wide, flat bottom (US border), notched south (Great Lakes) -->
+        <div class="country-icon" title="Canada">
+          <svg width="68" height="36" viewBox="0 0 130 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,52 L4,40 L8,28 L16,18 L28,10 L42,4 L58,1 L74,0 L90,3 L104,9 L116,18 L124,30 L128,42 L126,54 L116,60 L104,56 L96,62 L84,57 L72,63 L60,57 L48,53 L36,50 L22,50 L10,52 Z"
+              fill="rgba(13,13,13,0.06)" stroke="rgba(13,13,13,0.22)" stroke-width="2" stroke-linejoin="miter"/>
+          </svg>
+          <span class="country-label">CA</span>
+        </div>
+      </div>
       <div class="hero-coords">
         38°43′N 9°8′W<br>
         Lisbon, Portugal<br>

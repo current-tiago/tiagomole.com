@@ -226,37 +226,7 @@
       overflow: hidden;
     }
 
-    .flight-arc {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -52%);
-      width: 280px;
-      opacity: 0;
-      animation: fadeIn 0.6s ease 1.6s forwards;
-      pointer-events: none;
-      z-index: 1;
-    }
 
-    .flight-arc .arc-path {
-      stroke-dasharray: 400;
-      stroke-dashoffset: 400;
-      animation: drawArc 1.8s cubic-bezier(0.4, 0, 0.2, 1) 1.8s forwards;
-    }
-
-    @keyframes drawArc {
-      to { stroke-dashoffset: 0; }
-    }
-
-    .flight-arc .arc-dot {
-      opacity: 0;
-      animation: fadeIn 0.4s ease 3.4s forwards;
-    }
-
-    .flight-arc .arc-label {
-      opacity: 0;
-      animation: fadeIn 0.5s ease 3.5s forwards;
-    }
 
     .europe-map {
       position: absolute;
@@ -706,36 +676,6 @@
     <div class="hero-right">
       <img class="europe-map" src="europe-map.svg" alt="">
 
-      <svg class="flight-arc" viewBox="0 0 280 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Arc path: Reading (top-right) to Lisbon (bottom-left) -->
-        <path class="arc-path"
-          d="M 220 30 Q 270 -20 80 148"
-          stroke="rgba(13,13,13,0.18)" stroke-width="1" fill="none"
-          stroke-dasharray="3 5" stroke-linecap="round"/>
-
-        <!-- Reading dot -->
-        <circle class="arc-dot" cx="220" cy="30" r="2.5" fill="var(--red)" opacity="0.7"/>
-        <!-- Lisbon dot -->
-        <circle class="arc-dot" cx="80" cy="148" r="2.5" fill="var(--red)" opacity="0.7"/>
-
-        <!-- Reading label -->
-        <text class="arc-label"
-          x="226" y="27"
-          font-family="'DM Mono', monospace" font-size="7.5"
-          fill="rgba(13,13,13,0.45)" letter-spacing="0.08em">READING</text>
-
-        <!-- Lisbon label -->
-        <text class="arc-label"
-          x="30" y="164"
-          font-family="'DM Mono', monospace" font-size="7.5"
-          fill="rgba(13,13,13,0.45)" letter-spacing="0.08em">LISBON</text>
-
-        <!-- Distance label along arc -->
-        <text class="arc-label"
-          x="178" y="62"
-          font-family="'DM Mono', monospace" font-size="6.5"
-          fill="rgba(13,13,13,0.28)" letter-spacing="0.06em">1,553 km</text>
-      </svg>
 
       <div class="hero-coords" style="position:relative;z-index:1;">
         38°43′N 9°8′W<br>

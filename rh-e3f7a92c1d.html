@@ -1490,9 +1490,20 @@
             .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
         ]);
       } catch (e) {
-        // Network/function error — re-enable the button so they can try again
+        // Server unavailable — fall back to a local roll so the UI always responds
         ticket.classList.remove('shaking');
-        if (btn) btn.disabled = false;
+        const cache     = getLottery();
+        const seenLocal = cache.seenItems || [];
+        const won       = Math.random() < 0.25;
+        let   itemIdx   = null;
+        if (won) {
+          const unseen = THINGS.map((_,i) => i).filter(i => !seenLocal.includes(i));
+          if (unseen.length) itemIdx = unseen[Math.floor(Math.random() * unseen.length)];
+        }
+        const newSeen = itemIdx !== null ? [...seenLocal, itemIdx] : seenLocal;
+        saveLottery({ lastDraw: today, lastWon: itemIdx !== null, itemIdx, seenItems: newSeen });
+        renderCollection(newSeen);
+        itemIdx !== null ? showTicketWin(THINGS[itemIdx], false) : showTicketLoss(false);
         return;
       }
 

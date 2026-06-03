@@ -267,25 +267,30 @@
       flex-direction: column;
     }
 
-    .movie-item.top-rated .movie-title {
-      color: #D4A017;
+    .movie-item {
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid var(--line);
     }
 
-    .movie-item {
+    .movie-item-row {
       display: grid;
       grid-template-columns: 4rem 1fr auto;
       align-items: center;
       gap: 0 2.5rem;
       padding: 1.4rem 0;
-      border-bottom: 1px solid var(--line);
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    .movie-item.visible {
+    .movie-item-row.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    .movie-item.top-rated .movie-title {
+      color: #D4A017;
     }
 
     .movie-num {
@@ -308,6 +313,65 @@
       font-style: italic;
       color: var(--ink);
       line-height: 1.2;
+      cursor: pointer;
+      display: inline;
+      transition: color 0.2s;
+    }
+
+    .movie-title:hover {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(138,128,112,0.5);
+    }
+
+    /* DESCRIPTION PANEL */
+    .movie-desc-wrap {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.45s ease;
+    }
+
+    .movie-desc-wrap.open {
+      grid-template-rows: 1fr;
+    }
+
+    .movie-desc-inner {
+      overflow: hidden;
+    }
+
+    .movie-desc {
+      padding: 0.9rem 0 1.6rem 6.5rem;
+      border-top: 1px solid rgba(255,136,0,0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .movie-desc-director {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.48rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .movie-desc-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .movie-desc-genre {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.44rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(138,128,112,0.55);
     }
 
     .movie-year {
@@ -750,293 +814,310 @@
     <div class="movies-grid">
 
       <div class="movie-item top-rated">
-        <span class="movie-num">01</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Train Dreams</span>
-          <span class="movie-year">2022</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">01</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Train Dreams</span>
+            <span class="movie-year">2022</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Robert Redford</span>
+          <p class="movie-desc-text">A solitary woodsman drifts through the American frontier across decades, haunted by visions and the quiet passage of time. Based on Denis Johnson's novella.</p>
+          <span class="movie-desc-genre">Drama · Western</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">02</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Blair Witch Project</span>
-          <span class="movie-year">1999</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">02</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Blair Witch Project</span>
+            <span class="movie-year">1999</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Daniel Myrick & Eduardo Sánchez</span>
+          <p class="movie-desc-text">Three student filmmakers hike into the Black Hills forest to shoot a documentary about a local legend — and are never seen again. Only their footage survives.</p>
+          <span class="movie-desc-genre">Horror · Found Footage</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">03</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Creep</span>
-          <span class="movie-year">2014</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">03</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Creep</span>
+            <span class="movie-year">2014</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Patrick Brice</span>
+          <p class="movie-desc-text">A videographer answers a Craigslist ad to film a dying man's final days — and slowly realises something is profoundly wrong. A masterclass in slow-burn dread.</p>
+          <span class="movie-desc-genre">Horror · Thriller · Found Footage</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">04</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Creep 2</span>
-          <span class="movie-year">2017</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">04</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Creep 2</span>
+            <span class="movie-year">2017</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Patrick Brice</span>
+          <p class="movie-desc-text">A documentary filmmaker seeking unusual subjects meets a self-confessed serial killer who claims he's lost his taste for murder. Stranger and bolder than the first.</p>
+          <span class="movie-desc-genre">Horror · Thriller · Dark Comedy</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">05</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Murder Mystery</span>
-          <span class="movie-year">2019</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">05</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Murder Mystery</span>
+            <span class="movie-year">2019</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Kyle Newacheck</span>
+          <p class="movie-desc-text">A New York cop and his wife stumble into a murder mystery while on a European vacation, becoming the prime suspects in a billionaire's death.</p>
+          <span class="movie-desc-genre">Comedy · Mystery</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">06</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Inglourious Basterds</span>
-          <span class="movie-year">2009</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">06</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Inglourious Basterds</span>
+            <span class="movie-year">2009</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Quentin Tarantino</span>
+          <p class="movie-desc-text">In Nazi-occupied France, two separate plots to assassinate Hitler converge — one from a squad of Jewish-American soldiers, one from a cinema owner with everything to lose.</p>
+          <span class="movie-desc-genre">War · Thriller · Drama</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">07</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Pursuit of Happyness</span>
-          <span class="movie-year">2006</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">07</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Pursuit of Happyness</span>
+            <span class="movie-year">2006</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Gabriele Muccino</span>
+          <p class="movie-desc-text">A struggling salesman raises his young son alone while fighting through a gruelling unpaid internship — based on the true story of Chris Gardner's rise from homelessness.</p>
+          <span class="movie-desc-genre">Drama · Biography</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">08</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Nightcrawler</span>
-          <span class="movie-year">2014</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">08</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Nightcrawler</span>
+            <span class="movie-year">2014</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Dan Gilroy</span>
+          <p class="movie-desc-text">A driven, morally unmoored loner discovers the nocturnal world of crime journalism in Los Angeles — and finds he has a disturbing talent for it. Jake Gyllenhaal at his most unsettling.</p>
+          <span class="movie-desc-genre">Crime · Thriller · Drama</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">09</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Oppenheimer</span>
-          <span class="movie-year">2023</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">09</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Oppenheimer</span>
+            <span class="movie-year">2023</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Christopher Nolan</span>
+          <p class="movie-desc-text">The story of J. Robert Oppenheimer — the physicist who built the atomic bomb and then had to reckon with what he had unleashed on the world. Epic in every sense.</p>
+          <span class="movie-desc-genre">Biography · History · Drama</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item top-rated">
-        <span class="movie-num">10</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Project Hail Mary</span>
-          <span class="movie-year">2025</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">10</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Project Hail Mary</span>
+            <span class="movie-year">2025</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Phil Lord & Christopher Miller</span>
+          <p class="movie-desc-text">A lone astronaut wakes with no memory aboard a spacecraft millions of miles from Earth, tasked with saving humanity from an existential threat — and finds an unexpected companion along the way.</p>
+          <span class="movie-desc-genre">Sci-Fi · Adventure</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">11</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">The Amazing Spider-Man</span>
-          <span class="movie-year">2012</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">11</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">The Amazing Spider-Man</span>
+            <span class="movie-year">2012</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Marc Webb</span>
+          <p class="movie-desc-text">Peter Parker discovers a hidden truth about his parents while navigating high school, first love, and the consequences of being bitten by a genetically modified spider.</p>
+          <span class="movie-desc-genre">Action · Adventure · Sci-Fi</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">12</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Whiplash</span>
-          <span class="movie-year">2014</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">12</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Whiplash</span>
+            <span class="movie-year">2014</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-half-t">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Damien Chazelle</span>
+          <p class="movie-desc-text">A young jazz drummer at an elite New York conservatory falls under the control of a ferocious, manipulative conductor. A film about obsession, greatness, and the cost of both.</p>
+          <span class="movie-desc-genre">Drama · Music</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">13</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">The Taking of Deborah Logan</span>
-          <span class="movie-year">2014</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">13</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">The Taking of Deborah Logan</span>
+            <span class="movie-year">2014</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Adam Robitel</span>
+          <p class="movie-desc-text">A film crew documenting an elderly Alzheimer's patient begins to notice increasingly disturbing behaviour that suggests something ancient and malevolent has taken hold.</p>
+          <span class="movie-desc-genre">Horror · Mystery · Found Footage</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">14</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Ratatouille</span>
-          <span class="movie-year">2007</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">14</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Ratatouille</span>
+            <span class="movie-year">2007</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Brad Bird</span>
+          <p class="movie-desc-text">A rat with an extraordinary palate dreams of becoming a great Parisian chef — and forms an unlikely alliance with a hapless kitchen boy. Pixar at the height of its powers.</p>
+          <span class="movie-desc-genre">Animation · Comedy · Family</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">15</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">Ozark</span>
-          <span class="movie-year">2017</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">15</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">Ozark</span>
+            <span class="movie-year">2017</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Created by Bill Dubuque · Jason Bateman</span>
+          <p class="movie-desc-text">A financial advisor relocates his family to the Missouri Ozarks after a money-laundering scheme goes wrong — dragging them deeper into a world of cartels, crime, and impossible choices.</p>
+          <span class="movie-desc-genre">Crime · Drama · Thriller · TV Series</span>
+        </div></div></div>
       </div>
 
       <div class="movie-item">
-        <span class="movie-num">16</span>
-        <div class="movie-title-wrap">
-          <span class="movie-title">The Holdovers</span>
-          <span class="movie-year">2023</span>
-        </div>
-        <div class="movie-ratings">
-          <div class="rating-row">
-            <span class="rating-name">T</span>
-            <div class="stars"><span class="star star-t">★</span><span class="star star-half-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+        <div class="movie-item-row">
+          <span class="movie-num">16</span>
+          <div class="movie-title-wrap">
+            <span class="movie-title" onclick="toggleDesc(this)">The Holdovers</span>
+            <span class="movie-year">2023</span>
           </div>
-          <div class="rating-row">
-            <span class="rating-name">R</span>
-            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div>
+          <div class="movie-ratings">
+            <div class="rating-row"><span class="rating-name">T</span><div class="stars"><span class="star star-t">★</span><span class="star star-half-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div></div>
+            <div class="rating-row"><span class="rating-name">R</span><div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div></div>
           </div>
         </div>
+        <div class="movie-desc-wrap"><div class="movie-desc-inner"><div class="movie-desc">
+          <span class="movie-desc-director">Dir. Alexander Payne</span>
+          <p class="movie-desc-text">A cantankerous classics teacher at a New England boarding school is stuck over Christmas with a troubled student and a grieving cook — and an unlikely human bond forms between them.</p>
+          <span class="movie-desc-genre">Comedy · Drama</span>
+        </div></div></div>
       </div>
 
+    </div>
     </div>
   </div>
 
@@ -1064,8 +1145,19 @@
       }
     }
 
-    // Film scroll reveal
-    const revealEls = document.querySelectorAll('.movie-item');
+    // Film description toggle
+    function toggleDesc(titleEl) {
+      const item = titleEl.closest('.movie-item');
+      const wrap = item.querySelector('.movie-desc-wrap');
+      const isOpen = wrap.classList.contains('open');
+
+      document.querySelectorAll('.movie-desc-wrap.open').forEach(w => w.classList.remove('open'));
+
+      if (!isOpen) wrap.classList.add('open');
+    }
+
+    // Film row scroll reveal
+    const revealEls = document.querySelectorAll('.movie-item-row');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {

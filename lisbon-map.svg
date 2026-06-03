@@ -348,6 +348,13 @@
   <text class="p-name" x="376" y="306" text-anchor="start">PÇA DO</text>
   <text class="p-sub"  x="376" y="312" text-anchor="start">COMÉRCIO</text>
 
+  <!-- 5. Torre de Belém (38.6916°N, 9.2160°W → 94, 364) — sits in the river -->
+  <circle class="dot-o1" cx="94" cy="362" r="14"/>
+  <circle class="dot-o2" cx="94" cy="362" r="9"/>
+  <circle class="dot-core" cx="94" cy="362" r="3.8"/>
+  <text class="p-name" x="94" y="346" text-anchor="middle">TORRE DE</text>
+  <text class="p-sub"  x="94" y="352" text-anchor="middle">BELÉM</text>
+
   <!-- 4. Avenida da Liberdade — Marquês de Pombal (38.7253°N, 9.1491°W → 311, 260) -->
   <circle class="dot-o1" cx="311" cy="260" r="14"/>
   <circle class="dot-o2" cx="311" cy="260" r="9"/>

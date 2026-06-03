@@ -270,9 +270,9 @@
     .movie-item {
       display: grid;
       grid-template-columns: 4rem 1fr auto;
-      align-items: baseline;
+      align-items: center;
       gap: 0 2.5rem;
-      padding: 1.5rem 0;
+      padding: 1.4rem 0;
       border-bottom: 1px solid var(--line);
       opacity: 0;
       transform: translateY(16px);
@@ -291,6 +291,12 @@
       color: var(--muted);
     }
 
+    .movie-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
     .movie-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.3rem;
@@ -302,10 +308,47 @@
 
     .movie-year {
       font-family: 'DM Mono', monospace;
-      font-size: 0.55rem;
+      font-size: 0.5rem;
       letter-spacing: 0.1em;
       color: var(--muted);
     }
+
+    .movie-ratings {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+    }
+
+    .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .rating-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.45rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      width: 2.2rem;
+      text-align: right;
+    }
+
+    .stars {
+      display: flex;
+      gap: 2px;
+    }
+
+    .star {
+      font-size: 0.65rem;
+      line-height: 1;
+    }
+
+    .star-t { color: #FF8800; }
+    .star-r { color: #e8829a; }
+    .star-empty { color: rgba(13,13,13,0.12); }
 
     /* POEMS SECTION */
     .poems-section {
@@ -659,38 +702,128 @@
 
       <div class="movie-item">
         <span class="movie-num">01</span>
-        <span class="movie-title">Inglourious Basterds</span>
-        <span class="movie-year">2009</span>
+        <div class="movie-title-wrap">
+          <span class="movie-title">Project Hail Mary</span>
+          <span class="movie-year">2025</span>
+        </div>
+        <div class="movie-ratings">
+          <div class="rating-row">
+            <span class="rating-name">T</span>
+            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span></div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-name">R</span>
+            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="movie-item">
         <span class="movie-num">02</span>
-        <span class="movie-title">Nightcrawler</span>
-        <span class="movie-year">2014</span>
+        <div class="movie-title-wrap">
+          <span class="movie-title">Inglourious Basterds</span>
+          <span class="movie-year">2009</span>
+        </div>
+        <div class="movie-ratings">
+          <div class="rating-row">
+            <span class="rating-name">T</span>
+            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span></div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-name">R</span>
+            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="movie-item">
         <span class="movie-num">03</span>
-        <span class="movie-title">The Amazing Spider-Man</span>
-        <span class="movie-year">2012</span>
+        <div class="movie-title-wrap">
+          <span class="movie-title">Nightcrawler</span>
+          <span class="movie-year">2014</span>
+        </div>
+        <div class="movie-ratings">
+          <div class="rating-row">
+            <span class="rating-name">T</span>
+            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span></div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-name">R</span>
+            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="movie-item">
         <span class="movie-num">04</span>
-        <span class="movie-title">Whiplash</span>
-        <span class="movie-year">2014</span>
+        <div class="movie-title-wrap">
+          <span class="movie-title">The Amazing Spider-Man</span>
+          <span class="movie-year">2012</span>
+        </div>
+        <div class="movie-ratings">
+          <div class="rating-row">
+            <span class="rating-name">T</span>
+            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span></div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-name">R</span>
+            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="movie-item">
         <span class="movie-num">05</span>
-        <span class="movie-title">The Holdovers</span>
-        <span class="movie-year">2023</span>
+        <div class="movie-title-wrap">
+          <span class="movie-title">Whiplash</span>
+          <span class="movie-year">2014</span>
+        </div>
+        <div class="movie-ratings">
+          <div class="rating-row">
+            <span class="rating-name">T</span>
+            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span></div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-name">R</span>
+            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="movie-item">
         <span class="movie-num">06</span>
-        <span class="movie-title">The Disappearance of Hannah Grace</span>
-        <span class="movie-year">2018</span>
+        <div class="movie-title-wrap">
+          <span class="movie-title">The Holdovers</span>
+          <span class="movie-year">2023</span>
+        </div>
+        <div class="movie-ratings">
+          <div class="rating-row">
+            <span class="rating-name">T</span>
+            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span></div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-name">R</span>
+            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-item">
+        <span class="movie-num">07</span>
+        <div class="movie-title-wrap">
+          <span class="movie-title">The Disappearance of Hannah Grace</span>
+          <span class="movie-year">2018</span>
+        </div>
+        <div class="movie-ratings">
+          <div class="rating-row">
+            <span class="rating-name">T</span>
+            <div class="stars"><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-t">★</span><span class="star star-empty">★</span><span class="star star-empty">★</span></div>
+          </div>
+          <div class="rating-row">
+            <span class="rating-name">R</span>
+            <div class="stars"><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-r">★</span><span class="star star-empty">★</span></div>
+          </div>
+        </div>
       </div>
 
     </div>

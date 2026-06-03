@@ -858,9 +858,13 @@
     setInterval(fetchNowPlaying, 30000);
 
     // Rocky's Home gate
-    function checkRocky() {
+    const _rh = 'b9138194ffe9e7c8bb6d79d1ed56259553d18d9cb60b66e3ba5aa2e5b078055a';
+    async function checkRocky() {
       const input = document.getElementById('rocky-input');
-      if (input.value.trim().toLowerCase() === 'ruby') {
+      const val = input.value.trim().toLowerCase();
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
+      const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+      if (hex === _rh) {
         window.location.href = 'rockys-home.html';
       } else {
         input.classList.add('wrong');

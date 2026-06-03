@@ -155,39 +155,37 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 **Page contents:**
 - Hero: large serif title, subtitle "A little section just for your eyes", countdown timer (top-right), meta block (bottom-right)
 - **Countdown**: ticks down to June 6 2026 09:00 Lisbon time (UTC+1). Shows "Arriving in Lisbon" once it hits zero.
-- **Five poems** — centred broadsheet column layout (600px max-width, centred on page, scroll-reveal fade-in):
+- **Five poems** — accordion layout (max-width 600px, centred); each poem shows only its title until clicked, then expands smoothly. Only one open at a time. Toggle indicator `+` / `×` in DM Mono.
   - I · Sample no.1 · II · View of the Room · III · T-3 Weeks · IV · Studying · V · Orpheus
-  - Large italic title (up to 3.5rem), generous line-height verse text (1.2rem), ghost Roman numeral floating right of each title
-- **Films We've Watched** section — numbered list of 17 films with dual star ratings:
+- **Films We've Watched** section — numbered list of 16 films with dual star ratings:
   - **T** = Tiago's rating (orange `#FF8800` stars)
   - **R** = Imy's rating (pink `#e8829a` stars)
   - Stars out of 5; half-stars supported via CSS `linear-gradient` clip trick
-  - Films without a T rating only show the R row
   - Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`
+  - Film(s) with the highest combined T+R score get class `top-rated` (subtle orange background). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
 
 **Current film list (in order):**
 
-| # | Title | Year | T | R |
-|---|-------|------|---|---|
-| 01 | Train Dreams | 2022 | — | ★★★★★ |
-| 02 | Blair Witch Project | 1999 | — | ★★★☆☆ |
-| 03 | Creep | 2014 | — | ★★★★☆ |
-| 04 | Creep 2 | 2017 | — | ★★☆☆☆ |
-| 05 | Murder Mystery | 2019 | — | ★★★☆☆ |
-| 06 | Inglourious Basterds | 2009 | ★★★★★ | ★★★★☆ |
-| 07 | Pursuit of Happyness | 2006 | — | ★★★☆☆ |
-| 08 | Nightcrawler | 2014 | ★★★★★ | ★★★★☆ |
-| 09 | Oppenheimer | 2023 | — | ★★★★☆ |
-| 10 | Project Hail Mary | 2025 | ★★★★★ | ★★★★★ |
-| 11 | The Amazing Spider-Man | 2012 | ★★★½☆ | ★★★☆☆ |
-| 12 | Whiplash | 2014 | ★★★★★ | ★★★★☆ |
-| 13 | The Taking of Deborah Logan | 2014 | — | ★★★★☆ |
-| 14 | Ratatouille | 2007 | — | ★★★★★ |
-| 15 | Ozark | 2017 | — | ★★★★☆ |
-| 16 | The Holdovers | 2023 | ★★★★☆ | ★★★★★ |
-| 17 | The Disappearance of Hannah Grace | 2018 | ★★½☆☆ | ★★★½☆ |
+| # | Title | Year | T | R | Total |
+|---|-------|------|---|---|-------|
+| 01 ★ | Train Dreams | 2022 | ★★★★★ | ★★★★★ | 10 |
+| 02 | Blair Witch Project | 1999 | ★★½☆☆ | ★★★☆☆ | 5.5 |
+| 03 | Creep | 2014 | ★★★½☆ | ★★★★☆ | 7.5 |
+| 04 | Creep 2 | 2017 | ★★☆☆☆ | ★★☆☆☆ | 4 |
+| 05 | Murder Mystery | 2019 | ★★★☆☆ | ★★★☆☆ | 6 |
+| 06 | Inglourious Basterds | 2009 | ★★★★★ | ★★★★☆ | 9 |
+| 07 | Pursuit of Happyness | 2006 | ★★★½☆ | ★★★☆☆ | 6.5 |
+| 08 | Nightcrawler | 2014 | ★★★★☆ | ★★★★☆ | 8 |
+| 09 | Oppenheimer | 2023 | ★★★★½ | ★★★★☆ | 8.5 |
+| 10 ★ | Project Hail Mary | 2025 | ★★★★★ | ★★★★★ | 10 |
+| 11 | The Amazing Spider-Man | 2012 | ★★★½☆ | ★★★☆☆ | 6.5 |
+| 12 | Whiplash | 2014 | ★★★★½ | ★★★★☆ | 8.5 |
+| 13 | The Taking of Deborah Logan | 2014 | ★★★☆☆ | ★★★★☆ | 7 |
+| 14 | Ratatouille | 2007 | ★★★★☆ | ★★★★★ | 9 |
+| 15 | Ozark | 2017 | ★★★★☆ | ★★★★☆ | 8 |
+| 16 | The Holdovers | 2023 | ★½☆☆☆ | ★★★★★ | 6.5 |
 
-**To add a film**, open the Atelier and copy an existing `.movie-item` block, update the number, title, year, and star spans.
+**To add a film**, open the Atelier and copy an existing `.movie-item` block, update the number, title, year, and star spans. After adding, recalculate totals and move the `top-rated` class to whichever film(s) score highest.
 
 ---
 

@@ -267,6 +267,14 @@
       flex-direction: column;
     }
 
+    .movie-item.top-rated {
+      background: rgba(255, 136, 0, 0.055);
+      margin: 0 -1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      border-radius: 2px;
+    }
+
     .movie-item {
       display: grid;
       grid-template-columns: 4rem 1fr auto;
@@ -745,7 +753,7 @@
     <div class="section-label">Films We've Watched</div>
     <div class="movies-grid">
 
-      <div class="movie-item">
+      <div class="movie-item top-rated">
         <span class="movie-num">01</span>
         <div class="movie-title-wrap">
           <span class="movie-title">Train Dreams</span>
@@ -907,7 +915,7 @@
         </div>
       </div>
 
-      <div class="movie-item">
+      <div class="movie-item top-rated">
         <span class="movie-num">10</span>
         <div class="movie-title-wrap">
           <span class="movie-title">Project Hail Mary</span>

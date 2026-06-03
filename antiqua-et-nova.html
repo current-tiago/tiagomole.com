@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antiqua et Nova: The Church's Teachings on AI — Tiago Branco Mole</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #FF8800;
+      --cream: #F5F0E8;
+      --ink: #0D0D0D;
+      --ink-soft: #2A2A2A;
+      --muted: #8A8070;
+      --line: rgba(13,13,13,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, var(--cream) 60%, transparent);
+    }
+
+    .logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    nav { display: flex; gap: 2.5rem; align-items: center; }
+
+    nav a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--ink); }
+
+    .article-hero {
+      padding: 10rem 3rem 4rem;
+      max-width: 760px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .article-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .article-tag::before {
+      content: '';
+      display: inline-block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .article-title {
+      font-size: clamp(2.6rem, 4.5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .article-title em {
+      font-style: italic;
+      color: var(--red);
+    }
+
+    .article-subtitle {
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .article-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .article-body {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 3rem 6rem;
+    }
+
+    .article-body p {
+      font-size: 1.2rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--ink-soft);
+      margin-bottom: 1.6rem;
+    }
+
+    .article-body p:first-of-type::first-letter {
+      font-size: 4.5rem;
+      font-weight: 300;
+      line-height: 0.8;
+      float: left;
+      margin-right: 0.1em;
+      margin-top: 0.08em;
+      color: var(--ink);
+    }
+
+    .article-body h2 {
+      font-size: 1.9rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      margin-top: 3.5rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .article-body h3 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .article-body blockquote {
+      border-left: 2px solid var(--red);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .article-body blockquote p {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    .article-footer-bar {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2.5rem 3rem 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+    }
+
+    .back-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--ink); }
+    .back-link::before { content: '← '; }
+
+    footer {
+      padding: 3rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 1.25rem 1.5rem; }
+      nav { gap: 1.5rem; }
+      .article-hero { padding: 8rem 1.5rem 3rem; }
+      .article-body { padding: 3rem 1.5rem 5rem; }
+      .article-footer-bar { padding: 2rem 1.5rem 4rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">TBM</a>
+    <nav>
+      <a href="/#writing">Writing</a>
+      <a href="/#ventures">Ventures</a>
+      <a href="/#about">About</a>
+      <a href="mailto:tiagobrancomole@gmail.com">Contact</a>
+    </nav>
+  </header>
+
+  <div class="article-hero">
+    <div class="article-tag">Policy · Technology · Religion</div>
+    <h1 class="article-title"><em>Antiqua et Nova</em> — The Church's Teachings on Artificial Intelligence</h1>
+    <p class="article-subtitle">How one of the world's oldest institutions navigates its most modern challenge</p>
+    <div class="article-meta">
+      <span class="article-date">2025</span>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <p>
+      We now live in a time of fantastical technological progress, with a world that increasingly relies on the aid that technology provides us. Areas of life that were once solely human — the creation of art and writing — have been inundated with the presence of machines that have learnt to mimic the way we think, interact with each other and create. Even more cynically, we have begun to entrust these systems with choices of life and death, with the increasing use of artificial intelligence in warfare and attacks on foreign infrastructure, both digital and physical.
+    </p>
+
+    <p>
+      In an age increasingly shaped by the rise of large-language models, one of the oldest institutions in the world, the Catholic Church, was required to provide guidance on how Catholics can interact with and utilise these technologies while still conforming with the teachings of the Church.
+    </p>
+
+    <p>
+      In January 2025, the Vatican released <em>Antiqua et Nova: Note on the Relationship Between Artificial Intelligence and Human Intelligence</em>, a doctrinal document co-authored by Cardinal Víctor Manuel Fernández and Cardinal José Tolentino de Mendonça, with the approval of Pope Francis. The title itself — "Old and New" — shows how such an ancient organisation must force itself to interact with new-age philosophy, while still adhering to more than 2,000 years of theology.
+    </p>
+
+    <h3>The Authors</h3>
+
+    <p>
+      <em>Antiqua et Nova</em> is the work of two authors: the Argentinean Cardinal Victor Manuel Fernandez, the Prefect for the Dicastery of the Doctrine of the Faith, and the Portuguese Cardinal José Tolentino de Mendonça, the Prefect for the Dicastery for Culture and Education. The appointment of two such central figures in the Church's leadership underscores just how seriously Rome takes the cultural challenge that AI presents.
+    </p>
+
+    <p>
+      Cardinal Fernandez was seen by many as one of the closest allies of Pope Francis — a theologian who seeks to move the Church away from the technical jargon of heavy doctrine towards a more living relationship with Christ. He was a strong influence on Pope Francis in the writing of <em>Evangelii Gaudium</em>, <em>Amoris Laetitia</em>, and <em>Laudato Si'</em>. <em>Antiqua et Nova</em> continues his philosophy of discussion and gentle guidance rather than condemnation. Fernandez does not seek to stop the development of AI, but merely ensure it continues to work in the interests of the people.
+    </p>
+
+    <p>
+      Cardinal Mendonça brings with him a depth of experience in connecting Catholic theology with popular cultural figures and literature — previous books combining Bible study with references to Fernando Pessoa and Emily Dickinson. Throughout his career he has sought to infuse religious teachings with a well-written message that resonates culturally. This is a strong theme in <em>Antiqua et Nova</em>, which discusses differences between human and artificial intelligence with references to Dante, and alludes to the fact that "a person's worth does not depend on possessing specific skills… but on the person's inherent dignity."
+    </p>
+
+    <h3>The Nature of Intelligence</h3>
+
+    <p>
+      The first and most significant central argument in the text is that there is a fundamental difference in the nature of intelligence between humans and machines. <em>Antiqua et Nova</em> lays out that artificial intelligence has two major branches: "Narrow AI" systems (designed to handle specific and limited functions) and "General AI" systems (capable of operating across all cognitive domains). The Church sees both as fundamentally incomparable with human intelligence.
+    </p>
+
+    <p>
+      In the document's view, human intelligence is "understood through the complementary concepts of 'reason' (<em>ratio</em>) and 'intellect' (<em>intellectus</em>)." Human intelligence is not merely factual in its sense of Truth, but in the complete engagement of reality — using the mind and soul as a collective to experience the world. While artificial intelligence is more effective in computations and recreations, it does not think. A machine fed data cannot reach past the confines of that data. It is, to quote Aristotle, in the "natural desire to know" that defines what is human.
+    </p>
+
+    <h3>Where AI Must Not Go</h3>
+
+    <p>
+      The document identifies three specific ways in which AI is already being misused: the creation and distribution of misinformation, its application in autonomous weapons, and its negative impact on education.
+    </p>
+
+    <p>
+      On misinformation, the document warns that "AI-generated fake media can gradually undermine the foundations of society." It touches on the Slovakia election deepfake of 2023, where audio purported to show a leading progressive candidate conspiring to rig the election. The audio was quickly proven fake, but had already been widely spread across the country, weakening public trust in the democratic process.
+    </p>
+
+    <p>
+      On warfare, the document worries that "the ability to conduct military operations through remote control systems has led to a lessened perception of the devastation." The basic humanity in warfare has been reduced — combatants and civilians become pieces of data in the programme of algorithms that operate not morally but efficiently.
+    </p>
+
+    <p>
+      On education, <em>Antiqua et Nova</em> argues that because AI can "effectively imitate the products of human intelligence," there is a risk that children will be educated using AI, "potentially encouraging them to develop patterns of interaction that treat human relationships in a transactional manner." Teachers are not simply "dispensers of information" but active participants in building a child's worldview, intellectual and moral growth. The widespread access to generative AI tools risks eroding that critical-thinking faculty which is so central to what it means to be human.
+    </p>
+
+    <h3>Commentary</h3>
+
+    <p>
+      <em>Antiqua et Nova</em> is in essence and tone a product of the papacy of Pope Francis. Unlike documents authored under previous popes such as Benedict XVI, it is not overly technical and does not prescribe specific policies. It reads more like a sermon than an official document, with passages that speak poetically about human intelligence: "So much can be learned from an illness, an embrace of reconciliation, and even a simple sunset."
+    </p>
+
+    <p>
+      The document's fundamental thesis is broadly aligned with many in the linguistic and cultural world. Noam Chomsky wrote in a 2023 New York Times op-ed that "the human mind is not like ChatGPT… the human mind is a surprisingly efficient and even elegant system that operates with small amounts of information; it seeks not to infer brute correlations among data points but to create explanations." The Church, a fundamentally anthropocentric institution, naturally arrives at the same conclusion: what AI does is output the correct mathematical function without understanding what multiplication, addition or any other mathematical concept actually is.
+    </p>
+
+    <blockquote>
+      <p>"While we've been upgrading the machines, we've been downgrading the social fabric, our attention spans, our relationships, our democracy, our civility." — Tristan Harris, Centre for Humane Technology</p>
+    </blockquote>
+
+    <p>
+      This viewpoint is not shared widely in the tech world. Leaders such as Sam Altman from OpenAI have stated that "we are on the path to a system that can reason, have memory, and solve problems at a level comparable to humans." Many tech engineers hold the belief that human intelligence is not a supernatural ability but merely a reflection of the brain's extraordinary computational capacity — one that machines will eventually rival.
+    </p>
+
+    <p>
+      In many ways <em>Antiqua et Nova</em> is the perfect encapsulation of Pope Francis's leadership. Authored by two of his closest allies, with a prioritisation of gentle guidance over condescension, the document outlines not just the negative consequences of the rise of artificial intelligence but also its remarkable uses, and it highlights the beauty and uniqueness of human intelligence. While the Church's view deviates from the tech world, it is broadly in line with the cultural world — an indication of the success Pope Francis had in modernising the establishment. The document seeks not to hold back technological progress, but to ensure it is aimed at the advancement of society.
+    </p>
+  </div>
+
+  <div class="article-footer-bar">
+    <a href="/#writing" class="back-link">All Writing</a>
+  </div>
+
+  <footer>
+    <div class="footer-name">Tiago Branco Mole</div>
+    <div class="footer-copy">© 2026 — All rights reserved</div>
+  </footer>
+
+</body>
+</html>

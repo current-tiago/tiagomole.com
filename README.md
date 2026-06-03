@@ -4,6 +4,8 @@ Personal portfolio site for Tiago Branco Mole — economist, entrepreneur, write
 
 Live at **[tiagomole.com](https://tiagomole.com)**
 
+> **Claude instruction:** Never open or launch a browser preview. Edit files directly — Netlify auto-deploys on push.
+
 ---
 
 ## Stack
@@ -36,8 +38,7 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 ├── work.html                                   # Full article archive
 ├── write-article.html
 │
-├── rh-e3f7a92c1d.html                         # Rocky's Home (password-gated, private)
-├── rockys-home.html                            # Public redirect stub (returns 404 via netlify.toml)
+├── [private]                                   # Rocky's Home (password-gated)
 │
 ├── netlify.toml                                # Netlify config (functions + redirect rules)
 ├── netlify/
@@ -84,7 +85,7 @@ Fixed bottom-right widget. Shows current track as **"Tiago is playing"** or **"L
 
 ## Rocky's Home
 
-A private page (`rh-e3f7a92c1d.html`) accessible via a hidden button in the footer. Password is validated server-side by `rocky-auth.js` — no credentials in public source.
+A private page accessible via a hidden button in the footer. Password is validated server-side by `rocky-auth.js` — no credentials in public source.
 
 **Env var required:**
 
@@ -104,7 +105,7 @@ Contains: five poems, a countdown to her arrival in Lisbon, and a **Films We've 
 3. Add to the relevant category page (e.g. `policy-research.html`)
 
 ### New film to Rocky's Home
-Copy an existing `.movie-item` block in `rh-e3f7a92c1d.html`, update number/title/year and star spans. Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`.
+Open Rocky's Home and copy an existing `.movie-item` block, update number/title/year and star spans. Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`.
 
 ### New venture
 Add a new `<a class="venture-item">` block in the **Ventures** section of `index.html`.

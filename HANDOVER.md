@@ -4,6 +4,10 @@ Last updated: 3 June 2026 (evening, session 2)
 
 ---
 
+> **Claude instruction:** Never open or launch a browser preview. Make all changes directly to the HTML files and let Netlify handle deployment.
+
+---
+
 ## Project overview
 
 Personal website for Tiago Branco Mole. Hosted on **Netlify**, connected to GitHub:
@@ -55,13 +59,14 @@ entrepreneurial-ventures.html
 work.html                                 — article archive
 write-article.html
 
-rh-e3f7a92c1d.html                        — Rocky's Home (password-gated, secret filename)
-rockys-home.html                          — public stub, returns 404 via netlify.toml
+[private page]                             — Rocky's Home (password-gated)
 
 netlify/functions/
   now-playing.js                          — Spotify serverless function
   rocky-auth.js                           — server-side password auth for Rocky's Home
-netlify.toml                              — functions directory + redirect rules
+netlify/edge-functions/
+  rocky-gate.js                           — edge function that gates Rocky's Home (cookie check)
+netlify.toml                              — functions + edge-functions directory config
 ```
 
 ---
@@ -130,16 +135,16 @@ cities = [
 
 ---
 
-## Rocky's Home (rh-e3f7a92c1d.html)
+## Rocky's Home
 
 Private page for Rocky (Tiago's girlfriend, also referred to as Imy). Accessed via a hidden password button in the footer of the main site.
 
 **Security model:**
-- The real file is `rh-e3f7a92c1d.html` (unguessable filename)
-- `/rockys-home.html` returns 404 via netlify.toml redirect
-- Password is validated **server-side** by `netlify/functions/rocky-auth.js`
-- No hash or password is exposed in any public JS
-- On correct password, the auth function returns `{ ok: true, path: '/rh-e3f7a92c1d.html' }`
+- Password validated **server-side** by `netlify/functions/rocky-auth.js`
+- On correct password, the auth function sets a `rh_session` cookie (HMAC-SHA256, 7-day expiry)
+- A Netlify Edge Function (`netlify/edge-functions/rocky-gate.js`) gates the page — no valid cookie, no access
+- `ROCKY_PASSWORD_HASH` lives in Netlify env vars — not in any file
+- No credentials, hashes, or page paths are exposed in public docs
 
 **Netlify env var required:**
 
@@ -182,7 +187,7 @@ Private page for Rocky (Tiago's girlfriend, also referred to as Imy). Accessed v
 | 16 | The Holdovers | 2023 | ★★★★☆ | ★★★★★ |
 | 17 | The Disappearance of Hannah Grace | 2018 | ★★½☆☆ | ★★★½☆ |
 
-**To add a film**, copy an existing `.movie-item` block in `rh-e3f7a92c1d.html` and update the number, title, year, and star spans.
+**To add a film**, open Rocky's Home and copy an existing `.movie-item` block, update the number, title, year, and star spans.
 
 ---
 
@@ -225,10 +230,9 @@ Netlify serverless function at `netlify/functions/now-playing.js`.
 ## Security
 
 - Password check for Rocky's Home is **server-side only** (`rocky-auth.js`)
+- Rocky's Home is gated by a Netlify Edge Function — the page cannot be accessed without a valid session cookie, even if the URL is known
 - `ROCKY_PASSWORD_HASH` lives in Netlify env vars — not in any file
-- `/rockys-home.html` is blocked via 404 redirect in `netlify.toml`
 - Spotify credentials are env vars only — never in source
-- Wayback Machine has no snapshots of Rocky's Home (confirmed June 2026)
 
 ---
 

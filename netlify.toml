@@ -1,8 +1,5 @@
 [functions]
   directory = "netlify/functions"
 
-[[redirects]]
-  from = "/rockys-home.html"
-  to = "/"
-  status = 404
-  force = true
+[edge_functions]
+  directory = "netlify/edge-functions"

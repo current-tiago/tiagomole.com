@@ -29,12 +29,26 @@ exports.handler = async (event) => {
 
   const ok = hash === passwordHash;
 
+  if (!ok) {
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ok: false }),
+    };
+  }
+
+  const sessionToken = crypto
+    .createHmac('sha256', passwordHash)
+    .update('rh-session-v1')
+    .digest('hex');
+
   return {
     statusCode: 200,
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': 'https://tiagomole.com',
+      'Set-Cookie': `rh_session=${sessionToken}; HttpOnly; Secure; SameSite=Strict; Path=/rh-e3f7a92c1d.html; Max-Age=604800`,
     },
-    body: JSON.stringify(ok ? { ok: true, path: '/rh-e3f7a92c1d.html' } : { ok: false }),
+    body: JSON.stringify({ ok: true, path: '/rh-e3f7a92c1d.html' }),
   };
 };

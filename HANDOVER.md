@@ -17,7 +17,7 @@ Local path: `/Users/tiagobranco-mole/Desktop/tiagomole.com`
 
 Stack: pure HTML/CSS/JS — no build step, no framework. Deploy by pushing to `main`.
 
-One Node.js dependency: `@netlify/blobs` (used by the lottery function). Defined in root `package.json`, installed automatically by Netlify on deploy.
+No Node.js dependencies — `package.json` has been removed. All serverless functions use only Node.js built-ins. Deploys are pure static + functions, no `npm install` step.
 
 ---
 
@@ -47,7 +47,6 @@ index.html                                — homepage
 europe-map.svg                            — Western Europe SVG map used in hero-right
 lisbon-map.svg                            — Detailed Lisbon SVG map used in Rocky's Home
 world-map.svg                             — World map (equirectangular) used in the Famous Person game
-package.json                              — @netlify/blobs dependency for lottery function
 
 — Full article pages (word-for-word from source material) —
 how-to-be-a-dictator.html
@@ -69,7 +68,6 @@ write-article.html
 netlify/functions/
   now-playing.js                          — Spotify serverless function
   rocky-auth.js                           — server-side password auth for Rocky's Home
-  lottery-draw.js                         — server-side daily lottery draw (Netlify Blobs)
 netlify/edge-functions/
   rocky-gate.js                           — edge function that gates Rocky's Home (cookie check)
 netlify.toml                              — functions + edge-functions directory config
@@ -326,7 +324,7 @@ Netlify serverless function at `netlify/functions/now-playing.js`.
 
 ## Deployment
 
-Push to `main` → Netlify auto-deploys in ~15–30 seconds (slightly longer now due to `npm install` for `@netlify/blobs`). No build step needed for the static files.
+Push to `main` → Netlify auto-deploys in ~15–30 seconds. No build step, no `npm install` — pure static files + serverless functions.
 
 ```bash
 git add <files>

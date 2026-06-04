@@ -10,10 +10,9 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 
 ## Stack
 
-- Pure HTML/CSS/JS — no framework
+- Pure HTML/CSS/JS — no framework, no build step, no npm dependencies
 - Hosted on **Netlify** (auto-deploys from `main` branch on GitHub)
-- Serverless functions for Spotify integration, Atelier auth, and daily lottery
-- `@netlify/blobs` for server-side lottery state (installed via `package.json`)
+- Two serverless functions: Spotify now-playing widget + Rocky's Home auth
 
 ---
 
@@ -24,7 +23,7 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 ├── index.html                                  # Main portfolio page (hero, writing, ventures, about)
 ├── europe-map.svg                              # Western Europe SVG map for hero-right panel
 ├── lisbon-map.svg                              # Detailed Lisbon SVG map for Rocky's Home
-├── package.json                                # @netlify/blobs dependency
+├── world-map.svg                               # World map (equirectangular) for the famous person game
 │
 ├── — Full article pages —
 ├── how-to-be-a-dictator.html
@@ -43,12 +42,13 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 │
 ├── [private]                                   # Rocky's Home (password-gated)
 │
-├── netlify.toml                                # Netlify config (functions + redirect rules)
+├── netlify.toml                                # Netlify config (functions directory)
 ├── netlify/
-│   └── functions/
-│       ├── now-playing.js                      # Spotify "now playing" serverless function
-│       ├── rocky-auth.js                       # Server-side password auth for Rocky's Home
-│       └── lottery-draw.js                     # Server-side daily lottery (Netlify Blobs)
+│   ├── functions/
+│   │   ├── now-playing.js                      # Spotify "now playing" serverless function
+│   │   └── rocky-auth.js                       # Server-side password auth for Rocky's Home
+│   └── edge-functions/
+│       └── rocky-gate.js                       # Edge function that gates Rocky's Home
 ├── HANDOVER.md                                 # Full context for new Claude sessions
 └── README.md
 ```
@@ -75,7 +75,7 @@ See `HANDOVER.md` for regeneration instructions and how to add new city markers.
 
 ## Lisbon Map
 
-`lisbon-map.svg` is a hand-crafted SVG of Lisbon used in Rocky's Home. It includes a detailed street network, 18 named districts, and an accurate Tagus River shape (curves sharply north at Parque das Nações). Five orange dots mark: Oceanário de Lisboa, Campo Pequeno, Praça do Comércio, Av. da Liberdade, and Torre de Belém.
+`lisbon-map.svg` is a hand-crafted SVG of Lisbon used in Rocky's Home. It includes a detailed street network, 18 named districts, and an accurate Tagus River shape. Five orange dots mark: Oceanário de Lisboa, Campo Pequeno, Praça do Comércio, Av. da Liberdade, and Torre de Belém.
 
 See `HANDOVER.md` for the coordinate formula and how to add or move dots.
 
@@ -105,15 +105,19 @@ A private page for Imy, accessible via a hidden button in the footer. Password i
 |-----|-------|
 | `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (Netlify dashboard) |
 
-**Sections:** hero with countdown to arrival · five poems (accordion) · Films We've Watched (16 films, dual T/R star ratings, expandable descriptions) · **Something I Like About You** (daily lottery) · Lisbon map.
+**Sections:** hero with countdown to arrival · five poems (accordion) · Films We've Watched · **Something I Like About You** (daily famous person game) · Lisbon map.
 
 ### Films We've Watched
-16 films with dual star ratings (T = Tiago in orange, R = Imy in pink, out of 5). Clicking a film title expands an IMDB-style description panel. Films with the highest combined T+R score get the `top-rated` class (soft gold title). Currently: Train Dreams and Project Hail Mary (both 10/10).
+16 films with dual star ratings (T = Tiago in orange, R = Imy in pink, out of 5). Clicking a film title expands a description panel. Films with the highest combined T+R score get the `top-rated` class (soft gold title). Currently: Train Dreams and Project Hail Mary (both 10/10).
 
-### Daily Lottery
-A "Something I Like About You" section gated by a 25% daily draw. **One shared roll per day** — the first person anywhere to click triggers a server-side roll via `lottery-draw.js`; everyone else that day gets the same result. Won items are revealed one at a time and accumulate into a permanent collection. Backed by Netlify Blobs (auto-provisioned, no setup needed). Falls back to a local roll if the function is unavailable.
+### Something I Like About You — Famous Person Game
+A daily geography-guessing game. A world map shows a **green circle** (birth city + year) and a **red circle** (death city + year). The player guesses who it is. Resets every day at **14:00 Lisbon time**.
 
-See `HANDOVER.md` for full mechanics, storage schema, and reset instructions.
+- 100% client-side — state stored in `localStorage` (`rocky_famous_v1`), fully independent per device
+- New famous person each day, cycling through the `FAMOUS_PEOPLE` array in `rh-e3f7a92c1d.html`
+- Day 0 (June 4 2026) = Trotsky. To add more people, append to the array — never reorder existing entries.
+
+See `HANDOVER.md` for full mechanics and how to add new people.
 
 ---
 
@@ -121,14 +125,24 @@ See `HANDOVER.md` for full mechanics, storage schema, and reset instructions.
 
 ### New article
 1. Create a new `.html` file (copy `how-to-be-a-dictator.html` as template)
-2. Add a new `.writing-item` row in the **Writing** section of `index.html` (increment the number)
+2. Add a new `.writing-item` row in the **Writing** section of `index.html`
 3. Add to the relevant category page (e.g. `policy-research.html`)
 
 ### New film to Rocky's Home
-Copy an existing `.movie-item` block — it contains a `.movie-item-row` (num / title / ratings grid) and a `.movie-desc-wrap` (the hidden description panel). Update the number, title, year, star spans, and description fields (director, synopsis, genre). Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`. After adding, recalculate combined T+R scores and move the `top-rated` class to the highest-scoring film(s).
+Copy an existing `.movie-item` block — it contains a `.movie-item-row` (num / title / ratings grid) and a `.movie-desc-wrap` (hidden description panel). Update number, title, year, star spans, and description. Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`. After adding, recalculate combined T+R scores and move the `top-rated` class to the highest-scoring film(s).
 
-### New "thing I like about you"
-Add a new string to the `THINGS` array in `rh-e3f7a92c1d.html`. **Always append — never reorder or remove** existing entries, as the server stores indices and reordering would corrupt the collection. Also add the next Roman numeral to the `NUMERALS` array.
+### New famous person to the game
+Append an entry to `FAMOUS_PEOPLE` in `rh-e3f7a92c1d.html`:
+```js
+{
+  name: "Full Name",
+  hint: "Short descriptor",
+  born: { city: "City, Country", lat: 00.00, lon: 00.00, year: 0000 },
+  died: { city: "City, Country", lat: 00.00, lon: 00.00, year: 0000 },
+  fact: "One interesting sentence.",
+}
+```
+Map coordinates use equirectangular projection: `x = (lon + 180) / 360 * 2000`, `y = (90 - lat) / 180 * 1000`.
 
 ### New venture
 Add a new `<a class="venture-item">` block in the **Ventures** section of `index.html`.
@@ -137,10 +151,10 @@ Add a new `<a class="venture-item">` block in the **Ventures** section of `index
 
 ## Deployment
 
-Push to `main` → Netlify auto-deploys. Takes ~20–30 seconds (slightly longer than before due to `npm install`).
+Push to `main` → Netlify auto-deploys in ~15–30 seconds.
 
 ```bash
-git add . && git commit -m "your message" && git push
+git add <files> && git commit -m "message" && git push
 ```
 
 ---

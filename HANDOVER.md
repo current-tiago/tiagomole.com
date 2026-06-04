@@ -46,6 +46,7 @@ All pages share the same design tokens and fonts:
 index.html                                — homepage
 europe-map.svg                            — Western Europe SVG map used in hero-right
 lisbon-map.svg                            — Detailed Lisbon SVG map used in Rocky's Home
+world-map.svg                             — World map (equirectangular) used in the Famous Person game
 package.json                              — @netlify/blobs dependency for lottery function
 
 — Full article pages (word-for-word from source material) —
@@ -195,7 +196,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`
    - Film(s) with the highest combined T+R score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
    - **Clicking a film title** expands a description panel below that row (exclusive accordion). Panel shows: director in DM Mono red caps, synopsis in Cormorant italic, genre tags in small DM Mono.
-4. **Something I Like About You** (`#daily-draw`) — daily lottery section (see below)
+4. **Something I Like About You** (`#daily-draw`) — daily famous person game (see below)
 5. **Lisbon** — full-width SVG map of Lisbon with 5 orange location dots
 6. **Footer**
 
@@ -224,31 +225,56 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 
 ---
 
-## Daily Lottery ("Something I Like About You")
+## Famous Person Game ("Something I Like About You")
 
-A daily draw mechanic gating a collection of personal notes. Located in `rh-e3f7a92c1d.html` and backed by `netlify/functions/lottery-draw.js`.
+A daily geography-guessing game. Located entirely in `rh-e3f7a92c1d.html` (pure client-side — no server function needed).
 
 **How it works:**
-- **One shared roll per day** — the first person to click "Draw" on any given day triggers a server-side roll. All subsequent visitors that day get the same result (won or lost), regardless of device or browser.
-- **25% chance** of winning. On a win, one previously-unseen item from the list is revealed and added to the collection permanently.
-- **No repeats** — the server tracks which items have been revealed (`state` blob in Netlify Blobs). Each item can only appear once across all time.
-- **localStorage as cache** — the client caches today's result locally so revisiting the page within the same day doesn't re-call the function. The server is always the source of truth.
-- **Fallback** — if the Netlify function is unavailable, a local Math.random() roll runs instead so the UI always responds.
+- A world map (`world-map.svg`, equirectangular, viewBox 0 0 2000 1000) is shown with two circles overlaid via an inline SVG:
+  - **Green circle** = birth city + birth year
+  - **Red circle** = death city + death year
+- The player types a guess (full name or last name accepted, case-insensitive).
+- On a correct guess: the name, a one-line description, and a fun fact are revealed.
+- On a wrong guess: the attempt count increments; the player can keep guessing or click "Give up & reveal".
+- **Resets daily at 14:00 Lisbon time** — same `todayStr()` logic as before.
 
-**Server-side storage (Netlify Blobs, store name: `'lottery'`):**
+**Daily rotation:**
+- Day 0 (June 4 2026) = Trotsky. Cycles through `FAMOUS_PEOPLE` array sequentially.
+- Epoch: `const GAME_EPOCH = new Date('2026-06-04')` in the script.
+- Formula: `dayNum % FAMOUS_PEOPLE.length`
 
-| Blob key | Contents |
-|----------|----------|
-| `YYYY-MM-DD` (Lisbon time) | `{ "won": bool, "itemIdx": N\|null }` — today's draw result |
-| `state` | `{ "seen": [idx, idx, ...] }` — all-time list of revealed item indices |
+**The people** are defined in the `FAMOUS_PEOPLE` array in `rh-e3f7a92c1d.html`. Each entry has:
+```js
+{
+  name: "...",
+  hint: "...",          // short descriptor shown after reveal
+  born: { city, lat, lon, year },
+  died: { city, lat, lon, year },
+  fact: "...",          // one interesting sentence shown after reveal
+}
+```
+To add more people, append to the array. Order matters — don't reorder existing entries, as it shifts the rotation.
 
-**Netlify Blobs** is auto-provisioned — no env vars or manual setup required. It's available to any function on a Netlify-deployed site.
+**Map coordinates** use equirectangular projection:
+```
+x = (lon + 180) / 360 * 2000
+y = (90  - lat) / 180 * 1000
+```
 
-**The 14 items** are defined in the `THINGS` array in `rh-e3f7a92c1d.html`. To update them, edit the array directly. The server stores indices (0–13), not the text itself, so reordering the array would corrupt the collection — only append new items, never reorder or remove existing ones.
+**localStorage key:** `rocky_famous_v1`  
+**State shape:** `{ day, solved, revealed, attempts[] }`
 
-**localStorage key:** `rocky_lottery_v4` (bump the version number if the data shape ever changes, to force a clean state for all users).
+**Current people (in rotation order):**
+1. Leon Trotsky — born Ukraine, died Mexico City
+2. Nikola Tesla — born Croatia, died New York
+3. Karl Marx — born Germany, died London
+4. Frida Kahlo — born & died Coyoacán, Mexico
+5. Napoleon Bonaparte — born Corsica, died Saint Helena
+6. Che Guevara — born Argentina, died Bolivia
+7. Marie Curie — born Warsaw, died France
+8. Simón Bolívar — born Venezuela, died Colombia
 
-**To reset the lottery** (wipe all draws and start fresh): in the Netlify Blobs dashboard, delete the `lottery` store, or bump the storage key in both the function and the client.
+**world-map.svg** — generated from Natural Earth 110m countries topojson (`world-atlas@2`). Equirectangular projection, viewBox 0 0 2000 1000. Countries filled `rgba(13,13,13,0.07)`, stroked `rgba(13,13,13,0.18)`. To regenerate: run `/tmp/gen-world-svg.js` with `node`.
 
 ---
 

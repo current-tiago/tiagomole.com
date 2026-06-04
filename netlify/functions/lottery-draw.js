@@ -10,9 +10,20 @@ const CORS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-// Returns today's date string in Lisbon time (YYYY-MM-DD)
+// Returns the active "day" key — resets at 14:00 Lisbon time each day.
+// Before 2pm: yesterday's date is still the active day.
 function todayLisbon() {
-  return new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/Lisbon' });
+  const now = new Date();
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Europe/Lisbon',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', hourCycle: 'h23',
+    }).formatToParts(now).map(p => [p.type, p.value])
+  );
+  const date = new Date(`${parts.year}-${parts.month}-${parts.day}`);
+  if (parseInt(parts.hour, 10) < 14) date.setDate(date.getDate() - 1);
+  return date.toLocaleDateString('en-CA');
 }
 
 exports.handler = async (event) => {

@@ -548,165 +548,187 @@
     }
 
     /* DRAW SECTION */
-    .draw-section {
+    /* ── FAMOUS PERSON GAME ─────────────────────────────────────── */
+    .famous-section {
       padding: 6rem 3rem;
       border-top: 1px solid var(--line);
     }
 
-    .draw-wrap {
-      max-width: 400px;
+    .famous-wrap {
+      max-width: 860px;
       margin: 3rem auto 0;
     }
 
-    .lottery-ticket {
-      border: 1px solid rgba(13,13,13,0.18);
-      background: var(--cream);
+    .famous-map-wrap {
       position: relative;
+      width: 100%;
+      background: var(--cream);
+      border: 1px solid var(--line);
+      overflow: hidden;
     }
 
-    @keyframes ticketShake {
-      0%, 100% { transform: translateX(0) rotate(0deg); }
-      15%       { transform: translateX(-5px) rotate(-0.6deg); }
-      30%       { transform: translateX(5px)  rotate(0.6deg); }
-      45%       { transform: translateX(-4px) rotate(-0.4deg); }
-      60%       { transform: translateX(4px)  rotate(0.4deg); }
-      75%       { transform: translateX(-2px) rotate(-0.2deg); }
-      90%       { transform: translateX(2px)  rotate(0.1deg); }
+    .famous-map-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.82;
     }
 
-    .lottery-ticket.shaking { animation: ticketShake 0.55s ease; }
-
-    .ticket-header {
-      padding: 1rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px dashed rgba(13,13,13,0.15);
+    .famous-map-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
     }
 
-    .ticket-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .ticket-odds {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.15em;
-      color: var(--red);
-    }
-
-    .ticket-content {
-      padding: 2.5rem 2rem;
-      text-align: center;
-      min-height: 148px;
+    .famous-card {
+      border: 1px solid var(--line);
+      border-top: none;
+      padding: 2rem 2.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 1.4rem;
+      min-height: 130px;
       justify-content: center;
-      gap: 1.6rem;
-      transition: opacity 0.22s ease;
     }
 
-    .ticket-prompt {
+    .famous-prompt {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-weight: 300;
+      font-size: 1rem;
       font-style: italic;
+      font-weight: 300;
       color: var(--muted);
+      text-align: center;
       line-height: 1.7;
       margin: 0;
     }
 
-    .ticket-draw-btn {
+    .famous-guess-row {
+      display: flex;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .famous-input {
+      flex: 1;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid rgba(13,13,13,0.28);
+      border-right: none;
+      padding: 0.6rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .famous-input:focus { border-color: var(--ink); }
+
+    @keyframes inputShake {
+      0%,100% { transform: translateX(0); }
+      20%     { transform: translateX(-7px); }
+      60%     { transform: translateX(7px); }
+      80%     { transform: translateX(-3px); }
+    }
+
+    .famous-input.wrong { border-color: var(--red); animation: inputShake 0.35s ease; }
+
+    .famous-btn {
       font-family: 'DM Mono', monospace;
-      font-size: 0.58rem;
+      font-size: 0.55rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--ink);
       background: none;
       border: 1px solid rgba(13,13,13,0.28);
-      padding: 0.55rem 2.4rem;
+      padding: 0.6rem 1.6rem;
       cursor: pointer;
       transition: all 0.2s;
+      white-space: nowrap;
     }
 
-    .ticket-draw-btn:hover:not(:disabled) { background: var(--ink); color: var(--cream); border-color: var(--ink); }
-    .ticket-draw-btn:disabled             { opacity: 0.4; cursor: default; }
+    .famous-btn:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
 
-    .ticket-win-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.5rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--red);
-    }
-
-    .ticket-win-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--ink);
-      line-height: 1.7;
-      max-width: 300px;
-      margin: 0;
-    }
-
-    .ticket-loss-text {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-    }
-
-    .ticket-meta {
+    .famous-wrong-count {
       font-family: 'DM Mono', monospace;
       font-size: 0.48rem;
       letter-spacing: 0.12em;
-      color: rgba(13,13,13,0.28);
-      display: flex;
-      justify-content: space-between;
+      color: rgba(13,13,13,0.38);
+    }
+
+    .famous-reveal-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.48rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(13,13,13,0.32);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    .famous-reveal-link:hover { color: var(--muted); }
+
+    .famous-result {
       width: 100%;
-    }
-
-    .draw-collection { margin-top: 2.5rem; }
-
-    .collection-item {
-      border-top: 1px solid var(--line);
-      padding: 1.4rem 0;
-      display: grid;
-      grid-template-columns: 2.5rem 1fr;
-      gap: 0 1.5rem;
-      align-items: baseline;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
       opacity: 0;
-      transform: translateY(10px);
-      animation: fadeUp 0.5s ease forwards;
+      transition: opacity 0.4s ease;
     }
 
-    .collection-numeral {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      font-style: italic;
-      color: var(--red);
+    .famous-result.visible { opacity: 1; }
+
+    .famous-result-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.48rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
     }
 
-    .collection-text {
+    .famous-result-label.correct  { color: #4a7a4a; }
+    .famous-result-label.revealed { color: var(--muted); }
+
+    .famous-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-weight: 300;
-      font-style: italic;
+      font-size: 2.4rem;
+      font-weight: 400;
       color: var(--ink);
-      line-height: 1.65;
+      line-height: 1.1;
       margin: 0;
     }
 
+    .famous-hint {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .famous-fact {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.75;
+      margin: 0.25rem 0 0;
+    }
+
     @media (max-width: 768px) {
-      .draw-section { padding: 4rem 1.5rem; }
-      .draw-wrap { max-width: 100%; }
+      .famous-section { padding: 4rem 1.5rem; }
+      .famous-wrap    { max-width: 100%; }
+      .famous-card    { padding: 1.5rem; }
+      .famous-name    { font-size: 1.9rem; }
     }
 
     /* LISBON MAP SECTION */
@@ -1322,22 +1344,16 @@
     </div>
   </div>
 
-  <div class="draw-section" id="daily-draw">
+  <div class="famous-section" id="daily-draw">
     <div class="section-label">Something I Like About You</div>
-    <div class="draw-wrap">
+    <div class="famous-wrap">
 
-      <div class="lottery-ticket" id="lottery-ticket">
-        <div class="ticket-header">
-          <span class="ticket-tag">Daily Draw</span>
-          <span class="ticket-odds">1 in 4</span>
-        </div>
-        <div class="ticket-content" id="ticket-content">
-          <p class="ticket-prompt">Once each day, a chance<br>to find something out.</p>
-          <button class="ticket-draw-btn" id="ticket-draw-btn" onclick="runLottery()">Draw</button>
-        </div>
+      <div class="famous-map-wrap">
+        <img src="world-map.svg" class="famous-map-img" alt="World map">
+        <svg class="famous-map-overlay" id="famous-overlay" viewBox="0 0 2000 1000" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
 
-      <div class="draw-collection" id="draw-collection"></div>
+      <div class="famous-card" id="famous-card"></div>
 
     </div>
   </div>
@@ -1425,139 +1441,226 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // ─── DAILY LOTTERY ───────────────────────────────────────────
-    // Source of truth is the server (lottery-draw Netlify function).
-    // localStorage is used only as a same-day cache so revisiting the
-    // page doesn't trigger a second network call.
+    // ─── FAMOUS PERSON GAME ──────────────────────────────────────
+    // Each day at 14:00 Lisbon time, a new famous person is revealed.
+    // The player guesses who it is from birth (green) and death (red) circles.
 
-    const THINGS = [
-      "The mischievous grin when I catch you looking at me when we watch a movie.",
-      "The way you try and hide your Smints consumption.",
-      "The fact your favourite number is 2, which fits so well with your character.",
-      "The way your face curls into the bed or your arm when you ask me what I'm thinking a few times in a row.",
-      "The way your voice goes higher when you ask for something or get nervous.",
-      "How happy you get when Jess messages you.",
-      "The way you pout your lips when you find something cute.",
-      "How competitive you get about Wordle and Connections.",
-      "When you nod your head a lot when you want me to do something.",
-      "How dramatic you are when you get scared of bugs.",
-      "The smile you get when I come back from the bathroom or the kitchen.",
-      "When you get really scared and start saying fuck off.",
-      "When you start looking around after saying something like \"I guess I should kill myself\".",
-      "When you get shy when I give you a compliment you didn't expect."
+    const FAMOUS_PEOPLE = [
+      {
+        name: "Leon Trotsky",
+        hint: "Revolutionary, theorist, exile",
+        born: { city: "Yanovka, Ukraine",      lat: 47.9,   lon:  33.3,  year: 1879 },
+        died: { city: "Mexico City, Mexico",   lat: 19.43,  lon: -99.13, year: 1940 },
+        fact: "Assassinated with an ice axe by a Soviet agent in the house he had made his sanctuary.",
+      },
+      {
+        name: "Nikola Tesla",
+        hint: "Inventor & electrical visionary",
+        born: { city: "Smiljan, Croatia",       lat: 44.57,  lon:  15.32, year: 1856 },
+        died: { city: "New York City, USA",     lat: 40.71,  lon: -74.01, year: 1943 },
+        fact: "He held over 300 patents and died alone in a hotel room, dreaming of free energy for all.",
+      },
+      {
+        name: "Karl Marx",
+        hint: "Philosopher, economist, revolutionary",
+        born: { city: "Trier, Germany",         lat: 49.75,  lon:   6.64, year: 1818 },
+        died: { city: "London, England",        lat: 51.51,  lon:  -0.12, year: 1883 },
+        fact: "Co-authored The Communist Manifesto in six weeks. His grave in Highgate Cemetery is a pilgrimage site.",
+      },
+      {
+        name: "Frida Kahlo",
+        hint: "Painter, icon, survivor",
+        born: { city: "Coyoacán, Mexico",       lat: 19.35,  lon: -99.16, year: 1907 },
+        died: { city: "Coyoacán, Mexico",       lat: 19.35,  lon: -99.16, year: 1954 },
+        fact: "She painted 55 self-portraits, many while bedridden, using a mirror mounted above her bed.",
+      },
+      {
+        name: "Napoleon Bonaparte",
+        hint: "General, emperor, strategist",
+        born: { city: "Ajaccio, Corsica",       lat: 41.92,  lon:   8.74, year: 1769 },
+        died: { city: "Saint Helena",           lat: -15.96, lon:  -5.72, year: 1821 },
+        fact: "Exiled to a volcanic island 1,200 miles from the nearest continent, where he dictated his memoirs.",
+      },
+      {
+        name: "Che Guevara",
+        hint: "Guerrilla, doctor, icon",
+        born: { city: "Rosario, Argentina",     lat: -32.95, lon: -60.66, year: 1928 },
+        died: { city: "La Higuera, Bolivia",    lat: -18.60, lon: -64.10, year: 1967 },
+        fact: "Executed at 39 by the Bolivian army. His last words: 'I know you've come to kill me. Shoot, coward.'",
+      },
+      {
+        name: "Marie Curie",
+        hint: "Physicist, chemist, pioneer",
+        born: { city: "Warsaw, Poland",         lat: 52.23,  lon:  21.01, year: 1867 },
+        died: { city: "Passy, France",          lat: 45.93,  lon:   6.70, year: 1934 },
+        fact: "The only person to win Nobel Prizes in two different sciences. Her notebooks are still radioactive.",
+      },
+      {
+        name: "Simón Bolívar",
+        hint: "Liberator of South America",
+        born: { city: "Caracas, Venezuela",     lat: 10.48,  lon: -66.88, year: 1783 },
+        died: { city: "Santa Marta, Colombia",  lat: 11.24,  lon: -74.20, year: 1830 },
+        fact: "Liberated six nations and rode over 70,000 miles on horseback across the continent.",
+      },
     ];
 
-    const NUMERALS = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV'];
+    const MAP_W = 2000, MAP_H = 1000;
 
-    // v4: data shape changed — seenItems replaces seen/lastIdx
-    function getLottery()      { return JSON.parse(localStorage.getItem('rocky_lottery_v4') || '{}'); }
-    function saveLottery(data) { localStorage.setItem('rocky_lottery_v4', JSON.stringify(data)); }
-    function todayStr()        { return new Date().toLocaleDateString('en-CA'); }
-
-    function initLottery() {
-      const cache = getLottery();
-      // Always show whatever the cache has for the collection
-      renderCollection(cache.seenItems || []);
-      // If already drew today (from cache), restore the result without a network call
-      if (cache.lastDraw === todayStr()) {
-        cache.lastWon ? showTicketWin(THINGS[cache.itemIdx], true)
-                      : showTicketLoss(true);
-      }
+    // Equirectangular: matches the projection used in world-map.svg
+    function lonLatToXY(lon, lat) {
+      return [
+        ((lon + 180) / 360) * MAP_W,
+        ((90 - lat)  / 180) * MAP_H,
+      ];
     }
 
-    async function runLottery() {
-      const cache = getLottery();
-      const today = todayStr();
+    // Day 0 (June 4 2026) = Trotsky; cycles through FAMOUS_PEOPLE
+    const GAME_EPOCH = new Date('2026-06-04');
+    function getTodayPerson() {
+      const today  = new Date(todayStr());
+      const dayNum = Math.max(0, Math.floor((today - GAME_EPOCH) / 86400000));
+      return FAMOUS_PEOPLE[dayNum % FAMOUS_PEOPLE.length];
+    }
 
-      // Hard guard — serve from cache, never re-roll
-      if (cache.lastDraw === today) {
-        cache.lastWon ? showTicketWin(THINGS[cache.itemIdx], true)
-                      : showTicketLoss(true);
+    function getGame()      { return JSON.parse(localStorage.getItem('rocky_famous_v1') || '{}'); }
+    function saveGame(data) { localStorage.setItem('rocky_famous_v1', JSON.stringify(data)); }
+
+    // Case-insensitive; accepts full name or any part longer than 3 chars
+    function checkGuess(input, name) {
+      const clean = s => s.toLowerCase().trim().replace(/[^a-z\s]/g, '');
+      const inp  = clean(input);
+      const full = clean(name);
+      if (!inp) return false;
+      if (inp === full) return true;
+      return full.split(' ').some(p => p.length > 3 && inp === p);
+    }
+
+    // Draw birth (green) + death (red) circles on the SVG overlay
+    function renderMapCircles(person) {
+      const overlay = document.getElementById('famous-overlay');
+      const [bx, by] = lonLatToXY(person.born.lon, person.born.lat);
+      const [dx, dy] = lonLatToXY(person.died.lon, person.died.lat);
+      const r = 26, dot = 4;
+
+      // Place year label above the circle; push below if near the top edge
+      const bLy = by < 80  ? by + r + 28 : by - r - 10;
+      const dLy = dy < 80  ? dy + r + 28 : dy - r - 10;
+
+      overlay.innerHTML = `
+        <circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="${r}"   fill="none"    stroke="#2d7a2d" stroke-width="2.2" opacity="0.85"/>
+        <circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="${dot}" fill="#2d7a2d" opacity="0.9"/>
+        <text   x="${bx.toFixed(1)}"  y="${bLy.toFixed(1)}" text-anchor="middle"
+                font-family="DM Mono, monospace" font-size="22" fill="#2d7a2d" opacity="0.9">${person.born.year}</text>
+        <circle cx="${dx.toFixed(1)}" cy="${dy.toFixed(1)}" r="${r}"   fill="none"    stroke="#c0392b" stroke-width="2.2" opacity="0.85"/>
+        <circle cx="${dx.toFixed(1)}" cy="${dy.toFixed(1)}" r="${dot}" fill="#c0392b" opacity="0.9"/>
+        <text   x="${dx.toFixed(1)}"  y="${dLy.toFixed(1)}" text-anchor="middle"
+                font-family="DM Mono, monospace" font-size="22" fill="#c0392b" opacity="0.9">${person.died.year}</text>`;
+    }
+
+    // Render the guess input + attempt count + reveal link
+    function renderGuessUI(person, state) {
+      const card    = document.getElementById('famous-card');
+      const today   = todayStr();
+      const attempts = (state.day === today ? state.attempts : null) || [];
+
+      if (state.day === today && (state.solved || state.revealed)) {
+        renderResult(person, state.solved);
         return;
       }
 
-      const ticket = document.getElementById('lottery-ticket');
-      const btn    = document.getElementById('ticket-draw-btn');
-      if (btn) btn.disabled = true;
-      ticket.classList.add('shaking');
+      const countHtml = attempts.length
+        ? `<span class="famous-wrong-count">${attempts.length} wrong attempt${attempts.length > 1 ? 's' : ''}</span>`
+        : '';
 
-      let data;
-      try {
-        // Run the shake animation and the fetch in parallel
-        [, data] = await Promise.all([
-          new Promise(r => setTimeout(r, 600)),
-          fetch('/.netlify/functions/lottery-draw', { method: 'POST' })
-            .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-        ]);
-      } catch (e) {
-        // Server unavailable — fall back to a local roll so the UI always responds
-        ticket.classList.remove('shaking');
-        const cache     = getLottery();
-        const seenLocal = cache.seenItems || [];
-        const won       = Math.random() < 0.25;
-        let   itemIdx   = null;
-        if (won) {
-          const unseen = THINGS.map((_,i) => i).filter(i => !seenLocal.includes(i));
-          if (unseen.length) itemIdx = unseen[Math.floor(Math.random() * unseen.length)];
+      card.innerHTML = `
+        <p class="famous-prompt">A green circle marks where they were born.<br>A red circle marks where they died.</p>
+        <div class="famous-guess-row">
+          <input class="famous-input" id="famous-input" type="text" autocomplete="off" spellcheck="false"
+            placeholder="Who is this person?"
+            onkeydown="if(event.key==='Enter') submitFamousGuess()">
+          <button class="famous-btn" onclick="submitFamousGuess()">Guess</button>
+        </div>
+        ${countHtml}
+        <button class="famous-reveal-link" onclick="revealFamousPerson()">Give up &amp; reveal</button>`;
+
+      setTimeout(() => document.getElementById('famous-input')?.focus(), 50);
+    }
+
+    // Render the solved / revealed result panel
+    function renderResult(person, correct) {
+      const card      = document.getElementById('famous-card');
+      const labelCls  = correct ? 'correct'  : 'revealed';
+      const labelText = correct ? 'You got it' : 'The answer';
+
+      card.innerHTML = `
+        <div class="famous-result" id="famous-result">
+          <span class="famous-result-label ${labelCls}">${labelText}</span>
+          <p class="famous-name">${person.name}</p>
+          <span class="famous-hint">${person.hint}</span>
+          <p class="famous-fact">&ldquo;${person.fact}&rdquo;</p>
+        </div>`;
+
+      // Tiny delay so the opacity transition fires
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() =>
+          document.getElementById('famous-result')?.classList.add('visible')
+        )
+      );
+    }
+
+    function submitFamousGuess() {
+      const person = getTodayPerson();
+      const input  = document.getElementById('famous-input');
+      if (!input) return;
+      const val = input.value.trim();
+      if (!val) return;
+
+      const today    = todayStr();
+      const state    = getGame();
+      const attempts = (state.day === today ? state.attempts : null) || [];
+
+      if (checkGuess(val, person.name)) {
+        saveGame({ day: today, solved: true, revealed: false, attempts: [...attempts, val] });
+        renderResult(person, true);
+      } else {
+        const newAttempts = [...attempts, val];
+        saveGame({ day: today, solved: false, revealed: false, attempts: newAttempts });
+
+        input.value = '';
+        input.classList.add('wrong');
+        setTimeout(() => input.classList.remove('wrong'), 400);
+
+        // Update (or add) the attempt-count line in place
+        const card = document.getElementById('famous-card');
+        let countEl = card.querySelector('.famous-wrong-count');
+        if (!countEl) {
+          countEl = document.createElement('span');
+          countEl.className = 'famous-wrong-count';
+          const revealBtn = card.querySelector('.famous-reveal-link');
+          card.insertBefore(countEl, revealBtn);
         }
-        const newSeen = itemIdx !== null ? [...seenLocal, itemIdx] : seenLocal;
-        saveLottery({ lastDraw: today, lastWon: itemIdx !== null, itemIdx, seenItems: newSeen });
-        renderCollection(newSeen);
-        itemIdx !== null ? showTicketWin(THINGS[itemIdx], false) : showTicketLoss(false);
-        return;
+        const n = newAttempts.length;
+        countEl.textContent = `${n} wrong attempt${n > 1 ? 's' : ''}`;
       }
-
-      ticket.classList.remove('shaking');
-
-      // Cache the result locally so revisits within the same day don't re-call
-      saveLottery({
-        lastDraw:  today,
-        lastWon:   data.won,
-        itemIdx:   data.itemIdx,
-        seenItems: data.seenItems,
-      });
-
-      renderCollection(data.seenItems);
-      data.won ? showTicketWin(THINGS[data.itemIdx], data.alreadyDrawn)
-               : showTicketLoss(data.alreadyDrawn);
     }
 
-    function setTicketContent(html) {
-      const el = document.getElementById('ticket-content');
-      el.style.opacity = '0';
-      setTimeout(() => { el.innerHTML = html; el.style.opacity = '1'; }, 230);
+    function revealFamousPerson() {
+      const person   = getTodayPerson();
+      const today    = todayStr();
+      const state    = getGame();
+      const attempts = (state.day === today ? state.attempts : null) || [];
+      saveGame({ day: today, solved: false, revealed: true, attempts });
+      renderResult(person, false);
     }
 
-    // repeat = true when showing a cached result (no new win happening)
-    function showTicketWin(text, repeat) {
-      setTicketContent(`
-        <span class="ticket-win-label">${repeat ? 'You found this today' : 'You won'}</span>
-        <p class="ticket-win-text">&ldquo;${text}&rdquo;</p>`);
+    function initFamousGame() {
+      const person = getTodayPerson();
+      renderMapCircles(person);
+      const state = getGame();
+      renderGuessUI(person, state);
     }
 
-    function showTicketLoss(repeat) {
-      setTicketContent(`
-        <span class="ticket-loss-text">— not today —</span>
-        <p class="ticket-prompt">${repeat ? 'You&rsquo;ve already drawn today.' : 'Come back tomorrow.'}</p>`);
-    }
-
-    function showTicketComplete() {
-      setTicketContent(`
-        <span class="ticket-win-label">That&rsquo;s all of them</span>
-        <p class="ticket-win-text">You&rsquo;ve found everything.<br>Every single one.</p>`);
-    }
-
-    function renderCollection(seenItems) {
-      const el = document.getElementById('draw-collection');
-      if (!seenItems || !seenItems.length) { el.innerHTML = ''; return; }
-      el.innerHTML = seenItems.map((idx, pos) => `
-        <div class="collection-item" style="animation-delay:${pos * 0.07}s">
-          <span class="collection-numeral">${NUMERALS[pos] || pos + 1}</span>
-          <p class="collection-text">${THINGS[idx]}</p>
-        </div>`).join('');
-    }
-
-    initLottery();
+    initFamousGame();
   </script>
 </body>
 </html>

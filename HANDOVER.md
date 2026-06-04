@@ -203,11 +203,11 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 | # | Title | Year | T | R | Total |
 |---|-------|------|---|---|-------|
 | 01 ★ | Train Dreams | 2022 | ★★★★★ | ★★★★★ | 10 |
-| 02 | Blair Witch Project | 1999 | ★★½☆☆ | ★★★☆☆ | 5.5 |
+| 02 | Blair Witch Project | 1999 | ★★½☆☆ | ★★★½☆ | 6 |
 | 03 | Creep | 2014 | ★★★½☆ | ★★★★☆ | 7.5 |
 | 04 | Creep 2 | 2017 | ★★☆☆☆ | ★★☆☆☆ | 4 |
 | 05 | Murder Mystery | 2019 | ★★★☆☆ | ★★★☆☆ | 6 |
-| 06 | Inglourious Basterds | 2009 | ★★★★★ | ★★★★☆ | 9 |
+| 06 | Inglourious Basterds | 2009 | ★★★★★ | ★★★★½ | 9.5 |
 | 07 | Pursuit of Happyness | 2006 | ★★★½☆ | ★★★☆☆ | 6.5 |
 | 08 | Nightcrawler | 2014 | ★★★★☆ | ★★★★☆ | 8 |
 | 09 | Oppenheimer | 2023 | ★★★★½ | ★★★★☆ | 8.5 |

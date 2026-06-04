@@ -724,11 +724,30 @@
       margin: 0.25rem 0 0;
     }
 
+    .daily-thing {
+      margin-top: 3.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .daily-thing-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.75;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
     @media (max-width: 768px) {
-      .famous-section { padding: 4rem 1.5rem; }
-      .famous-wrap    { max-width: 100%; }
-      .famous-card    { padding: 1.5rem; }
-      .famous-name    { font-size: 1.9rem; }
+      .famous-section   { padding: 4rem 1.5rem; }
+      .famous-wrap      { max-width: 100%; }
+      .famous-card      { padding: 1.5rem; }
+      .famous-name      { font-size: 1.9rem; }
+      .daily-thing-text { font-size: 1.1rem; }
     }
 
     /* LISBON MAP SECTION */
@@ -1355,6 +1374,8 @@
 
       <div class="famous-card" id="famous-card"></div>
 
+      <div class="daily-thing" id="daily-thing"></div>
+
     </div>
   </div>
 
@@ -1668,11 +1689,38 @@
       renderResult(person, false);
     }
 
+    // ─── DAILY "THING I LIKE ABOUT YOU" ─────────────────────────
+    const THINGS = [
+      "The mischievous grin when I catch you looking at me when we watch a movie.",
+      "The way you try and hide your Smints consumption.",
+      "The fact your favourite number is 2, which fits so well with your character.",
+      "The way your face curls into the bed or your arm when you ask me what I'm thinking a few times in a row.",
+      "The way your voice goes higher when you ask for something or get nervous.",
+      "How happy you get when Jess messages you.",
+      "The way you pout your lips when you find something cute.",
+      "How competitive you get about Wordle and Connections.",
+      "When you nod your head a lot when you want me to do something.",
+      "How dramatic you are when you get scared of bugs.",
+      "The smile you get when I come back from the bathroom or the kitchen.",
+      "When you get really scared and start saying fuck off.",
+      "When you start looking around after saying something like \"I guess I should kill myself\".",
+      "When you get shy when I give you a compliment you didn't expect.",
+    ];
+
+    function renderDailyThing() {
+      const today  = new Date(todayStr());
+      const dayNum = Math.max(0, Math.floor((today - GAME_EPOCH) / 86400000));
+      const text   = THINGS[dayNum % THINGS.length];
+      document.getElementById('daily-thing').innerHTML =
+        `<p class="daily-thing-text">&ldquo;${text}&rdquo;</p>`;
+    }
+
     function initFamousGame() {
       const person = getTodayPerson();
       renderMapCircles(person);
       const state = getGame();
       renderGuessUI(person, state);
+      renderDailyThing();
     }
 
     initFamousGame();

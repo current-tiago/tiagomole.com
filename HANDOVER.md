@@ -262,6 +262,8 @@ y = (90  - lat) / 180 * 1000
 **localStorage key:** `rocky_famous_v1`  
 **State shape:** `{ day, solved, revealed, attempts[] }`
 
+**Daily "thing I like about you"** — shown below the game every day, always visible (no interaction needed). Defined in the `THINGS` array in `rh-e3f7a92c1d.html`. Uses the same `GAME_EPOCH` and `dayNum` as the famous person game, cycling through independently (`dayNum % THINGS.length`). To add more, append to the array — never reorder or remove existing entries.
+
 **Current people (in rotation order):**
 1. Leon Trotsky — born Ukraine, died Mexico City
 2. Nikola Tesla — born Croatia, died New York

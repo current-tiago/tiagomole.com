@@ -12,7 +12,8 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 
 - Pure HTML/CSS/JS — no framework
 - Hosted on **Netlify** (auto-deploys from `main` branch on GitHub)
-- Serverless functions for Spotify integration and the Atelier auth
+- Serverless functions for Spotify integration, Atelier auth, and daily lottery
+- `@netlify/blobs` for server-side lottery state (installed via `package.json`)
 
 ---
 
@@ -22,6 +23,8 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 /
 ├── index.html                                  # Main portfolio page (hero, writing, ventures, about)
 ├── europe-map.svg                              # Western Europe SVG map for hero-right panel
+├── lisbon-map.svg                              # Detailed Lisbon SVG map for Rocky's Home
+├── package.json                                # @netlify/blobs dependency
 │
 ├── — Full article pages —
 ├── how-to-be-a-dictator.html
@@ -38,13 +41,14 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 ├── work.html                                   # Full article archive
 ├── write-article.html
 │
-├── [private]                                   # the Atelier (password-gated)
+├── [private]                                   # Rocky's Home (password-gated)
 │
 ├── netlify.toml                                # Netlify config (functions + redirect rules)
 ├── netlify/
 │   └── functions/
 │       ├── now-playing.js                      # Spotify "now playing" serverless function
-│       └── rocky-auth.js                       # Server-side password auth for the Atelier
+│       ├── rocky-auth.js                       # Server-side password auth for Rocky's Home
+│       └── lottery-draw.js                     # Server-side daily lottery (Netlify Blobs)
 ├── HANDOVER.md                                 # Full context for new Claude sessions
 └── README.md
 ```
@@ -69,6 +73,14 @@ See `HANDOVER.md` for regeneration instructions and how to add new city markers.
 
 ---
 
+## Lisbon Map
+
+`lisbon-map.svg` is a hand-crafted SVG of Lisbon used in Rocky's Home. It includes a detailed street network, 18 named districts, and an accurate Tagus River shape (curves sharply north at Parque das Nações). Five orange dots mark: Oceanário de Lisboa, Campo Pequeno, Praça do Comércio, Av. da Liberdade, and Torre de Belém.
+
+See `HANDOVER.md` for the coordinate formula and how to add or move dots.
+
+---
+
 ## Spotify "Now Playing" Widget
 
 Fixed bottom-right widget. Shows current track as **"Tiago is playing"** or **"Last Played"** when paused. Calls `/.netlify/functions/now-playing` every 30 seconds, and also refreshes immediately on tab focus and browser back-navigation (bfcache restore).
@@ -83,9 +95,9 @@ Fixed bottom-right widget. Shows current track as **"Tiago is playing"** or **"L
 
 ---
 
-## the Atelier
+## Rocky's Home
 
-A private page accessible via a hidden button in the footer. Password is validated server-side by `rocky-auth.js` — no credentials in public source.
+A private page for Imy, accessible via a hidden button in the footer. Password is validated server-side by `rocky-auth.js` — no credentials in public source.
 
 **Env var required:**
 
@@ -93,7 +105,15 @@ A private page accessible via a hidden button in the footer. Password is validat
 |-----|-------|
 | `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (Netlify dashboard) |
 
-Contains: five poems (accordion layout), a countdown to her arrival in Lisbon, and a **Films We've Watched** section with dual star ratings (T = Tiago in orange, R = Imy in pink). 16 films currently listed. Clicking a film title expands an IMDB-style description panel (director, synopsis, genre) below that row. The film(s) with the highest combined T+R score have their title in soft gold (`top-rated` class → `#D4A017`).
+**Sections:** hero with countdown to arrival · five poems (accordion) · Films We've Watched (16 films, dual T/R star ratings, expandable descriptions) · **Something I Like About You** (daily lottery) · Lisbon map.
+
+### Films We've Watched
+16 films with dual star ratings (T = Tiago in orange, R = Imy in pink, out of 5). Clicking a film title expands an IMDB-style description panel. Films with the highest combined T+R score get the `top-rated` class (soft gold title). Currently: Train Dreams and Project Hail Mary (both 10/10).
+
+### Daily Lottery
+A "Something I Like About You" section gated by a 25% daily draw. **One shared roll per day** — the first person anywhere to click triggers a server-side roll via `lottery-draw.js`; everyone else that day gets the same result. Won items are revealed one at a time and accumulate into a permanent collection. Backed by Netlify Blobs (auto-provisioned, no setup needed). Falls back to a local roll if the function is unavailable.
+
+See `HANDOVER.md` for full mechanics, storage schema, and reset instructions.
 
 ---
 
@@ -104,8 +124,11 @@ Contains: five poems (accordion layout), a countdown to her arrival in Lisbon, a
 2. Add a new `.writing-item` row in the **Writing** section of `index.html` (increment the number)
 3. Add to the relevant category page (e.g. `policy-research.html`)
 
-### New film to the Atelier
+### New film to Rocky's Home
 Copy an existing `.movie-item` block — it contains a `.movie-item-row` (num / title / ratings grid) and a `.movie-desc-wrap` (the hidden description panel). Update the number, title, year, star spans, and description fields (director, synopsis, genre). Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`. After adding, recalculate combined T+R scores and move the `top-rated` class to the highest-scoring film(s).
+
+### New "thing I like about you"
+Add a new string to the `THINGS` array in `rh-e3f7a92c1d.html`. **Always append — never reorder or remove** existing entries, as the server stores indices and reordering would corrupt the collection. Also add the next Roman numeral to the `NUMERALS` array.
 
 ### New venture
 Add a new `<a class="venture-item">` block in the **Ventures** section of `index.html`.
@@ -114,7 +137,7 @@ Add a new `<a class="venture-item">` block in the **Ventures** section of `index
 
 ## Deployment
 
-Push to `main` → Netlify auto-deploys. Takes ~15 seconds.
+Push to `main` → Netlify auto-deploys. Takes ~20–30 seconds (slightly longer than before due to `npm install`).
 
 ```bash
 git add . && git commit -m "your message" && git push

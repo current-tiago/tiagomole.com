@@ -1,6 +1,6 @@
 # Handover File — tiagomole.com
 
-Last updated: 3 June 2026 (evening, session 2)
+Last updated: 4 June 2026
 
 ---
 
@@ -16,6 +16,8 @@ Personal website for Tiago Branco Mole. Hosted on **Netlify**, connected to GitH
 Local path: `/Users/tiagobranco-mole/Desktop/tiagomole.com`
 
 Stack: pure HTML/CSS/JS — no build step, no framework. Deploy by pushing to `main`.
+
+One Node.js dependency: `@netlify/blobs` (used by the lottery function). Defined in root `package.json`, installed automatically by Netlify on deploy.
 
 ---
 
@@ -43,6 +45,8 @@ All pages share the same design tokens and fonts:
 ```
 index.html                                — homepage
 europe-map.svg                            — Western Europe SVG map used in hero-right
+lisbon-map.svg                            — Detailed Lisbon SVG map used in Rocky's Home
+package.json                              — @netlify/blobs dependency for lottery function
 
 — Full article pages (word-for-word from source material) —
 how-to-be-a-dictator.html
@@ -59,13 +63,14 @@ entrepreneurial-ventures.html
 work.html                                 — article archive
 write-article.html
 
-[private page]                             — the Atelier (password-gated)
+[private page]                            — Rocky's Home (password-gated)
 
 netlify/functions/
   now-playing.js                          — Spotify serverless function
-  rocky-auth.js                           — server-side password auth for the Atelier
+  rocky-auth.js                           — server-side password auth for Rocky's Home
+  lottery-draw.js                         — server-side daily lottery draw (Netlify Blobs)
 netlify/edge-functions/
-  rocky-gate.js                           — edge function that gates the Atelier (cookie check)
+  rocky-gate.js                           — edge function that gates Rocky's Home (cookie check)
 netlify.toml                              — functions + edge-functions directory config
 ```
 
@@ -135,7 +140,33 @@ cities = [
 
 ---
 
-## the Atelier
+## Lisbon map (lisbon-map.svg)
+
+Hand-crafted SVG map used at the bottom of Rocky's Home. Coordinate system:
+
+```
+x = (9.245 - lon) / 0.185 * 600
+y = (38.810 - lat) / 0.130 * 400
+Covers: 9.060°W–9.245°W, 38.680°N–38.810°N   (viewBox="0 0 600 400")
+```
+
+**Key feature:** The Tagus River (Rio Tejo) path curves sharply northward on the east side of the map, reaching up to y≈156 at Parque das Nações — this is geographically accurate (the estuary widens dramatically there).
+
+**Orange dots (5 locations):**
+
+| Location | Lat/Lon | SVG x,y |
+|----------|---------|---------|
+| Oceanário de Lisboa | 38.7633°N, 9.0950°W | 487, 144 |
+| Campo Pequeno | 38.7390°N, 9.1455°W | 323, 218 |
+| Praça do Comércio | 38.7076°N, 9.1364°W | 352, 315 |
+| Av. da Liberdade (Marquês de Pombal) | 38.7253°N, 9.1491°W | 311, 260 |
+| Torre de Belém | 38.6916°N, 9.2160°W | 94, 362 |
+
+**To move or add a dot**, use the coordinate formula above to convert lat/lon to SVG x,y. Each dot is three circles (outer ring opacity 0.25, mid ring opacity 0.50, filled core r=3.8) plus two text labels above.
+
+---
+
+## Rocky's Home
 
 Private page for Imy (Tiago's partner). Accessed via a hidden password button in the footer of the main site.
 
@@ -146,24 +177,27 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 - `ROCKY_PASSWORD_HASH` lives in Netlify env vars — not in any file
 - No credentials, hashes, or page paths are exposed in public docs
 
-**Netlify env var required:**
+**Netlify env vars required:**
 
 | Key | Value |
 |-----|-------|
 | `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (set in Netlify dashboard) |
 
-**Page contents:**
-- Hero: large serif title, subtitle "A little section just for your eyes", countdown timer (top-right), meta block (bottom-right)
-- **Countdown**: ticks down to June 6 2026 09:00 Lisbon time (UTC+1). Shows "Arriving in Lisbon" once it hits zero.
-- **Five poems** — accordion layout (max-width 600px, centred); each poem shows only its title until clicked, then expands smoothly. Only one open at a time. Toggle indicator `+` / `×` in DM Mono.
-  - I · Sample no.1 · II · View of the Room · III · T-3 Weeks · IV · Studying · V · Orpheus
-- **Films We've Watched** section — numbered list of 16 films with dual star ratings:
-  - **T** = Tiago's rating (orange `#FF8800` stars)
-  - **R** = Imy's rating (pink `#e8829a` stars)
-  - Stars out of 5; half-stars supported via CSS `linear-gradient` clip trick
-  - Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`
-  - Film(s) with the highest combined T+R score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
-  - **Clicking a film title** expands a description panel below that row (exclusive accordion — one open at a time). Panel shows: director in DM Mono red caps, synopsis in Cormorant italic, genre tags in small DM Mono. Hover shows a dotted underline on the title. Toggle via `toggleDesc(this)` inline handler; panel uses `grid-template-rows: 0fr → 1fr` animation.
+**Page sections in order:**
+1. **Hero** — large serif title "Rocky's / *Home*", subtitle, countdown timer (top-right), meta block (bottom-right)
+   - **Countdown**: ticks down to June 6 2026 09:00 Lisbon time (UTC+1). Shows "Arriving in Lisbon" once it hits zero.
+2. **Five Poems** (`#poems`) — accordion layout (max-width 600px, centred); each poem shows only its title until clicked, then expands smoothly. Only one open at a time. Toggle indicator `+` / `×` in DM Mono.
+   - I · Sample no.1 · II · View of the Room · III · T-3 Weeks · IV · Studying · V · Orpheus
+3. **Films We've Watched** (`#movies`) — numbered list of 16 films with dual star ratings:
+   - **T** = Tiago's rating (orange `#FF8800` stars)
+   - **R** = Imy's rating (pink `#e8829a` stars)
+   - Stars out of 5; half-stars supported via CSS `linear-gradient` clip trick
+   - Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`
+   - Film(s) with the highest combined T+R score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
+   - **Clicking a film title** expands a description panel below that row (exclusive accordion). Panel shows: director in DM Mono red caps, synopsis in Cormorant italic, genre tags in small DM Mono.
+4. **Something I Like About You** (`#daily-draw`) — daily lottery section (see below)
+5. **Lisbon** — full-width SVG map of Lisbon with 5 orange location dots
+6. **Footer**
 
 **Current film list (in order):**
 
@@ -179,7 +213,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 | 08 | Nightcrawler | 2014 | ★★★★☆ | ★★★★☆ | 8 |
 | 09 | Oppenheimer | 2023 | ★★★★½ | ★★★★☆ | 8.5 |
 | 10 ★ | Project Hail Mary | 2025 | ★★★★★ | ★★★★★ | 10 |
-| 11 | The Amazing Spider-Man | 2012 | ★★★½☆ | ★★★☆☆ | 6.5 |
+| 11 | Spider-Man | 2002 | ★★★½☆ | ★★★☆☆ | 6.5 |
 | 12 | Whiplash | 2014 | ★★★★½ | ★★★★☆ | 8.5 |
 | 13 | The Taking of Deborah Logan | 2014 | ★★★☆☆ | ★★★★☆ | 7 |
 | 14 | Ratatouille | 2007 | ★★★★☆ | ★★★★★ | 9 |
@@ -187,6 +221,34 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 | 16 | The Holdovers | 2023 | ★½☆☆☆ | ★★★★★ | 6.5 |
 
 **To add a film**, copy an existing `.movie-item` block. Each block contains: `.movie-item-row` (the 3-column grid of num / title+year / ratings) and `.movie-desc-wrap` (the hidden description panel). Update the number, title, year, star spans, and description text (director, synopsis, genre). After adding, recalculate totals and move the `top-rated` class to whichever film(s) score highest.
+
+---
+
+## Daily Lottery ("Something I Like About You")
+
+A daily draw mechanic gating a collection of personal notes. Located in `rh-e3f7a92c1d.html` and backed by `netlify/functions/lottery-draw.js`.
+
+**How it works:**
+- **One shared roll per day** — the first person to click "Draw" on any given day triggers a server-side roll. All subsequent visitors that day get the same result (won or lost), regardless of device or browser.
+- **25% chance** of winning. On a win, one previously-unseen item from the list is revealed and added to the collection permanently.
+- **No repeats** — the server tracks which items have been revealed (`state` blob in Netlify Blobs). Each item can only appear once across all time.
+- **localStorage as cache** — the client caches today's result locally so revisiting the page within the same day doesn't re-call the function. The server is always the source of truth.
+- **Fallback** — if the Netlify function is unavailable, a local Math.random() roll runs instead so the UI always responds.
+
+**Server-side storage (Netlify Blobs, store name: `'lottery'`):**
+
+| Blob key | Contents |
+|----------|----------|
+| `YYYY-MM-DD` (Lisbon time) | `{ "won": bool, "itemIdx": N\|null }` — today's draw result |
+| `state` | `{ "seen": [idx, idx, ...] }` — all-time list of revealed item indices |
+
+**Netlify Blobs** is auto-provisioned — no env vars or manual setup required. It's available to any function on a Netlify-deployed site.
+
+**The 14 items** are defined in the `THINGS` array in `rh-e3f7a92c1d.html`. To update them, edit the array directly. The server stores indices (0–13), not the text itself, so reordering the array would corrupt the collection — only append new items, never reorder or remove existing ones.
+
+**localStorage key:** `rocky_lottery_v4` (bump the version number if the data shape ever changes, to force a clean state for all users).
+
+**To reset the lottery** (wipe all draws and start fresh): in the Netlify Blobs dashboard, delete the `lottery` store, or bump the storage key in both the function and the client.
 
 ---
 
@@ -228,16 +290,17 @@ Netlify serverless function at `netlify/functions/now-playing.js`.
 
 ## Security
 
-- Password check for the Atelier is **server-side only** (`rocky-auth.js`)
-- the Atelier is gated by a Netlify Edge Function — the page cannot be accessed without a valid session cookie, even if the URL is known
+- Password check for Rocky's Home is **server-side only** (`rocky-auth.js`)
+- Rocky's Home is gated by a Netlify Edge Function — the page cannot be accessed without a valid session cookie, even if the URL is known
 - `ROCKY_PASSWORD_HASH` lives in Netlify env vars — not in any file
 - Spotify credentials are env vars only — never in source
+- Lottery draw state is server-side (Netlify Blobs) — no sensitive data, but ensures integrity of the shared draw
 
 ---
 
 ## Deployment
 
-Push to `main` → Netlify auto-deploys in ~15 seconds. No build step needed.
+Push to `main` → Netlify auto-deploys in ~15–30 seconds (slightly longer now due to `npm install` for `@netlify/blobs`). No build step needed for the static files.
 
 ```bash
 git add <files>
@@ -249,6 +312,6 @@ git push
 
 ## Outstanding TODOs
 
-- [ ] T ratings missing for 10 films in the Atelier — fill in when Tiago has watched them
+- [ ] T ratings missing for some films — fill in when Tiago has watched them
 - [ ] Writing section on homepage — scroll reveal animations can be slow, may want to tune timing
-- [ ] Consider adding more content sections to the Atelier (photos, letter, places to visit together)
+- [ ] Consider adding more content sections to Rocky's Home (photos, letter, places to visit together)

@@ -1642,6 +1642,8 @@
           document.getElementById('famous-result')?.classList.add('visible')
         )
       );
+
+      if (correct) renderDailyThing();
     }
 
     function submitFamousGuess() {
@@ -1720,7 +1722,8 @@
       renderMapCircles(person);
       const state = getGame();
       renderGuessUI(person, state);
-      renderDailyThing();
+      // Only show the message if already solved today
+      if (state.day === todayStr() && state.solved) renderDailyThing();
     }
 
     initFamousGame();

@@ -217,7 +217,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 | 13 | The Taking of Deborah Logan | 2014 | ★★★☆☆ | ★★★★☆ | 7 |
 | 14 | Ratatouille | 2007 | ★★★★☆ | ★★★★★ | 9 |
 | 15 | Ozark | 2017 | ★★★★☆ | ★★★★☆ | 8 |
-| 16 | The Holdovers | 2023 | ★½☆☆☆ | ★★★★★ | 6.5 |
+| 16 | The Holdovers | 2023 | ★½☆☆☆ | ★★☆☆☆ | 3.5 |
 
 **To add a film**, copy an existing `.movie-item` block. Each block contains: `.movie-item-row` (the 3-column grid of num / title+year / ratings) and `.movie-desc-wrap` (the hidden description panel). Update the number, title, year, star spans, and description text (director, synopsis, genre). After adding, recalculate totals and move the `top-rated` class to whichever film(s) score highest.
 

@@ -184,7 +184,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 
 **Page sections in order:**
 1. **Hero** — large serif title "Rocky's / *Home*", subtitle, countdown timer (top-right), meta block (bottom-right)
-   - **Countdown**: ticks down to June 6 2026 09:00 Lisbon time (UTC+1). Shows "Arriving in Lisbon" once it hits zero.
+   - **Countdown**: three phases — (1) before June 6 09:00 Lisbon: "She lands in" + countdown to arrival; (2) June 6 09:00 → June 11 20:00 Lisbon: "She is here for" + countdown to departure; (3) after June 11 20:00: counter hidden. Both timestamps use `+01:00` (WEST, Lisbon summer time).
 2. **Five Poems** (`#poems`) — accordion layout (max-width 600px, centred); each poem shows only its title until clicked, then expands smoothly. Only one open at a time. Toggle indicator `+` / `×` in DM Mono.
    - I · Sample no.1 · II · View of the Room · III · T-3 Weeks · IV · Studying · V · Orpheus
 3. **Films We've Watched** (`#movies`) — numbered list of 16 films with dual star ratings:

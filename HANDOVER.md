@@ -204,8 +204,10 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - **Clicking a film title** expands a description panel below that row (exclusive accordion). Panel shows: director in DM Mono red caps, synopsis in Cormorant italic, genre tags in small DM Mono.
 4. **Something I Love About You** (`#daily-draw`) — daily famous person game (see below)
 5. **Our Story** (`#story`) — relationship timeline: centre vertical line, alternating photo/text rows, orange dot per milestone
-   - Each `.story-item` = `.story-photo` (4:3 frame, slight polaroid tilt, straightens on hover) + `.story-text-block` (DM Mono orange date, serif title, italic caption)
-   - Currently 4 placeholder milestones with "PHOTO · SOON" frames. **To add a real photo:** replace the `<span class="story-photo-soon">…</span>` inside `.story-photo` with `<img src="…" alt="…">` — the CSS already makes it fill the frame (`object-fit: cover`)
+   - Each `.story-item` = `.story-photo` (3:4 portrait frame, max-width 320px, slight polaroid tilt, straightens on hover) + `.story-text-block` (DM Mono orange date, serif title, italic caption)
+   - **30 real photos** (Jan 29 → Jun 11 2026), stored in `rh-m/` with hashed unguessable filenames (`rh-<sha1-10>.jpg`). Source photos live in `~/Desktop/imy photos` on Tiago's Mac; deployed copies are resized to max 1600px, JPEG q78, **EXIF/GPS stripped** (PIL fresh-save). Dates in entries come from EXIF capture dates.
+   - Images use `loading="lazy"`. To add an entry: copy a `.story-item` block, process the new photo the same way (resize + strip metadata + hash name into `rh-m/`)
+   - Entries needing real captions from Tiago: Mar 10 ("A moment worth keeping"), May 3 ("Reading, late"), and the three Jun 10 entries
    - On mobile the line moves to the left edge and items stack (photo below text)
    - Items use the same scroll-reveal observer as film rows
 6. **Lisbon** — full-width SVG map of Lisbon with 6 orange location dots

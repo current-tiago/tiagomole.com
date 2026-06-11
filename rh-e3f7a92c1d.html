@@ -841,7 +841,10 @@
     }
 
     .story-photo {
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 3 / 4;
+      width: 100%;
+      max-width: 320px;
+      justify-self: end;
       border: 1px solid var(--line);
       background:
         repeating-linear-gradient(-45deg,
@@ -875,7 +878,7 @@
     }
 
     /* text on the right by default; even items flip sides */
-    .story-item:nth-child(even) .story-photo { order: 2; }
+    .story-item:nth-child(even) .story-photo { order: 2; justify-self: start; }
     .story-item:nth-child(even) .story-text-block { order: 1; text-align: right; }
 
     .story-date {
@@ -921,6 +924,7 @@
       .story-item::before { left: 4px; top: 0.4rem; transform: translateX(-50%); }
       .story-item:nth-child(even) .story-photo { order: 0; }
       .story-item:nth-child(even) .story-text-block { order: 0; text-align: left; }
+      .story-photo, .story-item:nth-child(even) .story-photo { justify-self: start; }
       .story-item:nth-child(even) .story-caption { margin-left: 0; }
       .story-text-block { order: -1; }
     }
@@ -1540,38 +1544,272 @@
     <div class="story-wrap">
 
       <div class="story-item">
-        <div class="story-photo"><span class="story-photo-soon">Photo · Soon</span></div>
+        <div class="story-photo"><img src="rh-m/rh-6dd5b54568.jpg" alt="" loading="lazy"></div>
         <div class="story-text-block">
-          <div class="story-date">April 11th 2026 · 01:00</div>
-          <div class="story-title">The <em>beginning</em></div>
-          <p class="story-caption">Where it all started — and the clock upstairs has been counting ever since.</p>
+          <div class="story-date">January 29th 2026</div>
+          <div class="story-title">The first photo <em>for you</em></div>
+          <p class="story-caption">The first photo I ever took specifically to send to you.</p>
         </div>
       </div>
 
       <div class="story-item">
-        <div class="story-photo"><span class="story-photo-soon">Photo · Soon</span></div>
+        <div class="story-photo"><img src="rh-m/rh-404fbed37c.jpg" alt="" loading="lazy"></div>
         <div class="story-text-block">
-          <div class="story-date">A placeholder date</div>
+          <div class="story-date">February 20th 2026</div>
+          <div class="story-title">London, <em>2:30 am</em></div>
+          <p class="story-caption">Just arrived in London, on my way to you in Reading.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-9d0a0d0086.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">February 25th 2026</div>
+          <div class="story-title">First <em>FaceTime</em></div>
+          <p class="story-caption">Our first ever FaceTime.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-a9c27288e1.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">March 1st 2026</div>
+          <div class="story-title">The first <em>drawings</em></div>
+          <p class="story-caption">The first drawings we made.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-e950c54ed4.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">March 5th 2026</div>
+          <div class="story-title">Working, <em>together</em></div>
+          <p class="story-caption">The first time we worked together on call.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-95d6731fa8.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">March 10th 2026</div>
           <div class="story-title">A moment <em>worth keeping</em></div>
-          <p class="story-caption">A few words about what happened here, and why neither of us will forget it.</p>
+          <p class="story-caption">One of those nights — you know the one.</p>
         </div>
       </div>
 
       <div class="story-item">
-        <div class="story-photo"><span class="story-photo-soon">Photo · Soon</span></div>
+        <div class="story-photo"><img src="rh-m/rh-fdf4409680.jpg" alt="" loading="lazy"></div>
         <div class="story-text-block">
-          <div class="story-date">June 6th 2026</div>
-          <div class="story-title">Lisbon, <em>together</em></div>
-          <p class="story-caption">She landed at nine in the morning, and the city was never quite the same.</p>
+          <div class="story-date">March 13th 2026</div>
+          <div class="story-title">First <em>movie night</em></div>
+          <p class="story-caption">The first movie we watched together, online.</p>
         </div>
       </div>
 
       <div class="story-item">
-        <div class="story-photo"><span class="story-photo-soon">Photo · Soon</span></div>
+        <div class="story-photo"><img src="rh-m/rh-844d88d1a1.jpg" alt="" loading="lazy"></div>
         <div class="story-text-block">
-          <div class="story-date">June 24th 2026 · and on</div>
-          <div class="story-title">The rest is <em>unwritten</em></div>
-          <p class="story-caption">More photographs to come. This line only goes one way.</p>
+          <div class="story-date">March 15th 2026</div>
+          <div class="story-title">Photos of <em>our days</em></div>
+          <p class="story-caption">The first day we sent each other photos of our day.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-387e203fa0.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">March 20th 2026</div>
+          <div class="story-title">The first photo <em>you sent</em></div>
+          <p class="story-caption">The first photo you ever sent me.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-04a3da44f1.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">April 2nd 2026</div>
+          <div class="story-title">France, <em>every night</em></div>
+          <p class="story-caption">The France trip — when we called each night, no matter what.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-0ef025074b.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">April 7th 2026</div>
+          <div class="story-title">You came to <em>Lisbon</em></div>
+          <p class="story-caption">The first time you came to Lisbon.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-741077a30c.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">April 10th 2026</div>
+          <div class="story-title">First dinner <em>out</em></div>
+          <p class="story-caption">Our first dinner out together in Lisbon.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-bcc4a168a5.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">April 10th 2026</div>
+          <div class="story-title">The first <em>gift</em></div>
+          <p class="story-caption">The first gift I gave you.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-229184d5da.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">April 24th 2026</div>
+          <div class="story-title">Heathrow, <em>again</em></div>
+          <p class="story-caption">Landing at Heathrow to come and see you again.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-b113eeb5d7.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">April 29th 2026</div>
+          <div class="story-title"><em>Peter</em></div>
+          <p class="story-caption">Our meeting with Peter — ornithologist, psychologist, genius.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-f228daf675.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">April 30th 2026</div>
+          <div class="story-title">Reading, <em>at rest</em></div>
+          <p class="story-caption">Us, in bed in Reading.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-14799746ef.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">May 2nd 2026</div>
+          <div class="story-title">Dinner in <em>Reading</em></div>
+          <p class="story-caption">Dinner out in Reading.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-85f5471741.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">May 3rd 2026</div>
+          <div class="story-title">Reading, <em>late</em></div>
+          <p class="story-caption">From our last nights in Reading that week.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-1422677c37.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">May 11th 2026</div>
+          <div class="story-title">One <em>month</em></div>
+          <p class="story-caption">The flowers I gave you for our one-month anniversary.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-3c5b063713.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 8th 2026</div>
+          <div class="story-title"><em>Óbidos</em></div>
+          <p class="story-caption">Us in Óbidos.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-c22e6ac480.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 8th 2026</div>
+          <div class="story-title">Óbidos, <em>still</em></div>
+          <p class="story-caption">Together in Óbidos — one photo wasn't enough.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-c4e94ffc6b.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 9th 2026</div>
+          <div class="story-title"><em>Monserrate</em></div>
+          <p class="story-caption">You at Palácio de Monserrate.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-b553657dd2.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 9th 2026</div>
+          <div class="story-title">Cabo da <em>Roca</em></div>
+          <p class="story-caption">You in front of Cabo da Roca.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-cfac7db31c.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 9th 2026</div>
+          <div class="story-title">The <em>westernmost point</em></div>
+          <p class="story-caption">Together at the westernmost point of Europe.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-f780927dbf.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 9th 2026</div>
+          <div class="story-title">Same cliff, <em>once</em></div>
+          <p class="story-caption">Both of us, same place —</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-13bac7ed66.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 9th 2026</div>
+          <div class="story-title">— and <em>again</em></div>
+          <p class="story-caption">…and once more, to be sure.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-e89d6d6b2f.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 10th 2026</div>
+          <div class="story-title">Lisbon <em>days</em></div>
+          <p class="story-caption">More from the week you were here.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-cf4d806ed0.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 10th 2026</div>
+          <div class="story-title">Lisbon <em>afternoons</em></div>
+          <p class="story-caption">And more still.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-bf667ed830.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 10th 2026</div>
+          <div class="story-title">Lisbon <em>evenings</em></div>
+          <p class="story-caption">The days went too fast.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><img src="rh-m/rh-3c0944a0e5.jpg" alt="" loading="lazy"></div>
+        <div class="story-text-block">
+          <div class="story-date">June 11th 2026</div>
+          <div class="story-title">Two <em>months</em></div>
+          <p class="story-caption">Our last dinner in Lisbon — our second-month anniversary, just after we first said ‘I love you’.</p>
         </div>
       </div>
 

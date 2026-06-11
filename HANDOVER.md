@@ -195,7 +195,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - **Top-right countdown**: "Until I see her next" + DD:HH:MM:SS down to **June 24 2026, 23:00 Lisbon** (`2026-06-24T23:00:00+01:00`); hides itself once reached. Update `nextVisit` for future visits. (The original June 6–11 arrival/departure phases are gone from the code.)
 2. **Five Poems** (`#poems`) — accordion layout (max-width 600px, centred); each poem shows only its title until clicked, then expands smoothly. Only one open at a time. Toggle indicator `+` / `×` in DM Mono.
    - I · Sample no.1 · II · View of the Room · III · T-3 Weeks · IV · Studying · V · Orpheus
-3. **Films We've Watched** (`#movies`) — numbered list of 16 films with dual star ratings:
+3. **Films We've Watched** (`#movies`) — numbered list of 17 films with dual star ratings:
    - **T** = Tiago's rating (orange `#FF8800` stars)
    - **R** = Imy's rating (pink `#e8829a` stars)
    - Stars out of 5; half-stars supported via CSS `linear-gradient` clip trick
@@ -226,6 +226,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 | 14 | Ratatouille | 2007 | ★★★★☆ | ★★★★★ | 9 |
 | 15 | Ozark | 2017 | ★★★★☆ | ★★★★☆ | 8 |
 | 16 | The Holdovers | 2023 | ★½☆☆☆ | ★★☆☆☆ | 3.5 |
+| 17 | Conclave | 2024 | ★★★★☆ | ★★★★☆ | 8 |
 
 **To add a film**, copy an existing `.movie-item` block. Each block contains: `.movie-item-row` (the 3-column grid of num / title+year / ratings) and `.movie-desc-wrap` (the hidden description panel). Update the number, title, year, star spans, and description text (director, synopsis, genre). After adding, recalculate totals and move the `top-rated` class to whichever film(s) score highest.
 

@@ -207,7 +207,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - Each `.story-item` = `.story-photo` (3:4 portrait frame, max-width 320px, slight polaroid tilt, straightens on hover) + `.story-text-block` (DM Mono orange date, serif title, italic caption)
    - **30 real photos** (Jan 29 → Jun 11 2026), stored in `rh-m/` with hashed unguessable filenames (`rh-<sha1-10>.jpg`). Source photos live in `~/Desktop/imy photos` on Tiago's Mac; deployed copies are resized to max 1600px, JPEG q78, **EXIF/GPS stripped** (PIL fresh-save). Dates in entries come from EXIF capture dates.
    - Images use `loading="lazy"`. To add an entry: copy a `.story-item` block, process the new photo the same way (resize + strip metadata + hash name into `rh-m/`)
-   - Entries needing real captions from Tiago: Mar 10 ("A moment worth keeping"), May 3 ("Reading, late"), and the three Jun 10 entries
+   - Captions were verified against the actual photo contents (via thumbnails). Four entries are uncaptioned extras with Claude-written captions Tiago may want to reword: Apr 10 tricycle ("Lisbon, at night"), Jun 10 restaurant terrace ("Lunch in the sun"), Jun 10 peacock + Jun 10 castle walls (Castelo de São Jorge)
    - On mobile the line moves to the left edge and items stack (photo below text)
    - Items use the same scroll-reveal observer as film rows
 6. **Lisbon** — full-width SVG map of Lisbon with 6 orange location dots

@@ -281,6 +281,16 @@ y = (90  - lat) / 180 * 1000
 6. Che Guevara — born Argentina, died Bolivia
 7. Marie Curie — born Warsaw, died France
 8. Simón Bolívar — born Venezuela, died Colombia
+9. Joseph Stalin — born Gori (Georgia), died Moscow
+10. Liam Payne — born Wolverhampton, died Buenos Aires
+11. Princess Diana — born Sandringham, died Paris
+12. Albert Einstein — born Ulm, died Princeton
+13. Freddie Mercury — born Zanzibar, died London
+14. Amy Winehouse — born & died London
+15. Vincent van Gogh — born Netherlands, died France
+16. Diego Maradona — born & died Buenos Aires area
+
+Guess matching (`checkGuess`): full name, any single word > 3 chars, or any multi-word tail of the name (so "van gogh" works for Vincent van Gogh).
 
 **world-map.svg** — generated from Natural Earth 110m countries topojson (`world-atlas@2`). Equirectangular projection, viewBox 0 0 2000 1000. Countries filled `rgba(13,13,13,0.07)`, stroked `rgba(13,13,13,0.18)`. To regenerate: run `/tmp/gen-world-svg.js` with `node`.
 

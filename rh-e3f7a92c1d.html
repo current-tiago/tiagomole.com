@@ -1526,6 +1526,62 @@
         died: { city: "Santa Marta, Colombia",  lat: 11.24,  lon: -74.20, year: 1830 },
         fact: "Liberated six nations and rode over 70,000 miles on horseback across the continent.",
       },
+      {
+        name: "Joseph Stalin",
+        hint: "Soviet dictator, man of steel",
+        born: { city: "Gori, Georgia",          lat: 41.98,  lon:  44.11, year: 1878 },
+        died: { city: "Moscow, Russia",         lat: 55.75,  lon:  37.62, year: 1953 },
+        fact: "His guards were too afraid to enter his room — he lay dying for hours before anyone dared check on him.",
+      },
+      {
+        name: "Liam Payne",
+        hint: "One Direction singer",
+        born: { city: "Wolverhampton, England", lat: 52.59,  lon:  -2.13, year: 1993 },
+        died: { city: "Buenos Aires, Argentina", lat: -34.60, lon: -58.38, year: 2024 },
+        fact: "Auditioned for The X Factor at just 14, came back at 16, and was put into a five-piece band that changed pop music.",
+      },
+      {
+        name: "Princess Diana",
+        hint: "The People's Princess",
+        born: { city: "Sandringham, England",   lat: 52.83,  lon:   0.51, year: 1961 },
+        died: { city: "Paris, France",          lat: 48.86,  lon:   2.35, year: 1997 },
+        fact: "She shook hands with an AIDS patient without gloves in 1987 — a single gesture that changed public fear overnight.",
+      },
+      {
+        name: "Albert Einstein",
+        hint: "Physicist, icon of genius",
+        born: { city: "Ulm, Germany",           lat: 48.40,  lon:   9.99, year: 1879 },
+        died: { city: "Princeton, USA",         lat: 40.35,  lon: -74.66, year: 1955 },
+        fact: "The pathologist who did his autopsy kept his brain in a jar for decades without permission.",
+      },
+      {
+        name: "Freddie Mercury",
+        hint: "Queen's frontman",
+        born: { city: "Stone Town, Zanzibar",   lat: -6.16,  lon:  39.19, year: 1946 },
+        died: { city: "London, England",        lat: 51.51,  lon:  -0.13, year: 1991 },
+        fact: "Born Farrokh Bulsara on a spice island off East Africa — he never had a single singing lesson.",
+      },
+      {
+        name: "Amy Winehouse",
+        hint: "Jazz & soul voice of a generation",
+        born: { city: "London, England",        lat: 51.57,  lon:  -0.14, year: 1983 },
+        died: { city: "London, England",        lat: 51.54,  lon:  -0.15, year: 2011 },
+        fact: "Joined the '27 Club' — Back to Black made her the first British woman to win five Grammys in one night.",
+      },
+      {
+        name: "Vincent van Gogh",
+        hint: "Post-impressionist painter",
+        born: { city: "Zundert, Netherlands",   lat: 51.47,  lon:   4.66, year: 1853 },
+        died: { city: "Auvers-sur-Oise, France", lat: 49.07, lon:   2.17, year: 1890 },
+        fact: "Sold only one painting in his lifetime — today his works go for over $100 million each.",
+      },
+      {
+        name: "Diego Maradona",
+        hint: "Footballing god of Argentina",
+        born: { city: "Lanús, Argentina",       lat: -34.71, lon: -58.39, year: 1960 },
+        died: { city: "Tigre, Argentina",       lat: -34.43, lon: -58.58, year: 2020 },
+        fact: "Scored the 'Hand of God' and the 'Goal of the Century' in the same match, four minutes apart.",
+      },
     ];
 
     // Returns the active "day" key — resets at 14:00 Lisbon time each day.
@@ -1571,6 +1627,7 @@
       const full = clean(name);
       if (!inp) return false;
       if (inp === full) return true;
+      if (full.endsWith(' ' + inp)) return true; // multi-word surnames, e.g. "van gogh"
       return full.split(' ').some(p => p.length > 3 && inp === p);
     }
 

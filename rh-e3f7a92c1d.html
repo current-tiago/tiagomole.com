@@ -1435,7 +1435,7 @@
     revealEls.forEach(p => observer.observe(p));
 
     // Hero clocks (both Lisbon time, WEST +01:00):
-    //  - meta block (#since-clock): counts UP from April 11 2026, 01:00
+    //  - meta block (#since-clock): counts UP from April 11 2026, 01:00 as "Xy Xm Xd Xh"
     //  - top-right counter: counts DOWN to the next visit, June 24 2026, 23:00 — hides once reached
     const sinceTime = new Date('2026-04-11T01:00:00+01:00');
     const nextVisit = new Date('2026-06-24T23:00:00+01:00');
@@ -1449,9 +1449,21 @@
       return `${pad(d)}:${pad(h)}:${pad(m)}:${pad(s)}`;
     }
 
+    // Calendar-aware elapsed time: years / months / days / hours since `from`
+    function fmtSince(from) {
+      const now = new Date();
+      let y  = now.getFullYear() - from.getFullYear();
+      let mo = now.getMonth()    - from.getMonth();
+      let d  = now.getDate()     - from.getDate();
+      let h  = now.getHours()    - from.getHours();
+      if (h  < 0) { h += 24; d--; }
+      if (d  < 0) { d += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); mo--; }
+      if (mo < 0) { mo += 12; y--; }
+      return `${y}y ${mo}m ${d}d ${h}h`;
+    }
+
     function updateClocks() {
-      document.getElementById('since-clock').textContent =
-        fmtClock(Math.max(0, Date.now() - sinceTime.getTime()));
+      document.getElementById('since-clock').textContent = fmtSince(sinceTime);
 
       const left = nextVisit.getTime() - Date.now();
       if (left > 0) {

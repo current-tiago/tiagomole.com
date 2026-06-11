@@ -887,6 +887,7 @@
         V poems<br>
         XVI films<br>
         <span>April 11th — present</span>
+        <span id="since-clock">—</span>
         ——<br>
         <span>For you</span>
       </div>
@@ -1433,26 +1434,36 @@
     }, { threshold: 0.08 });
     revealEls.forEach(p => observer.observe(p));
 
-    // Count-up clock: time elapsed since April 11 2026, 01:00 Lisbon time (WEST, +01:00)
+    // Hero clocks (both Lisbon time, WEST +01:00):
+    //  - meta block (#since-clock): counts UP from April 11 2026, 01:00
+    //  - top-right counter: counts DOWN to the next visit, June 24 2026, 23:00 — hides once reached
     const sinceTime = new Date('2026-04-11T01:00:00+01:00');
+    const nextVisit = new Date('2026-06-24T23:00:00+01:00');
 
-    function updateCountup() {
-      const timeEl  = document.getElementById('countdown-time');
-      const labelEl = document.querySelector('.hero-countdown-label');
-      const pad     = n => String(n).padStart(2, '0');
-
-      const diff = Math.max(0, Date.now() - sinceTime.getTime());
+    const pad = n => String(n).padStart(2, '0');
+    function fmtClock(diff) {
       const d = Math.floor(diff / 86400000);
       const h = Math.floor((diff % 86400000) / 3600000);
       const m = Math.floor((diff % 3600000)  / 60000);
       const s = Math.floor((diff % 60000)    / 1000);
-
-      labelEl.textContent = 'Since April 11th';
-      timeEl.textContent  = `${pad(d)}:${pad(h)}:${pad(m)}:${pad(s)}`;
+      return `${pad(d)}:${pad(h)}:${pad(m)}:${pad(s)}`;
     }
 
-    updateCountup();
-    setInterval(updateCountup, 1000);
+    function updateClocks() {
+      document.getElementById('since-clock').textContent =
+        fmtClock(Math.max(0, Date.now() - sinceTime.getTime()));
+
+      const left = nextVisit.getTime() - Date.now();
+      if (left > 0) {
+        document.querySelector('.hero-countdown-label').textContent = 'Until I see her next';
+        document.getElementById('countdown-time').textContent = fmtClock(left);
+      } else {
+        document.getElementById('countdown-wrap').style.display = 'none';
+      }
+    }
+
+    updateClocks();
+    setInterval(updateClocks, 1000);
 
     // ─── FAMOUS PERSON GAME ──────────────────────────────────────
     // Each day at 14:00 Lisbon time, a new famous person is revealed.

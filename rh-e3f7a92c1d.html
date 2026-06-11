@@ -886,7 +886,7 @@
       <div class="hero-meta">
         V poems<br>
         XVI films<br>
-        <span>2024 — 2025</span>
+        <span>April 11th — present</span>
         ——<br>
         <span>For you</span>
       </div>
@@ -1433,42 +1433,26 @@
     }, { threshold: 0.08 });
     revealEls.forEach(p => observer.observe(p));
 
-    // Countdown: three phases
-    //   Phase 1 — before June 6 09:00 Lisbon : "She lands in"   → counts down to arrival
-    //   Phase 2 — June 6 09:00 → June 11 20:00 Lisbon : "She is here for" → counts down to departure
-    //   Phase 3 — after June 11 20:00 Lisbon : hide the counter
-    const landingTime   = new Date('2026-06-06T09:00:00+01:00');
-    const departureTime = new Date('2026-06-11T20:00:00+01:00');
+    // Count-up clock: time elapsed since April 11 2026, 01:00 Lisbon time (WEST, +01:00)
+    const sinceTime = new Date('2026-04-11T01:00:00+01:00');
 
-    function updateCountdown() {
-      const now     = new Date();
+    function updateCountup() {
       const timeEl  = document.getElementById('countdown-time');
-      const subEl   = document.getElementById('countdown-sub');
       const labelEl = document.querySelector('.hero-countdown-label');
       const pad     = n => String(n).padStart(2, '0');
 
-      function renderTick(diff) {
-        const d = Math.floor(diff / 86400000);
-        const h = Math.floor((diff % 86400000) / 3600000);
-        const m = Math.floor((diff % 3600000)  / 60000);
-        const s = Math.floor((diff % 60000)    / 1000);
-        timeEl.textContent  = `${pad(d)}:${pad(h)}:${pad(m)}:${pad(s)}`;
-        subEl.style.display = '';
-      }
+      const diff = Math.max(0, Date.now() - sinceTime.getTime());
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000)  / 60000);
+      const s = Math.floor((diff % 60000)    / 1000);
 
-      if (now < landingTime) {
-        labelEl.textContent = 'She lands in';
-        renderTick(landingTime - now);
-      } else if (now < departureTime) {
-        labelEl.textContent = 'She is here for';
-        renderTick(departureTime - now);
-      } else {
-        document.getElementById('countdown-wrap').style.display = 'none';
-      }
+      labelEl.textContent = 'Since April 11th';
+      timeEl.textContent  = `${pad(d)}:${pad(h)}:${pad(m)}:${pad(s)}`;
     }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+    updateCountup();
+    setInterval(updateCountup, 1000);
 
     // ─── FAMOUS PERSON GAME ──────────────────────────────────────
     // Each day at 14:00 Lisbon time, a new famous person is revealed.

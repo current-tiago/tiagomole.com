@@ -154,7 +154,7 @@ Covers: 9.060°W–9.245°W, 38.680°N–38.810°N   (viewBox="0 0 600 400")
 
 **Key feature:** The Tagus River (Rio Tejo) path curves sharply northward on the east side of the map, reaching up to y≈156 at Parque das Nações — this is geographically accurate (the estuary widens dramatically there).
 
-**Orange dots (5 locations):**
+**Orange dots (6 locations):**
 
 | Location | Lat/Lon | SVG x,y |
 |----------|---------|---------|
@@ -163,6 +163,7 @@ Covers: 9.060°W–9.245°W, 38.680°N–38.810°N   (viewBox="0 0 600 400")
 | Praça do Comércio | 38.7076°N, 9.1364°W | 352, 315 |
 | Av. da Liberdade (Marquês de Pombal) | 38.7253°N, 9.1491°W | 311, 260 |
 | Torre de Belém | 38.6916°N, 9.2160°W | 94, 362 |
+| Castelo de São Jorge | 38.7139°N, 9.1335°W | 362, 296 |
 
 **To move or add a dot**, use the coordinate formula above to convert lat/lon to SVG x,y. Each dot is three circles (outer ring opacity 0.25, mid ring opacity 0.50, filled core r=3.8) plus two text labels above.
 

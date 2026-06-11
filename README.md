@@ -75,7 +75,7 @@ See `HANDOVER.md` for regeneration instructions and how to add new city markers.
 
 ## Lisbon Map
 
-`lisbon-map.svg` is a hand-crafted SVG of Lisbon used in Rocky's Home. It includes a detailed street network, 18 named districts, and an accurate Tagus River shape. Five orange dots mark: Oceanário de Lisboa, Campo Pequeno, Praça do Comércio, Av. da Liberdade, and Torre de Belém.
+`lisbon-map.svg` is a hand-crafted SVG of Lisbon used in Rocky's Home. It includes a detailed street network, 18 named districts, and an accurate Tagus River shape. Six orange dots mark: Oceanário de Lisboa, Campo Pequeno, Praça do Comércio, Av. da Liberdade, Torre de Belém, and Castelo de São Jorge.
 
 See `HANDOVER.md` for the coordinate formula and how to add or move dots.
 

@@ -305,7 +305,7 @@
   <text class="d-label" x="218" y="320" text-anchor="middle">ALCÂNTARA</text>
   <text class="d-label" x="118" y="336" text-anchor="middle">BELÉM</text>
   <text class="d-label" x="162" y="282" text-anchor="middle">AJUDA</text>
-  <text class="d-label" x="365" y="292" text-anchor="middle">ALFAMA</text>
+  <text class="d-label" x="398" y="298" text-anchor="middle">ALFAMA</text>
 
   <!-- Street labels -->
   <text class="s-label" transform="rotate(-38,328,265)" x="319" y="268">AV. DA LIBERDADE</text>
@@ -354,6 +354,14 @@
   <circle class="dot-core" cx="94" cy="362" r="3.8"/>
   <text class="p-name" x="94" y="346" text-anchor="middle">TORRE DE</text>
   <text class="p-sub"  x="94" y="352" text-anchor="middle">BELÉM</text>
+
+  <!-- 6. Castelo de São Jorge (38.7139°N, 9.1335°W → 362, 296)
+       On the castle hill just NE of Praça do Comércio — ALFAMA label moved east to make room -->
+  <circle class="dot-o1" cx="362" cy="296" r="14"/>
+  <circle class="dot-o2" cx="362" cy="296" r="9"/>
+  <circle class="dot-core" cx="362" cy="296" r="3.8"/>
+  <text class="p-name" x="362" y="272" text-anchor="middle">CASTELO DE</text>
+  <text class="p-sub"  x="362" y="278" text-anchor="middle">S. JORGE</text>
 
   <!-- 4. Avenida da Liberdade — Marquês de Pombal (38.7253°N, 9.1491°W → 311, 260) -->
   <circle class="dot-o1" cx="311" cy="260" r="14"/>

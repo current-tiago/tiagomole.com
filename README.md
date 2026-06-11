@@ -116,6 +116,7 @@ A daily geography-guessing game. A world map shows a **green circle** (birth cit
 - 100% client-side — state stored in `localStorage` (`rocky_famous_v1`), fully independent per device
 - New famous person each day, cycling through the `FAMOUS_PEOPLE` array in `rh-e3f7a92c1d.html`
 - Day 0 (June 4 2026) = Trotsky. To add more people, append to the array — never reorder existing entries.
+- **Never use people born and died in the same place** — the two circles would overlap on the map. Birth and death locations must be clearly separated.
 
 See `HANDOVER.md` for full mechanics and how to add new people.
 

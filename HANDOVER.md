@@ -259,7 +259,9 @@ A daily geography-guessing game. Located entirely in `rh-e3f7a92c1d.html` (pure 
   fact: "...",          // one interesting sentence shown after reveal
 }
 ```
-To add more people, append to the array. Order matters — don't reorder existing entries, as it shifts the rotation.
+To add more people, append to the array. Order matters — don't reorder existing entries, as it shifts the rotation. (If an entry must be swapped out, replace it **in place** so positions don't shift.)
+
+**RULE: never use people born and died in the same place (or very close together)** — the green and red circles end up on top of each other on the world map. Keep birth and death locations clearly separated (think hundreds of km minimum; the map is 2000px wide for 360° of longitude).
 
 **Map coordinates** use equirectangular projection:
 ```
@@ -276,7 +278,7 @@ y = (90  - lat) / 180 * 1000
 1. Leon Trotsky — born Ukraine, died Mexico City
 2. Nikola Tesla — born Croatia, died New York
 3. Karl Marx — born Germany, died London
-4. Frida Kahlo — born & died Coyoacán, Mexico
+4. Pablo Picasso — born Málaga, died Mougins (France)
 5. Napoleon Bonaparte — born Corsica, died Saint Helena
 6. Che Guevara — born Argentina, died Bolivia
 7. Marie Curie — born Warsaw, died France
@@ -286,9 +288,9 @@ y = (90  - lat) / 180 * 1000
 11. Princess Diana — born Sandringham, died Paris
 12. Albert Einstein — born Ulm, died Princeton
 13. Freddie Mercury — born Zanzibar, died London
-14. Amy Winehouse — born & died London
+14. John Lennon — born Liverpool, died New York
 15. Vincent van Gogh — born Netherlands, died France
-16. Diego Maradona — born & died Buenos Aires area
+16. Mahatma Gandhi — born Porbandar, died New Delhi
 
 Guess matching (`checkGuess`): full name, any single word > 3 chars, or any multi-word tail of the name (so "van gogh" works for Vincent van Gogh).
 

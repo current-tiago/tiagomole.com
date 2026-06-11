@@ -101,14 +101,30 @@
       box-shadow: 6px 6px 0 rgba(13,13,13,0.07);
     }
 
-    #rocky-modal p {
+    #rocky-label {
+      display: block;
       font-family: 'DM Mono', monospace;
       font-size: 0.55rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 1.5rem;
+      transition: color 0.3s;
     }
+    #rocky-label.ok { color: var(--red); }
+
+    #rocky-trigger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(138,128,112,0.35);
+      transition: color 0.3s;
+    }
+    #rocky-trigger:hover { color: rgba(138,128,112,0.7); }
 
     #rocky-input {
       width: 100%;
@@ -819,15 +835,15 @@
 
   <!-- HIDDEN ENTRY -->
   <div style="text-align:center; padding: 1.2rem 0 1.8rem;">
-    <button id="rocky-trigger" onclick="document.getElementById('rocky-overlay').classList.add('open'); setTimeout(()=>document.getElementById('rocky-input').focus(),50);" style="background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;font-size:0.5rem;letter-spacing:0.15em;color:rgba(138,128,112,0.35);text-transform:uppercase;transition:color 0.3s;" onmouseover="this.style.color='rgba(138,128,112,0.7)'" onmouseout="this.style.color='rgba(138,128,112,0.35)'">the atelier</button>
+    <button id="rocky-trigger" onclick="openRocky()">the atelier</button>
   </div>
 
   <!-- PASSWORD MODAL -->
   <div id="rocky-overlay" onclick="if(event.target===this){closeRocky()}">
-    <div id="rocky-modal">
-      <p>Enter password</p>
-      <input id="rocky-input" type="password" autocomplete="off" spellcheck="false"
-        onkeydown="if(event.key==='Enter')checkRocky(); if(event.key==='Escape')closeRocky();"
+    <div id="rocky-modal" role="dialog" aria-modal="true" aria-labelledby="rocky-label">
+      <label id="rocky-label" for="rocky-input">Enter password</label>
+      <input id="rocky-input" type="password" autocomplete="current-password" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkRocky();"
         placeholder="·····">
     </div>
   </div>
@@ -899,9 +915,27 @@
     });
 
     // Atelier access gate
+    let rockyBusy = false;
+
+    function openRocky() {
+      document.getElementById('rocky-overlay').classList.add('open');
+      document.getElementById('rocky-input').focus();
+    }
+
+    function shakeRocky(input) {
+      input.classList.add('wrong');
+      input.value = '';
+      setTimeout(() => input.classList.remove('wrong'), 400);
+    }
+
     async function checkRocky() {
+      if (rockyBusy) return;
       const input = document.getElementById('rocky-input');
+      const label = document.getElementById('rocky-label');
       const val = input.value.trim().toLowerCase();
+      if (!val) return;
+      rockyBusy = true;
+      label.textContent = 'Checking…';
       try {
         const res = await fetch('/.netlify/functions/rocky-auth', {
           method: 'POST',
@@ -910,21 +944,37 @@
         });
         const data = await res.json();
         if (data.ok) {
-          window.location.href = data.path;
-        } else {
-          input.classList.add('wrong');
-          input.value = '';
-          setTimeout(() => input.classList.remove('wrong'), 400);
+          label.textContent = 'Welcome back';
+          label.classList.add('ok');
+          setTimeout(() => { window.location.href = data.path; }, 700);
+          return; // stay busy until the redirect
         }
+        label.textContent = 'Enter password';
+        shakeRocky(input);
       } catch {
-        input.classList.add('wrong');
-        input.value = '';
-        setTimeout(() => input.classList.remove('wrong'), 400);
+        label.textContent = 'Connection — try again';
+        shakeRocky(input);
       }
+      rockyBusy = false;
     }
+
     function closeRocky() {
+      if (rockyBusy) return;
       document.getElementById('rocky-overlay').classList.remove('open');
       document.getElementById('rocky-input').value = '';
+      const label = document.getElementById('rocky-label');
+      label.textContent = 'Enter password';
+      label.classList.remove('ok');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.getElementById('rocky-overlay').classList.contains('open')) closeRocky();
+    });
+
+    // Reopen the modal after an expired-session redirect (/?atelier)
+    if (new URLSearchParams(location.search).has('atelier')) {
+      history.replaceState(null, '', location.pathname);
+      openRocky();
     }
   </script>
 </body>

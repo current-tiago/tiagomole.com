@@ -88,6 +88,9 @@ Sections in order:
 5. **Footer**
 6. **Spotify widget** — fixed bottom-right, label says "Tiago is playing" (active) or "Last Played" (paused). Fetches every 30s, also refreshes on `pageshow` (bfcache restore) and `visibilitychange` (tab focus) to prevent stale data.
 7. **the Atelier modal** — hidden password button below footer triggers overlay; password validated server-side via `rocky-auth` function
+   - Label shows state: "Enter password" → "Checking…" (request in flight, re-submits ignored) → "Welcome back" in orange (brief beat, then redirect). Network failure shows "Connection — try again" — distinct from a wrong password (shake).
+   - Modal has `role="dialog"` / `aria-modal`, the label is a real `<label for>`, and the input uses `autocomplete="current-password"` so password managers work. Escape closes via a document-level listener; input is focused synchronously on click (iOS keyboard).
+   - Visiting `/?atelier` auto-opens the modal (the URL is cleaned via `history.replaceState`). The edge function redirects expired/missing sessions there.
 
 ---
 
@@ -171,10 +174,13 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 
 **Security model:**
 - Password validated **server-side** by `netlify/functions/rocky-auth.js`
+- Hash comparison uses `crypto.timingSafeEqual` (constant-time)
+- Per-IP brute-force throttle: 10 failures per 10-minute window → 429; each failure also delays the response 500ms. In-memory, so it resets when the function instance goes cold — a deterrent, not a guarantee.
 - On correct password, the auth function sets a `rh_session` cookie (HMAC-SHA256, 7-day expiry)
-- A Netlify Edge Function (`netlify/edge-functions/rocky-gate.js`) gates the page — no valid cookie, no access
+- A Netlify Edge Function (`netlify/edge-functions/rocky-gate.js`) gates the page — no valid cookie, no access. Missing/expired sessions redirect to `/?atelier`, which auto-opens the password modal on the homepage.
 - `ROCKY_PASSWORD_HASH` lives in Netlify env vars — not in any file
 - No credentials, hashes, or page paths are exposed in public docs
+- **⚠️ If the private page is ever renamed:** the session cookie is scoped with `Path=/<page>.html`. A rename requires updating **three** places or all sessions silently break: the `Set-Cookie` path + `path` in the JSON response (`rocky-auth.js`) and the `config.path` (`rocky-gate.js`).
 
 **Netlify env vars required:**
 

@@ -7,7 +7,9 @@ export default async (request, context) => {
 
   if (session && session === expected) return context.next();
 
-  return Response.redirect(new URL('/', request.url), 302);
+  // No/expired session: send to the homepage with ?atelier so the
+  // password modal reopens automatically.
+  return Response.redirect(new URL('/?atelier', request.url), 302);
 };
 
 async function computeToken(key) {

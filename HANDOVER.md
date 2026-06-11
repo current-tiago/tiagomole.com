@@ -203,8 +203,13 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - Film(s) with the highest combined T+R score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
    - **Clicking a film title** expands a description panel below that row (exclusive accordion). Panel shows: director in DM Mono red caps, synopsis in Cormorant italic, genre tags in small DM Mono.
 4. **Something I Love About You** (`#daily-draw`) — daily famous person game (see below)
-5. **Lisbon** — full-width SVG map of Lisbon with 6 orange location dots
-6. **Footer**
+5. **Our Story** (`#story`) — relationship timeline: centre vertical line, alternating photo/text rows, orange dot per milestone
+   - Each `.story-item` = `.story-photo` (4:3 frame, slight polaroid tilt, straightens on hover) + `.story-text-block` (DM Mono orange date, serif title, italic caption)
+   - Currently 4 placeholder milestones with "PHOTO · SOON" frames. **To add a real photo:** replace the `<span class="story-photo-soon">…</span>` inside `.story-photo` with `<img src="…" alt="…">` — the CSS already makes it fill the frame (`object-fit: cover`)
+   - On mobile the line moves to the left edge and items stack (photo below text)
+   - Items use the same scroll-reveal observer as film rows
+6. **Lisbon** — full-width SVG map of Lisbon with 6 orange location dots
+7. **Footer**
 
 **Current film list (in order):**
 

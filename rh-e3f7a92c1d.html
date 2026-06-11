@@ -789,6 +789,142 @@
       .lisbon-section { padding: 4rem 1.5rem; }
     }
 
+    /* OUR STORY — TIMELINE */
+    .story-section {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .story-wrap {
+      max-width: 860px;
+      margin: 4rem auto 0;
+      position: relative;
+    }
+
+    .story-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .story-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 4.5rem;
+      align-items: center;
+      margin-bottom: 5.5rem;
+      position: relative;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .story-item.visible { opacity: 1; transform: translateY(0); }
+    .story-item:last-child { margin-bottom: 0; }
+
+    /* dot on the centre line */
+    .story-item::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 5px var(--cream), 0 0 0 6px var(--line);
+      z-index: 2;
+    }
+
+    .story-photo {
+      aspect-ratio: 4 / 3;
+      border: 1px solid var(--line);
+      background:
+        repeating-linear-gradient(-45deg,
+          rgba(13,13,13,0.025) 0 10px,
+          transparent 10px 20px);
+      box-shadow: 6px 6px 0 rgba(13,13,13,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-1.4deg);
+      transition: transform 0.4s ease;
+    }
+    .story-item:nth-child(even) .story-photo { transform: rotate(1.4deg); }
+    .story-item:hover .story-photo { transform: rotate(0deg); }
+
+    /* once a real photo goes in, it fills the frame */
+    .story-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .story-photo-soon {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    /* text on the right by default; even items flip sides */
+    .story-item:nth-child(even) .story-photo { order: 2; }
+    .story-item:nth-child(even) .story-text-block { order: 1; text-align: right; }
+
+    .story-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.9rem;
+    }
+
+    .story-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+    .story-title em { font-style: italic; color: var(--red); }
+
+    .story-caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.55;
+      max-width: 300px;
+    }
+    .story-item:nth-child(even) .story-caption { margin-left: auto; }
+
+    @media (max-width: 768px) {
+      .story-section { padding: 4rem 1.5rem; }
+      .story-wrap { margin-top: 3rem; }
+      .story-wrap::before { left: 4px; }
+      .story-item {
+        grid-template-columns: 1fr;
+        gap: 1.5rem 0;
+        padding-left: 2rem;
+        margin-bottom: 4rem;
+      }
+      .story-item::before { left: 4px; top: 0.4rem; transform: translateX(-50%); }
+      .story-item:nth-child(even) .story-photo { order: 0; }
+      .story-item:nth-child(even) .story-text-block { order: 0; text-align: left; }
+      .story-item:nth-child(even) .story-caption { margin-left: 0; }
+      .story-text-block { order: -1; }
+    }
+
     /* FOOTER */
     footer {
       padding: 3rem;
@@ -1399,6 +1535,49 @@
     </div>
   </div>
 
+  <div class="story-section" id="story">
+    <div class="section-label">Our Story</div>
+    <div class="story-wrap">
+
+      <div class="story-item">
+        <div class="story-photo"><span class="story-photo-soon">Photo · Soon</span></div>
+        <div class="story-text-block">
+          <div class="story-date">April 11th 2026 · 01:00</div>
+          <div class="story-title">The <em>beginning</em></div>
+          <p class="story-caption">Where it all started — and the clock upstairs has been counting ever since.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><span class="story-photo-soon">Photo · Soon</span></div>
+        <div class="story-text-block">
+          <div class="story-date">A placeholder date</div>
+          <div class="story-title">A moment <em>worth keeping</em></div>
+          <p class="story-caption">A few words about what happened here, and why neither of us will forget it.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><span class="story-photo-soon">Photo · Soon</span></div>
+        <div class="story-text-block">
+          <div class="story-date">June 6th 2026</div>
+          <div class="story-title">Lisbon, <em>together</em></div>
+          <p class="story-caption">She landed at nine in the morning, and the city was never quite the same.</p>
+        </div>
+      </div>
+
+      <div class="story-item">
+        <div class="story-photo"><span class="story-photo-soon">Photo · Soon</span></div>
+        <div class="story-text-block">
+          <div class="story-date">June 24th 2026 · and on</div>
+          <div class="story-title">The rest is <em>unwritten</em></div>
+          <p class="story-caption">More photographs to come. This line only goes one way.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <div class="lisbon-section">
     <div class="section-label">Lisbon</div>
     <div class="lisbon-map-wrap">
@@ -1441,8 +1620,8 @@
       if (!isOpen) wrap.classList.add('open');
     }
 
-    // Film row scroll reveal
-    const revealEls = document.querySelectorAll('.movie-item-row');
+    // Film row + story timeline scroll reveal
+    const revealEls = document.querySelectorAll('.movie-item-row, .story-item');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {

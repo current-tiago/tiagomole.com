@@ -105,12 +105,12 @@ A private page for Imy, accessible via a hidden button in the footer. Password i
 |-----|-------|
 | `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (Netlify dashboard) |
 
-**Sections:** hero with countdown to arrival · five poems (accordion) · Films We've Watched · **Something I Like About You** (daily famous person game) · Lisbon map.
+**Sections:** hero with countdown to arrival · five poems (accordion) · Films We've Watched · **Something I Love About You** (daily famous person game) · Lisbon map.
 
 ### Films We've Watched
 16 films with dual star ratings (T = Tiago in orange, R = Imy in pink, out of 5). Clicking a film title expands a description panel. Films with the highest combined T+R score get the `top-rated` class (soft gold title). Currently: Train Dreams and Project Hail Mary (both 10/10).
 
-### Something I Like About You — Famous Person Game
+### Something I Love About You — Famous Person Game
 A daily geography-guessing game. A world map shows a **green circle** (birth city + year) and a **red circle** (death city + year). The player guesses who it is. Resets every day at **14:00 Lisbon time**.
 
 - 100% client-side — state stored in `localStorage` (`rocky_famous_v1`), fully independent per device

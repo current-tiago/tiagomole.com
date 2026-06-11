@@ -202,8 +202,8 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`
    - Film(s) with the highest combined T+R score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
    - **Clicking a film title** expands a description panel below that row (exclusive accordion). Panel shows: director in DM Mono red caps, synopsis in Cormorant italic, genre tags in small DM Mono.
-4. **Something I Like About You** (`#daily-draw`) — daily famous person game (see below)
-5. **Lisbon** — full-width SVG map of Lisbon with 5 orange location dots
+4. **Something I Love About You** (`#daily-draw`) — daily famous person game (see below)
+5. **Lisbon** — full-width SVG map of Lisbon with 6 orange location dots
 6. **Footer**
 
 **Current film list (in order):**
@@ -231,7 +231,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 
 ---
 
-## Famous Person Game ("Something I Like About You")
+## Famous Person Game ("Something I Love About You")
 
 A daily geography-guessing game. Located entirely in `rh-e3f7a92c1d.html` (pure client-side — no server function needed).
 
@@ -270,7 +270,7 @@ y = (90  - lat) / 180 * 1000
 **localStorage key:** `rocky_famous_v1`  
 **State shape:** `{ day, solved, revealed, attempts[] }`
 
-**Daily "thing I like about you"** — shown below the game every day, always visible (no interaction needed). Defined in the `THINGS` array in `rh-e3f7a92c1d.html`. Uses the same `GAME_EPOCH` and `dayNum` as the famous person game, cycling through independently (`dayNum % THINGS.length`). To add more, append to the array — never reorder or remove existing entries.
+**Daily "thing I love about you"** — shown below the game **only after a correct guess** (not on give-up). Defined in the `THINGS` array (18 entries) in `rh-e3f7a92c1d.html`. Uses the same `GAME_EPOCH` and `dayNum` as the famous person game, cycling through independently (`dayNum % THINGS.length`). To add more, append to the array — never reorder or remove existing entries.
 
 **Current people (in rotation order):**
 1. Leon Trotsky — born Ukraine, died Mexico City

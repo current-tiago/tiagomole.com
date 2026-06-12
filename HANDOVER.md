@@ -23,7 +23,7 @@ No Node.js dependencies — `package.json` has been removed. All serverless func
 
 ## Design system
 
-All pages share the same design tokens and fonts:
+**See `DESIGN.md` for the full design system** — aesthetic rules, typography recipes, layout patterns, motion, the Rocky's Home duet motif, and the checklist for new work. Quick token reference:
 
 | Token | Value |
 |-------|-------|

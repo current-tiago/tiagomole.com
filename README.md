@@ -57,6 +57,8 @@ Live at **[tiagomole.com](https://tiagomole.com)**
 
 ## Design
 
+Full design system in **`DESIGN.md`** — read it before any visual work.
+
 - **Fonts**: Cormorant Garamond (serif, headings/body) + DM Mono (metadata, labels, nav)
 - **Colours**: Cream `#F5F0E8` background · Ink `#0D0D0D` · Orange accent `#FF8800`
 - **Style**: Editorial / high-end print — asymmetric grid, noise texture overlay, scroll reveals

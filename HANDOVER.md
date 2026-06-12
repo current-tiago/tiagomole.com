@@ -205,7 +205,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - Film(s) with the highest combined T+I score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
    - **Clicking a film title** expands a description panel below that row (exclusive accordion). Panel shows: director in DM Mono red caps, synopsis in Cormorant italic, genre tags in small DM Mono.
 4. **Something I Love About You** (`#daily-draw`) — daily famous person game (see below)
-5. **Daily Thoughts** (`#thoughts`) — Tiago's daily thoughts, posted from his phone, revealed at **14:00 Lisbon** each day
+5. **Thoughts About You** (`#thoughts`) — Tiago's daily thoughts, posted from his phone, revealed at **14:00 Lisbon** each day
    - Backend: `netlify/functions/thoughts.mjs` (functions v2, ESM) + **Netlify Blobs** store `thoughts`, key `list` (JSON array of `{d, t, ts}`)
    - **POST** `{token, text}` (token = `THOUGHTS_WRITE_TOKEN` env var) appends a thought — sent from an iOS Shortcut on Tiago's phone
    - **GET** `?k=<THOUGHTS_READ_KEY>` returns visible thoughts (today's only after 14:00 Lisbon — `REVEAL_HOUR` constant in the function), newest first

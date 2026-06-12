@@ -17,7 +17,7 @@ Local path: `/Users/tiagobranco-mole/Desktop/tiagomole.com`
 
 Stack: pure HTML/CSS/JS — no build step, no framework. Deploy by pushing to `main`.
 
-No Node.js dependencies — `package.json` has been removed. All serverless functions use only Node.js built-ins. Deploys are pure static + functions, no `npm install` step.
+One Node.js dependency: `@netlify/blobs` (used by the thoughts function). `package.json` exists only for that — all other functions use Node.js built-ins.
 
 ---
 
@@ -205,7 +205,14 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - Film(s) with the highest combined T+I score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
    - **Clicking a film title** expands a description panel below that row (exclusive accordion). Panel shows: director in DM Mono red caps, synopsis in Cormorant italic, genre tags in small DM Mono.
 4. **Something I Love About You** (`#daily-draw`) — daily famous person game (see below)
-5. **Our Story** (`#story`) — **horizontal filmstrip** timeline (was vertical; rebuilt to kill page length): a draggable `overflow-x` strip (`#story-strip`) of 230px polaroid cards threaded on a horizontal line with an orange dot per card
+5. **Daily Thoughts** (`#thoughts`) — Tiago's daily thoughts, posted from his phone, revealed at **14:00 Lisbon** each day
+   - Backend: `netlify/functions/thoughts.mjs` (functions v2, ESM) + **Netlify Blobs** store `thoughts`, key `list` (JSON array of `{d, t, ts}`)
+   - **POST** `{token, text}` (token = `THOUGHTS_WRITE_TOKEN` env var) appends a thought — sent from an iOS Shortcut on Tiago's phone
+   - **GET** `?k=<THOUGHTS_READ_KEY>` returns visible thoughts (today's only after 14:00 Lisbon — `REVEAL_HOUR` constant in the function), newest first
+   - Read key is embedded in this gated page's JS (`THOUGHTS_KEY`); write token lives only in Netlify env + the Shortcut
+   - **Env vars required:** `THOUGHTS_WRITE_TOKEN`, `THOUGHTS_READ_KEY` (Netlify dashboard) — feature is dead until both are set
+   - Section is `display:none` until the fetch returns at least one thought
+6. **Our Story** (`#story`) — **horizontal filmstrip** timeline (was vertical; rebuilt to kill page length): a draggable `overflow-x` strip (`#story-strip`) of 230px polaroid cards threaded on a horizontal line with an orange dot per card
    - Interactions: drag-to-scroll (pointer events), vertical mouse-wheel scrolls the strip horizontally while it has room (releases at the ends), scroll-snap, edge gradient fades, "first to last · drag →" hint
    - Each `.story-item` = `.story-photo` (3:4 portrait frame, slight polaroid tilt, straightens on hover) + `.story-text-block` (DM Mono orange date, serif title, italic caption)
    - **30 real photos** (Jan 29 → Jun 11 2026), stored in `rh-m/` with hashed unguessable filenames (`rh-<sha1-10>.jpg`). Source photos live in `~/Desktop/imy photos` on Tiago's Mac; deployed copies are resized to max 1600px, JPEG q78, **EXIF/GPS stripped** (PIL fresh-save). Dates in entries come from EXIF capture dates.
@@ -213,13 +220,13 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - Captions were verified against the actual photo contents (via thumbnails). Four entries are uncaptioned extras with Claude-written captions Tiago may want to reword: Apr 10 tricycle ("Lisbon, at night"), Jun 10 restaurant terrace ("Lunch in the sun"), Jun 10 peacock + Jun 10 castle walls (Castelo de São Jorge)
    - On mobile the line moves to the left edge and items stack (photo below text)
    - Items use the same scroll-reveal observer as film rows
-6. **Frivolous Measurements** (`#measures`) — three live counters of time dating (since `sinceTime`, April 11 2026 01:00 Lisbon), updated every second in `updateClocks()`:
+7. **Frivolous Measurements** (`#measures`) — three live counters of time dating (since `sinceTime`, April 11 2026 01:00 Lisbon), updated every second in `updateClocks()`:
    - Plays of "Jane!" by The Long Faces back to back (3:06 = 186 s)
    - Full viewings of Oppenheimer (3 h = 10 800 s)
    - Flights between Stansted and Lisbon (2 h 50 = 10 200 s)
    - To add a unit: copy a `.silly-item`, add one line in `updateClocks()` with the unit's seconds
-7. **Lisbon** — full-width SVG map of Lisbon with 6 orange location dots
-8. **Footer**
+8. **Lisbon** — full-width SVG map of Lisbon with 6 orange location dots
+9. **Footer**
 
 **Current film list (in order):**
 

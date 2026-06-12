@@ -943,6 +943,49 @@
       .story-wrap::before, .story-wrap::after { width: 1.5rem; }
     }
 
+    /* DAILY THOUGHTS */
+    .thoughts-section {
+      padding: 4.5rem 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .thoughts-list {
+      max-width: 600px;
+      margin: 2.5rem auto 0;
+    }
+
+    .thought-row {
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--line);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .thought-row.visible { opacity: 1; transform: translateY(0); }
+    .thought-row:last-child { border-bottom: none; }
+
+    .thought-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.6rem;
+    }
+
+    .thought-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    @media (max-width: 768px) {
+      .thoughts-section { padding: 4rem 1.5rem; }
+    }
+
     /* FRIVOLOUS MEASUREMENTS */
     .silly-section {
       padding: 4.5rem 3rem;
@@ -1129,7 +1172,7 @@
         A little section just for your eyes.
       </p>
       <div class="hero-cta">
-        <a href="#poems">Poems</a>&ensp;&ensp;<a href="#movies">Films</a>&ensp;&ensp;<a href="#daily-draw">Game</a>&ensp;&ensp;<a href="#story">Story</a>&ensp;&ensp;<a href="#measures">Numbers</a>&ensp;&ensp;<a href="#lisbon">Lisbon</a>
+        <a href="#poems">Poems</a>&ensp;&ensp;<a href="#movies">Films</a>&ensp;&ensp;<a href="#daily-draw">Game</a>&ensp;&ensp;<a href="#story">Story</a>&ensp;&ensp;<a href="#thoughts">Thoughts</a>&ensp;&ensp;<a href="#measures">Numbers</a>&ensp;&ensp;<a href="#lisbon">Lisbon</a>
       </div>
     </div>
     <div class="hero-countdown" id="countdown-wrap">
@@ -1658,6 +1701,11 @@
     </div>
   </div>
 
+  <div class="thoughts-section" id="thoughts" style="display:none">
+    <div class="section-label">Daily Thoughts</div>
+    <div class="thoughts-list" id="thoughts-list"></div>
+  </div>
+
   <div class="story-section" id="story">
     <div class="section-label">Our Story</div>
     <div class="story-hint">First to last &middot; drag &rarr;</div>
@@ -2005,6 +2053,32 @@
 
       if (!isOpen) wrap.classList.add('open');
     }
+
+    // Daily thoughts — fetched from the thoughts function; section stays hidden until there are any
+    const THOUGHTS_KEY = 'fabc3445637f3e86a8a1108d';
+    function thoughtDate(d) {
+      const [y, m, day] = d.split('-').map(Number);
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const n = day % 10, suf = (day % 100 - n === 10) ? 'th' : (n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th');
+      return `${months[m - 1]} ${day}${suf} ${y}`;
+    }
+    async function loadThoughts() {
+      try {
+        const res = await fetch('/.netlify/functions/thoughts?k=' + THOUGHTS_KEY);
+        const data = await res.json();
+        if (!data.ok || !data.thoughts || !data.thoughts.length) return;
+        const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        document.getElementById('thoughts-list').innerHTML = data.thoughts.map(t => `
+          <div class="thought-row">
+            <div class="thought-date">${thoughtDate(t.d)}</div>
+            <div class="thought-text">${esc(t.t)}</div>
+          </div>`).join('');
+        document.getElementById('thoughts').style.display = '';
+        document.querySelectorAll('.thought-row').forEach((r, i) =>
+          setTimeout(() => r.classList.add('visible'), 150 + i * 80));
+      } catch (e) {}
+    }
+    loadThoughts();
 
     // Our Story strip: drag to scroll; vertical wheel scrolls the strip while it has room
     const strip = document.getElementById('story-strip');

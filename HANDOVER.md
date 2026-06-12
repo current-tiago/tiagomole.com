@@ -189,6 +189,8 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 |-----|-------|
 | `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (set in Netlify dashboard) |
 
+**Personal design motifs** (added June 2026): the page is a "duet" — orange `--red` = Tiago, pink `--pink: #e8829a` = Imy (same language as the film star ratings). Touches: giant ghost italic "2" behind the hero (her favourite number, desktop only, `.hero-two`); faint pink radial blush in the hero background; Portuguese sub-labels on every section title (`.label-pt`: cinco poemas, os filmes que vimos, algo que amo em ti, a nossa história, medidas frívolas, Lisboa); story filmstrip dots alternate orange/pink; films legend "T Tiago · R Imy"; daily-thing eyebrow "for today"; an empty dashed "to be continued" frame closes the filmstrip; footer line "feito com amor em Lisboa · 38.72° N · 9.14° W". The countdown label reads "Until I see **you** next" — the whole page addresses Imy directly.
+
 **Page sections in order:**
 1. **Hero** — large serif title "Rocky's / *Home*", subtitle, countdown (top-right), meta block (bottom-right)
    - **Meta block count-up** (`#since-clock`): calendar-aware "Xy Xm Xd Xh" ticking up from **April 11 2026, 01:00 Lisbon** (`2026-04-11T01:00:00+01:00`), shown under "April 11th — present"

@@ -14,6 +14,7 @@
       --ink-soft: #2A2A2A;
       --muted: #8A8070;
       --line: rgba(13,13,13,0.12);
+      --pink: #e8829a;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -452,6 +453,16 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+    }
+
+    .label-pt {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      font-weight: 300;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      color: var(--muted);
     }
 
     .section-label::after {
@@ -1002,6 +1013,72 @@
       .silly-intro { margin: 2rem 0 3rem; }
     }
 
+    /* PERSONAL TOUCHES */
+    .hero {
+      background: radial-gradient(ellipse at 78% 28%, rgba(232,130,154,0.05), transparent 55%);
+    }
+
+    .hero-two {
+      position: absolute;
+      right: 6%;
+      top: 50%;
+      transform: translateY(-54%);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(18rem, 36vw, 32rem);
+      line-height: 1;
+      color: var(--ink);
+      opacity: 0.035;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      animation: fadeIn 2s ease 1.4s both;
+    }
+
+    .story-item:nth-child(even)::before { background: var(--pink); }
+
+    .story-photo-empty {
+      border-style: dashed;
+      box-shadow: none;
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .movies-legend {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 1.2rem 0 0;
+    }
+    .movies-legend .lg-t { color: var(--red); }
+    .movies-legend .lg-r { color: var(--pink); }
+
+    .daily-thing-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-made {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      .hero-two { display: none; }
+    }
+
     /* FOOTER */
     footer {
       padding: 3rem;
@@ -1105,11 +1182,12 @@
         <span>For you</span>
       </div>
     </div>
+    <div class="hero-two">2</div>
     <div class="hero-year">MMXXVI</div>
   </div>
 
   <div class="poems-section" id="poems">
-    <div class="section-label">Five Poems</div>
+    <div class="section-label">Five Poems<span class="label-pt">cinco poemas</span></div>
 
     <article class="poem-accordion">
       <button class="poem-header" aria-expanded="false" onclick="togglePoem(this)">
@@ -1266,7 +1344,8 @@
   </div>
 
   <div class="movies-section" id="movies">
-    <div class="section-label">Films We've Watched</div>
+    <div class="section-label">Films We've Watched<span class="label-pt">os filmes que vimos</span></div>
+    <div class="movies-legend"><span class="lg-t">T</span> Tiago &nbsp;·&nbsp; <span class="lg-r">R</span> Imy</div>
     <div class="movies-grid">
 
       <div class="movie-item top-rated">
@@ -1597,7 +1676,7 @@
   </div>
 
   <div class="famous-section" id="daily-draw">
-    <div class="section-label">Something I Love About You</div>
+    <div class="section-label">Something I Love About You<span class="label-pt">algo que amo em ti</span></div>
     <div class="famous-wrap">
 
       <div class="famous-map-wrap">
@@ -1613,7 +1692,7 @@
   </div>
 
   <div class="story-section" id="story">
-    <div class="section-label">Our Story</div>
+    <div class="section-label">Our Story<span class="label-pt">a nossa história</span></div>
     <div class="story-hint">First to last &middot; drag &rarr;</div>
     <div class="story-wrap">
       <div class="story-strip" id="story-strip">
@@ -1883,12 +1962,20 @@
         </div>
       </div>
 
+      <div class="story-item">
+        <div class="story-photo story-photo-empty"><span class="story-photo-soon">to be continued</span></div>
+        <div class="story-text-block">
+          <div class="story-date">&mdash;</div>
+          <div class="story-title"><em>&hellip;</em></div>
+        </div>
+      </div>
+
       </div>
     </div>
   </div>
 
   <div class="silly-section" id="measures">
-    <div class="section-label">Frivolous Measurements</div>
+    <div class="section-label">Frivolous Measurements<span class="label-pt">medidas frívolas</span></div>
     <p class="silly-intro">How long we&rsquo;ve been dating, in units that actually matter.</p>
     <div class="silly-grid">
       <div class="silly-item">
@@ -1910,7 +1997,7 @@
   </div>
 
   <div class="lisbon-section" id="lisbon">
-    <div class="section-label">Lisbon</div>
+    <div class="section-label">Lisbon<span class="label-pt">Lisboa</span></div>
     <div class="lisbon-map-wrap">
       <img src="lisbon-map.svg" alt="Map of Lisbon">
     </div>
@@ -1918,6 +2005,7 @@
 
   <footer>
     <div class="footer-name">Tiago Branco Mole</div>
+    <div class="footer-made">feito com amor em Lisboa &middot; 38.72&deg; N &middot; 9.14&deg; W</div>
     <a href="/" class="footer-back">← Back to tiagomole.com</a>
   </footer>
 
@@ -2017,7 +2105,7 @@
 
       const left = nextVisit.getTime() - Date.now();
       if (left > 0) {
-        document.querySelector('.hero-countdown-label').textContent = 'Until I see her next';
+        document.querySelector('.hero-countdown-label').textContent = 'Until I see you next';
         document.getElementById('countdown-time').textContent = fmtClock(left);
       } else {
         document.getElementById('countdown-wrap').style.display = 'none';
@@ -2347,7 +2435,8 @@
       const dayNum = Math.max(0, Math.floor((today - GAME_EPOCH) / 86400000));
       const text   = THINGS[dayNum % THINGS.length];
       document.getElementById('daily-thing').innerHTML =
-        `<p class="daily-thing-text">&ldquo;${text}&rdquo;</p>`;
+        `<div class="daily-thing-label">for today</div>
+         <p class="daily-thing-text">&ldquo;${text}&rdquo;</p>`;
     }
 
     function initFamousGame() {

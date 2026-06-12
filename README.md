@@ -110,7 +110,7 @@ A private page for Imy, accessible via a hidden button in the footer. Password i
 **Sections:** hero with count-up + next-visit countdown · five poems (accordion) · Films We've Watched · **Something I Love About You** (daily famous person game) · **Our Story** (timeline of 30 photos in `rh-m/`, hashed filenames, EXIF stripped) · Lisbon map.
 
 ### Films We've Watched
-17 films with dual star ratings (T = Tiago in orange, R = Imy in pink, out of 5). Clicking a film title expands a description panel. Films with the highest combined T+R score get the `top-rated` class (soft gold title). Currently: Train Dreams and Project Hail Mary (both 10/10).
+17 films with dual star ratings (T = Tiago in orange, I = Imy in pink, out of 5). Clicking a film title expands a description panel. Films with the highest combined T+I score get the `top-rated` class (soft gold title). Currently: Train Dreams and Project Hail Mary (both 10/10).
 
 ### Something I Love About You — Famous Person Game
 A daily geography-guessing game. A world map shows a **green circle** (birth city + year) and a **red circle** (death city + year). The player guesses who it is. Resets every day at **14:00 Lisbon time**.
@@ -132,7 +132,7 @@ See `HANDOVER.md` for full mechanics and how to add new people.
 3. Add to the relevant category page (e.g. `policy-research.html`)
 
 ### New film to Rocky's Home
-Copy an existing `.movie-item` block — it contains a `.movie-item-row` (num / title / ratings grid) and a `.movie-desc-wrap` (hidden description panel). Update number, title, year, star spans, and description. Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`. After adding, recalculate combined T+R scores and move the `top-rated` class to the highest-scoring film(s).
+Copy an existing `.movie-item` block — it contains a `.movie-item-row` (num / title / ratings grid) and a `.movie-desc-wrap` (hidden description panel). Update number, title, year, star spans, and description. Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`. After adding, recalculate combined T+I scores and move the `top-rated` class to the highest-scoring film(s).
 
 ### New famous person to the game
 Append an entry to `FAMOUS_PEOPLE` in `rh-e3f7a92c1d.html`:

@@ -189,7 +189,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 |-----|-------|
 | `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (set in Netlify dashboard) |
 
-**Personal design motifs** (added June 2026): the page is a "duet" — orange `--red` = Tiago, pink `--pink: #e8829a` = Imy (same language as the film star ratings). Touches: faint pink radial blush in the hero background; story filmstrip dots alternate orange/pink; films legend "T Tiago · R Imy"; daily-thing eyebrow "for today"; an empty dashed "to be continued" frame closes the filmstrip; footer line "made with love in Lisbon · 38.72° N · 9.14° W". (Portuguese sub-labels and a giant ghost "2" behind the hero were tried and removed at Tiago's request — don't reintroduce.) The countdown label reads "Until I see **you** next" — the whole page addresses Imy directly.
+**Personal design motifs** (added June 2026): the page is a "duet" — orange `--red` = Tiago, pink `--pink: #e8829a` = Imy (same language as the film star ratings). Touches: faint pink radial blush in the hero background; story filmstrip dots alternate orange/pink; films legend "T Tiago · I Imy"; daily-thing eyebrow "for today"; an empty dashed "to be continued" frame closes the filmstrip; footer line "made with love in Lisbon · 38.72° N · 9.14° W". (Portuguese sub-labels and a giant ghost "2" behind the hero were tried and removed at Tiago's request — don't reintroduce.) The countdown label reads "Until I see **you** next" — the whole page addresses Imy directly.
 
 **Page sections in order:**
 1. **Hero** — large serif title "Rocky's / *Home*", subtitle, countdown (top-right), meta block (bottom-right)
@@ -199,10 +199,10 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - I · Sample no.1 · II · View of the Room · III · T-3 Weeks · IV · Studying · V · Orpheus
 3. **Films We've Watched** (`#movies`) — numbered list of 17 films in **two newspaper columns** on desktop (chronological down each column via `grid-auto-flow: column`; `grid-template-rows: repeat(9, auto)` — **bump the 9 to ceil(n/2) when adding films**; single column on mobile), with dual star ratings:
    - **T** = Tiago's rating (orange `#FF8800` stars)
-   - **R** = Imy's rating (pink `#e8829a` stars)
+   - **I** = Imy's rating (pink `#e8829a` stars)
    - Stars out of 5; half-stars supported via CSS `linear-gradient` clip trick
    - Star classes: `star-t`, `star-r`, `star-empty`, `star-half-t`, `star-half-r`
-   - Film(s) with the highest combined T+R score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
+   - Film(s) with the highest combined T+I score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
    - **Clicking a film title** expands a description panel below that row (exclusive accordion). Panel shows: director in DM Mono red caps, synopsis in Cormorant italic, genre tags in small DM Mono.
 4. **Something I Love About You** (`#daily-draw`) — daily famous person game (see below)
 5. **Our Story** (`#story`) — **horizontal filmstrip** timeline (was vertical; rebuilt to kill page length): a draggable `overflow-x` strip (`#story-strip`) of 230px polaroid cards threaded on a horizontal line with an orange dot per card
@@ -223,7 +223,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 
 **Current film list (in order):**
 
-| # | Title | Year | T | R | Total |
+| # | Title | Year | T | I | Total |
 |---|-------|------|---|---|-------|
 | 01 ★ | Train Dreams | 2025 | ★★★★★ | ★★★★★ | 10 |
 | 02 | Blair Witch Project | 1999 | ★★½☆☆ | ★★★½☆ | 6 |

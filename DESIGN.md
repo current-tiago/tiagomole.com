@@ -98,7 +98,7 @@ Motion is punctuation, not decoration.
 The private page extends the system with one concept: **two people, two colours.**
 
 - `--red` (orange) = Tiago · `--pink` = Imy
-- Film star ratings: T row orange, R row pink; legend "T Tiago · R Imy"
+- Film star ratings: T row orange, I row pink (CSS classes still `*-r`); legend "T Tiago · I Imy"
 - Story filmstrip dots alternate orange/pink down the timeline
 - A faint pink radial blush warms the hero (`radial-gradient`, opacity ≈ 0.05)
 - Everything else stays on the shared cream/ink system — pink is an accent *on* the accent, not a second theme

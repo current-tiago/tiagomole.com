@@ -1887,8 +1887,8 @@
       </div>
       <div class="silly-item">
         <div class="silly-num" id="silly-flights">—</div>
-        <div class="silly-label">flights between Reading and Lisbon</div>
-        <div class="silly-sub">2 hrs 45 per flight</div>
+        <div class="silly-label">flights between Stansted and Lisbon</div>
+        <div class="silly-sub">2 hrs 50 per flight</div>
       </div>
     </div>
   </div>
@@ -1991,7 +1991,7 @@
       const fmtN = n => Math.floor(n).toLocaleString('en-GB');
       document.getElementById('silly-jane').textContent        = fmtN(secs / 186);   // "Jane!" — 3:06
       document.getElementById('silly-oppenheimer').textContent = fmtN(secs / 10800); // 3h00
-      document.getElementById('silly-flights').textContent     = fmtN(secs / 9900);  // 2h45
+      document.getElementById('silly-flights').textContent     = fmtN(secs / 10200); // STN–LIS 2h50
     }
 
     updateClocks();

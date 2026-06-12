@@ -63,7 +63,10 @@ export default async (req) => {
     const visible = hour >= REVEAL_HOUR
       ? list.filter(e => e.d === date).sort((a, b) => b.ts - a.ts)
       : [];
-    return json({ ok: true, thoughts: visible.map(e => ({ d: e.d, t: e.t })) });
+    const hhmm = ts => new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', hour12: false,
+    }).format(new Date(ts));
+    return json({ ok: true, thoughts: visible.map(e => ({ d: e.d, t: e.t, h: hhmm(e.ts) })) });
   }
 
   return json({ ok: false }, 405);

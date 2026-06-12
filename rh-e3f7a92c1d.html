@@ -2070,7 +2070,7 @@
         const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         document.getElementById('thoughts-list').innerHTML = data.thoughts.map(t => `
           <div class="thought-row">
-            <div class="thought-date">${thoughtDate(t.d)}</div>
+            <div class="thought-date">${thoughtDate(t.d)}${t.h ? ' &middot; ' + t.h : ''}</div>
             <div class="thought-text">${esc(t.t)}</div>
           </div>`).join('');
         document.getElementById('thoughts').style.display = '';

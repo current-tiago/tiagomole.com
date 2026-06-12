@@ -1008,24 +1008,6 @@
       background: radial-gradient(ellipse at 78% 28%, rgba(232,130,154,0.05), transparent 55%);
     }
 
-    .hero-two {
-      position: absolute;
-      right: 6%;
-      top: 50%;
-      transform: translateY(-54%);
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-weight: 300;
-      font-size: clamp(18rem, 36vw, 32rem);
-      line-height: 1;
-      color: var(--ink);
-      opacity: 0.035;
-      pointer-events: none;
-      user-select: none;
-      z-index: 0;
-      animation: fadeIn 2s ease 1.4s both;
-    }
-
     .story-item:nth-child(even)::before { background: var(--pink); }
 
     .story-photo-empty {
@@ -1063,10 +1045,6 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--muted);
-    }
-
-    @media (max-width: 768px) {
-      .hero-two { display: none; }
     }
 
     /* FOOTER */
@@ -1172,7 +1150,6 @@
         <span>For you</span>
       </div>
     </div>
-    <div class="hero-two">2</div>
     <div class="hero-year">MMXXVI</div>
   </div>
 

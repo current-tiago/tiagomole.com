@@ -973,6 +973,16 @@
       margin-bottom: 0.6rem;
     }
 
+    .thoughts-empty {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+      text-align: center;
+      padding: 1rem 0 0.4rem;
+    }
+
     .thought-text {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.2rem;
@@ -1701,7 +1711,7 @@
     </div>
   </div>
 
-  <div class="thoughts-section" id="thoughts" style="display:none">
+  <div class="thoughts-section" id="thoughts">
     <div class="section-label">Thoughts About You</div>
     <div class="thoughts-list" id="thoughts-list"></div>
   </div>
@@ -2062,21 +2072,33 @@
       const n = day % 10, suf = (day % 100 - n === 10) ? 'th' : (n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th');
       return `${months[m - 1]} ${day}${suf} ${y}`;
     }
+    function lisbonHour() {
+      return parseInt(new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Lisbon', hour: '2-digit', hour12: false,
+      }).format(new Date()), 10);
+    }
     async function loadThoughts() {
+      const listEl = document.getElementById('thoughts-list');
       try {
         const res = await fetch('/.netlify/functions/thoughts?k=' + THOUGHTS_KEY);
         const data = await res.json();
-        if (!data.ok || !data.thoughts || !data.thoughts.length) return;
-        const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        document.getElementById('thoughts-list').innerHTML = data.thoughts.map(t => `
-          <div class="thought-row">
-            <div class="thought-date">${thoughtDate(t.d)}${t.h ? ' &middot; ' + t.h : ''}</div>
-            <div class="thought-text">${esc(t.t)}</div>
-          </div>`).join('');
-        document.getElementById('thoughts').style.display = '';
-        document.querySelectorAll('.thought-row').forEach((r, i) =>
-          setTimeout(() => r.classList.add('visible'), 150 + i * 80));
-      } catch (e) {}
+        if (data.ok && data.thoughts && data.thoughts.length) {
+          const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          listEl.innerHTML = data.thoughts.map(t => `
+            <div class="thought-row">
+              <div class="thought-date">${thoughtDate(t.d)}${t.h ? ' &middot; ' + t.h : ''}</div>
+              <div class="thought-text">${esc(t.t)}</div>
+            </div>`).join('');
+          document.querySelectorAll('.thought-row').forEach((r, i) =>
+            setTimeout(() => r.classList.add('visible'), 150 + i * 80));
+        } else {
+          listEl.innerHTML = lisbonHour() < 21
+            ? '<div class="thoughts-empty">tonight, at nine &mdash;</div>'
+            : '<div class="thoughts-empty">nothing yet tonight</div>';
+        }
+      } catch (e) {
+        listEl.innerHTML = '<div class="thoughts-empty">&mdash;</div>';
+      }
     }
     loadThoughts();
     setInterval(loadThoughts, 5 * 60 * 1000);

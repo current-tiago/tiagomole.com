@@ -195,7 +195,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - **Top-right countdown**: "Until I see her next" + DD:HH:MM:SS down to **June 24 2026, 23:00 Lisbon** (`2026-06-24T23:00:00+01:00`); hides itself once reached. Update `nextVisit` for future visits. (The original June 6–11 arrival/departure phases are gone from the code.)
 2. **Five Poems** (`#poems`) — accordion layout (max-width 600px, centred); each poem shows only its title until clicked, then expands smoothly. Only one open at a time. Toggle indicator `+` / `×` in DM Mono.
    - I · Sample no.1 · II · View of the Room · III · T-3 Weeks · IV · Studying · V · Orpheus
-3. **Films We've Watched** (`#movies`) — numbered list of 17 films with dual star ratings:
+3. **Films We've Watched** (`#movies`) — numbered list of 17 films in **two newspaper columns** on desktop (chronological down each column via `grid-auto-flow: column`; `grid-template-rows: repeat(9, auto)` — **bump the 9 to ceil(n/2) when adding films**; single column on mobile), with dual star ratings:
    - **T** = Tiago's rating (orange `#FF8800` stars)
    - **R** = Imy's rating (pink `#e8829a` stars)
    - Stars out of 5; half-stars supported via CSS `linear-gradient` clip trick
@@ -203,8 +203,9 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - Film(s) with the highest combined T+R score get class `top-rated` — only the title text is coloured soft gold (`#D4A017`). Currently tied: 01 Train Dreams and 10 Project Hail Mary (both 10/10)
    - **Clicking a film title** expands a description panel below that row (exclusive accordion). Panel shows: director in DM Mono red caps, synopsis in Cormorant italic, genre tags in small DM Mono.
 4. **Something I Love About You** (`#daily-draw`) — daily famous person game (see below)
-5. **Our Story** (`#story`) — relationship timeline: centre vertical line, alternating photo/text rows, orange dot per milestone
-   - Each `.story-item` = `.story-photo` (3:4 portrait frame, max-width 320px, slight polaroid tilt, straightens on hover) + `.story-text-block` (DM Mono orange date, serif title, italic caption)
+5. **Our Story** (`#story`) — **horizontal filmstrip** timeline (was vertical; rebuilt to kill page length): a draggable `overflow-x` strip (`#story-strip`) of 230px polaroid cards threaded on a horizontal line with an orange dot per card
+   - Interactions: drag-to-scroll (pointer events), vertical mouse-wheel scrolls the strip horizontally while it has room (releases at the ends), scroll-snap, edge gradient fades, "first to last · drag →" hint
+   - Each `.story-item` = `.story-photo` (3:4 portrait frame, slight polaroid tilt, straightens on hover) + `.story-text-block` (DM Mono orange date, serif title, italic caption)
    - **30 real photos** (Jan 29 → Jun 11 2026), stored in `rh-m/` with hashed unguessable filenames (`rh-<sha1-10>.jpg`). Source photos live in `~/Desktop/imy photos` on Tiago's Mac; deployed copies are resized to max 1600px, JPEG q78, **EXIF/GPS stripped** (PIL fresh-save). Dates in entries come from EXIF capture dates.
    - Images use `loading="lazy"`. To add an entry: copy a `.story-item` block, process the new photo the same way (resize + strip metadata + hash name into `rh-m/`)
    - Captions were verified against the actual photo contents (via thumbnails). Four entries are uncaptioned extras with Claude-written captions Tiago may want to reword: Apr 10 tricycle ("Lisbon, at night"), Jun 10 restaurant terrace ("Lunch in the sun"), Jun 10 peacock + Jun 10 castle walls (Castelo de São Jorge)

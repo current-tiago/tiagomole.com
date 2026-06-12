@@ -208,7 +208,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
 5. **Thoughts About You** (`#thoughts`) — Tiago's daily thoughts, posted from his phone, revealed at **21:00 Lisbon** each day
    - Backend: `netlify/functions/thoughts.mjs` (functions v2, ESM) + **Netlify Blobs** store `thoughts`, key `list` (JSON array of `{d, t, ts}`)
    - **POST** `{token, text}` (token = `THOUGHTS_WRITE_TOKEN` env var) appends a thought — sent from an iOS Shortcut on Tiago's phone
-   - **GET** `?k=<THOUGHTS_READ_KEY>` returns visible thoughts (today's only after 21:00 Lisbon — `REVEAL_HOUR` constant in the function), newest first. Page re-fetches every 5 min + on tab focus, so the reveal appears without a reload
+   - **GET** `?k=<THOUGHTS_READ_KEY>` returns **only today's thoughts, and only after 21:00 Lisbon** (`REVEAL_HOUR` constant). Previous days' thoughts remain stored in the blob but are never returned — the section shows just tonight's thought(s). Page re-fetches every 5 min + on tab focus, so the reveal appears without a reload
    - Read key is embedded in this gated page's JS (`THOUGHTS_KEY`); write token lives only in Netlify env + the Shortcut
    - **Env vars required:** `THOUGHTS_WRITE_TOKEN`, `THOUGHTS_READ_KEY` (Netlify dashboard) — feature is dead until both are set
    - Section is `display:none` until the fetch returns at least one thought

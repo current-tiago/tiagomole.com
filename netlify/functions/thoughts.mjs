@@ -1,7 +1,8 @@
 import { getStore } from '@netlify/blobs';
 
 // Daily thoughts: POST from Tiago's phone (iOS Shortcut), GET from Rocky's Home.
-// Today's thoughts stay hidden until REVEAL_HOUR (21:00) Lisbon time; older ones always show.
+// Shows ONLY today's thoughts, and only after REVEAL_HOUR (21:00) Lisbon time.
+// Previous days' thoughts stay stored in the blob but are never returned.
 const REVEAL_HOUR = 21;
 
 function lisbonNow() {
@@ -45,9 +46,10 @@ export default async (req) => {
 
     const list = (await store.get('list', { type: 'json' })) || [];
     const { date, hour } = lisbonNow();
-    const visible = list
-      .filter(e => e.d < date || (e.d === date && hour >= REVEAL_HOUR))
-      .sort((a, b) => b.ts - a.ts);
+    // Only today's thoughts, only after the reveal hour. Older ones stay stored but are never returned.
+    const visible = hour >= REVEAL_HOUR
+      ? list.filter(e => e.d === date).sort((a, b) => b.ts - a.ts)
+      : [];
     return json({ ok: true, thoughts: visible.map(e => ({ d: e.d, t: e.t })) });
   }
 

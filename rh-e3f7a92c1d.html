@@ -929,6 +929,66 @@
       .story-text-block { order: -1; }
     }
 
+    /* FRIVOLOUS MEASUREMENTS */
+    .silly-section {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .silly-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+      text-align: center;
+      margin: 2.5rem 0 4rem;
+    }
+
+    .silly-grid {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      text-align: center;
+    }
+
+    .silly-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 2.1rem;
+      font-weight: 300;
+      color: var(--red);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      margin-bottom: 1rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .silly-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.4;
+      max-width: 240px;
+      margin: 0 auto 0.6rem;
+    }
+
+    .silly-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      .silly-section { padding: 4rem 1.5rem; }
+      .silly-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .silly-intro { margin: 2rem 0 3rem; }
+    }
+
     /* FOOTER */
     footer {
       padding: 3rem;
@@ -1811,6 +1871,28 @@
     </div>
   </div>
 
+  <div class="silly-section" id="measures">
+    <div class="section-label">Frivolous Measurements</div>
+    <p class="silly-intro">How long we&rsquo;ve been dating, in units that actually matter.</p>
+    <div class="silly-grid">
+      <div class="silly-item">
+        <div class="silly-num" id="silly-jane">—</div>
+        <div class="silly-label">plays of &ldquo;Jane!&rdquo; by The Long Faces, back to back</div>
+        <div class="silly-sub">3 min 06 per play</div>
+      </div>
+      <div class="silly-item">
+        <div class="silly-num" id="silly-oppenheimer">—</div>
+        <div class="silly-label">full viewings of Oppenheimer</div>
+        <div class="silly-sub">3 hrs per viewing</div>
+      </div>
+      <div class="silly-item">
+        <div class="silly-num" id="silly-flights">—</div>
+        <div class="silly-label">flights between Reading and Lisbon</div>
+        <div class="silly-sub">2 hrs 45 per flight</div>
+      </div>
+    </div>
+  </div>
+
   <div class="lisbon-section">
     <div class="section-label">Lisbon</div>
     <div class="lisbon-map-wrap">
@@ -1903,6 +1985,13 @@
       } else {
         document.getElementById('countdown-wrap').style.display = 'none';
       }
+
+      // Frivolous measurements — elapsed time in units that matter
+      const secs = Math.max(0, (Date.now() - sinceTime.getTime()) / 1000);
+      const fmtN = n => Math.floor(n).toLocaleString('en-GB');
+      document.getElementById('silly-jane').textContent        = fmtN(secs / 186);   // "Jane!" — 3:06
+      document.getElementById('silly-oppenheimer').textContent = fmtN(secs / 10800); // 3h00
+      document.getElementById('silly-flights').textContent     = fmtN(secs / 9900);  // 2h45
     }
 
     updateClocks();

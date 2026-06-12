@@ -210,8 +210,13 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - Captions were verified against the actual photo contents (via thumbnails). Four entries are uncaptioned extras with Claude-written captions Tiago may want to reword: Apr 10 tricycle ("Lisbon, at night"), Jun 10 restaurant terrace ("Lunch in the sun"), Jun 10 peacock + Jun 10 castle walls (Castelo de São Jorge)
    - On mobile the line moves to the left edge and items stack (photo below text)
    - Items use the same scroll-reveal observer as film rows
-6. **Lisbon** — full-width SVG map of Lisbon with 6 orange location dots
-7. **Footer**
+6. **Frivolous Measurements** (`#measures`) — three live counters of time dating (since `sinceTime`, April 11 2026 01:00 Lisbon), updated every second in `updateClocks()`:
+   - Plays of "Jane!" by The Long Faces back to back (3:06 = 186 s)
+   - Full viewings of Oppenheimer (3 h = 10 800 s)
+   - Flights between Reading and Lisbon (2 h 45 = 9 900 s)
+   - To add a unit: copy a `.silly-item`, add one line in `updateClocks()` with the unit's seconds
+7. **Lisbon** — full-width SVG map of Lisbon with 6 orange location dots
+8. **Footer**
 
 **Current film list (in order):**
 

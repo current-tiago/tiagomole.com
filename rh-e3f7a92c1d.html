@@ -2079,6 +2079,10 @@
       } catch (e) {}
     }
     loadThoughts();
+    setInterval(loadThoughts, 5 * 60 * 1000);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') loadThoughts();
+    });
 
     // Our Story strip: drag to scroll; vertical wheel scrolls the strip while it has room
     const strip = document.getElementById('story-strip');

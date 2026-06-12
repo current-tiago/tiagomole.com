@@ -1,8 +1,8 @@
 import { getStore } from '@netlify/blobs';
 
 // Daily thoughts: POST from Tiago's phone (iOS Shortcut), GET from Rocky's Home.
-// Today's thoughts stay hidden until REVEAL_HOUR Lisbon time; older ones always show.
-const REVEAL_HOUR = 14;
+// Today's thoughts stay hidden until REVEAL_HOUR (21:00) Lisbon time; older ones always show.
+const REVEAL_HOUR = 21;
 
 function lisbonNow() {
   const parts = new Intl.DateTimeFormat('en-GB', {

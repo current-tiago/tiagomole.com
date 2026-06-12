@@ -213,7 +213,7 @@ Private page for Imy (Tiago's partner). Accessed via a hidden password button in
    - **GET** `?k=<THOUGHTS_READ_KEY>` returns **only today's thoughts, and only after 21:00 Lisbon** (`REVEAL_HOUR` constant). Previous days' thoughts remain stored in the blob but are never returned — the section shows just tonight's thought(s). Page re-fetches every 5 min + on tab focus, so the reveal appears without a reload
    - Read key is embedded in this gated page's JS (`THOUGHTS_KEY`); write token lives only in Netlify env + the Shortcut
    - **Env vars required:** `THOUGHTS_WRITE_TOKEN`, `THOUGHTS_READ_KEY` (Netlify dashboard) — feature is dead until both are set
-   - Section is `display:none` until the fetch returns at least one thought
+   - Section is always visible: before 21:00 it shows the teaser "tonight, at nine —"; after 21:00 with no thought it shows "nothing yet tonight"
 6. **Our Story** (`#story`) — **horizontal filmstrip** timeline (was vertical; rebuilt to kill page length): a draggable `overflow-x` strip (`#story-strip`) of 230px polaroid cards threaded on a horizontal line with an orange dot per card
    - Interactions: drag-to-scroll (pointer events), vertical mouse-wheel scrolls the strip horizontally while it has room (releases at the ends), scroll-snap, edge gradient fades, "first to last · drag →" hint
    - Each `.story-item` = `.story-photo` (3:4 portrait frame, slight polaroid tilt, straightens on hover) + `.story-text-block` (DM Mono orange date, serif title, italic caption)

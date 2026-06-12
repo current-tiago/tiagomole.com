@@ -1,2 +1,9 @@
 [functions]
   directory = "netlify/functions"
+
+[build.environment]
+  # THOUGHTS_READ_KEY is deliberately embedded in the password-gated page's JS
+  # so it can fetch the thoughts function. It is a low-privilege read key, not a
+  # secret — omit it from Netlify's secrets scanning (which otherwise fails the
+  # build). THOUGHTS_WRITE_TOKEN remains scanned and is never in any file.
+  SECRETS_SCAN_OMIT_KEYS = "THOUGHTS_READ_KEY"

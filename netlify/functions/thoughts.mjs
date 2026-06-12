@@ -31,6 +31,19 @@ export default async (req) => {
   if (req.method === 'POST') {
     const body = await req.json().catch(() => null);
     if (!body || !body.token || body.token !== writeToken) return json({ ok: false }, 401);
+
+    // Admin ops (token-gated): {op:'clear'} wipes everything; {op:'undo'} removes the latest entry
+    if (body.op === 'clear') {
+      await store.setJSON('list', []);
+      return json({ ok: true, cleared: true });
+    }
+    if (body.op === 'undo') {
+      const list = (await store.get('list', { type: 'json' })) || [];
+      const removed = list.pop();
+      await store.setJSON('list', list);
+      return json({ ok: true, removed: removed ? removed.t.slice(0, 80) : null });
+    }
+
     const text = String(body.text || '').trim().slice(0, 2000);
     if (!text) return json({ ok: false }, 400);
 

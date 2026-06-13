@@ -1,18 +1,37 @@
 import { getStore } from '@netlify/blobs';
 
 // Daily thoughts: POST from Tiago's phone (iOS Shortcut), GET from Rocky's Home.
-// Shows ONLY today's thoughts, and only after REVEAL_HOUR (21:00) Lisbon time.
-// Previous days' thoughts stay stored in the blob but are never returned.
+// Thoughts are revealed in nightly batches at REVEAL_HOUR (21:00) Lisbon time.
+// Each evening's batch covers the window from the PREVIOUS 21:00 up to this 21:00 —
+// i.e. after 9pm you see everything written since yesterday 9pm, up to 9pm today.
+// A thought written after 9pm waits for the next night's reveal.
+// Older batches stay stored in the blob but are never returned.
 const REVEAL_HOUR = 21;
 
-function lisbonNow() {
+// Lisbon wall-clock date (YYYY-MM-DD) and hour for any Date.
+function lisbonParts(dateObj) {
   const parts = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Europe/Lisbon',
     year: 'numeric', month: '2-digit', day: '2-digit',
     hour: '2-digit', hour12: false,
-  }).formatToParts(new Date());
+  }).formatToParts(dateObj);
   const o = Object.fromEntries(parts.map(p => [p.type, p.value]));
   return { date: `${o.year}-${o.month}-${o.day}`, hour: parseInt(o.hour, 10) };
+}
+const lisbonNow = () => lisbonParts(new Date());
+
+// Date-label arithmetic (treats the string as a pure calendar date).
+function addDay(dateStr, n) {
+  const d = new Date(dateStr + 'T00:00:00Z');
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+// The reveal date a thought belongs to: written before 9pm → revealed that same
+// evening; written at/after 9pm → revealed the next evening.
+function revealDateOf(ts) {
+  const { date, hour } = lisbonParts(new Date(ts));
+  return hour >= REVEAL_HOUR ? addDay(date, 1) : date;
 }
 
 const json = (body, status = 200) =>
@@ -59,9 +78,12 @@ export default async (req) => {
 
     const list = (await store.get('list', { type: 'json' })) || [];
     const { date, hour } = lisbonNow();
-    // Only today's thoughts, only after the reveal hour. Older ones stay stored but are never returned.
+    // Before 9pm: nothing yet (the page shows the "tonight, at nine" teaser).
+    // After 9pm: tonight's batch — everything whose reveal date is today, i.e.
+    // written since yesterday 9pm up to 9pm today. Anything written after 9pm
+    // tonight rolls into tomorrow's batch.
     const visible = hour >= REVEAL_HOUR
-      ? list.filter(e => e.d === date).sort((a, b) => b.ts - a.ts)
+      ? list.filter(e => revealDateOf(e.ts) === date).sort((a, b) => b.ts - a.ts)
       : [];
     const hhmm = ts => new Intl.DateTimeFormat('en-GB', {
       timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', hour12: false,

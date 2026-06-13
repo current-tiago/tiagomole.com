@@ -78,12 +78,17 @@ export default async (req) => {
 
     const list = (await store.get('list', { type: 'json' })) || [];
     const { date, hour } = lisbonNow();
+    const preview = new URL(req.url).searchParams.get('preview') === '1';
+
     // Before 9pm: nothing yet (the page shows the "tonight, at nine" teaser).
     // After 9pm: tonight's batch — everything whose reveal date is today, i.e.
     // written since yesterday 9pm up to 9pm today. Anything written after 9pm
     // tonight rolls into tomorrow's batch.
-    const visible = hour >= REVEAL_HOUR
-      ? list.filter(e => revealDateOf(e.ts) === date).sort((a, b) => b.ts - a.ts)
+    // ?preview=1 (Tiago only — never sent by the page) shows the batch that the
+    // NEXT 9pm reveal will contain, so the pipeline can be tested any time of day.
+    const targetDate = preview ? (hour >= REVEAL_HOUR ? addDay(date, 1) : date) : date;
+    const visible = (preview || hour >= REVEAL_HOUR)
+      ? list.filter(e => revealDateOf(e.ts) === targetDate).sort((a, b) => b.ts - a.ts)
       : [];
     const hhmm = ts => new Intl.DateTimeFormat('en-GB', {
       timeZone: 'Europe/Lisbon', hour: '2-digit', minute: '2-digit', hour12: false,

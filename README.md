@@ -107,7 +107,7 @@ A private page for Imy, accessible via a hidden button in the footer. Password i
 |-----|-------|
 | `ROCKY_PASSWORD_HASH` | SHA-256 hash of the password (Netlify dashboard) |
 
-**Sections:** hero with count-up + next-visit countdown · five poems (accordion) · Films We've Watched · **Something I Love About You** (daily famous person game) · **Our Story** (timeline of 30 photos in `rh-m/`, hashed filenames, EXIF stripped) · Lisbon map.
+**Sections:** hero with count-up + next-visit countdown · six poems (accordion) · Films We've Watched · **Something I Love About You** (daily famous person game) · **Our Story** (timeline of 30 photos in `rh-m/`, hashed filenames, EXIF stripped) · Lisbon map.
 
 ### Films We've Watched
 17 films with dual star ratings (T = Tiago in orange, I = Imy in pink, out of 5). Clicking a film title expands a description panel. Films with the highest combined T+I score get the `top-rated` class (soft gold title). Currently: Train Dreams and Project Hail Mary (both 10/10).

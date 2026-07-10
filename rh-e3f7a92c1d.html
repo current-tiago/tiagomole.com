@@ -718,6 +718,93 @@
       line-height: 1.1;
     }
 
+    /* ── ANNIVERSARY LETTER — full-day takeover on July 11 ── */
+    #anniversary-letter { display: none; }
+    /* envelope VII stays hidden until the anniversary has passed (Jul 12+) */
+    .envelope.env-locked { display: none; }
+    body.anniversary-passed .envelope.env-locked { display: block; }
+    body.letter-day { overflow: hidden; }
+    body.letter-day > *:not(#anniversary-letter) { display: none !important; }
+    body.letter-day #anniversary-letter {
+      display: block;
+      position: fixed; inset: 0; z-index: 900;
+      overflow-y: auto;
+      padding: 5rem 1.5rem 5rem;
+      background:
+        radial-gradient(60% 50% at 78% 6%, rgba(232,130,154,0.14), transparent 70%),
+        radial-gradient(55% 45% at 12% 94%, rgba(255,136,0,0.10), transparent 70%),
+        var(--cream);
+    }
+    .al-inner { max-width: 660px; margin: 0 auto; }
+    .al-eyebrow {
+      font-family: var(--doodle);
+      font-size: 0.85rem;
+      color: var(--pink);
+      text-align: center;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: alUp 0.9s ease 0.15s forwards;
+    }
+    .al-card {
+      position: relative;
+      background:
+        repeating-linear-gradient(180deg, transparent 0, transparent calc(2rem - 1px), rgba(120,140,200,0.16) 2rem),
+        var(--paper);
+      border: 1px solid rgba(13,13,13,0.10);
+      border-radius: 5px;
+      box-shadow: 0 18px 44px rgba(13,13,13,0.14);
+      padding: 2.6rem 2.2rem 2.4rem 3rem;
+      transform: rotate(-0.4deg);
+      opacity: 0;
+      animation: alCard 1s ease 0.3s forwards;
+    }
+    .al-card::before {
+      content: '';
+      position: absolute; top: 0; bottom: 0; left: 2rem; width: 1.5px;
+      background: rgba(232,130,154,0.4);
+    }
+    .al-salutation {
+      font-family: var(--hand);
+      font-size: 2rem;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 1.2rem;
+    }
+    .al-body p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.18rem;
+      font-weight: 400;
+      line-height: 2rem;
+      color: var(--ink-soft);
+      letter-spacing: 0.01em;
+      margin-bottom: 1rem;
+    }
+    .al-body p:last-child { margin-bottom: 0; }
+    .al-sign {
+      margin-top: 1.6rem;
+      font-family: var(--hand);
+      font-size: 1.7rem;
+      color: var(--red);
+      text-align: right;
+      line-height: 1.1;
+    }
+    @keyframes alUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes alCard {
+      from { opacity: 0; transform: translateY(18px) rotate(-0.4deg); }
+      to   { opacity: 1; transform: translateY(0) rotate(-0.4deg); }
+    }
+    @media (max-width: 768px) {
+      body.letter-day #anniversary-letter { padding: 3.5rem 1rem 3.5rem; }
+      .al-card { padding: 1.8rem 1.3rem 1.8rem 2rem; transform: none; animation: alUp 1s ease 0.3s forwards; }
+      .al-card::before { left: 1.4rem; }
+      .al-salutation { font-size: 1.7rem; }
+      .al-body p { font-size: 1.08rem; line-height: 1.9rem; }
+    }
+
     /* DRAW SECTION */
     /* ── FAMOUS PERSON GAME ─────────────────────────────────────── */
     .famous-section {
@@ -1379,6 +1466,22 @@
 </head>
 <body>
 
+  <!-- ANNIVERSARY LETTER — shown alone the whole of July 11 2026 (Lisbon) -->
+  <div id="anniversary-letter">
+    <div class="al-inner">
+      <p class="al-eyebrow">three months · 11 july 2026</p>
+      <div class="al-card">
+        <div class="al-salutation">To Imy</div>
+        <div class="al-body">
+          <p>Today is July 11th, 2026, notorious for being National Gospel Day in Kiribati, and more relevantly, the 3rd month anniversary of us dating. Hard to imagine how much life we have lived in the past three months, with four channel crossings between the two of us, an international trip across four different countries, and more hours spent talking at night than I can possibly count. Even as I sit here at my desk I am reminded at all times of my feelings for you, captured by the joy of making eye contact with Rocky, or the sunlight hitting the flower drawing so perfectly it almost seems to reflect like a real bouquet.</p>
+          <p>I remember, when I first told you I loved you, that I built myself a tiny shield in that admission, by warning that I was not sure if I would be able to say it as freely as I truly felt it. Since we began talking in January I have realised how little of my true vulnerabilities I show or talk about, even with the closest of my friends. I wanted to tell you I loved you as often as the thought came into my head, but I did not know if I would be able to. Evidently, that was not the case. The moment I said it, it felt like a weight off my shoulders, and since that moment I feel I have been more clear in my mind and with everyone I care about. You have changed me for the better, and I am so thankful for that.</p>
+          <p>In just 3 days I will be in the United Kingdom, and in 4 I will be reunited with you, celebrating your birthday, and I want you to know, on our 3rd month anniversary how much happier you make me. I love you, and I am so excited to see you.</p>
+        </div>
+        <div class="al-sign">Yours, Tiago</div>
+      </div>
+    </div>
+  </div>
+
   <header>
     <a href="/" class="back-link">Home</a>
     <span class="header-title">Rocky's Home</span>
@@ -1479,7 +1582,7 @@
   </div>
 
   <div class="poems-section" id="poems">
-    <div class="section-label">Six Little Love Letters</div>
+    <div class="section-label">Seven Little Love Letters</div>
     <p class="poems-note">tap a letter to break the seal and read it <span class="heart">♥</span></p>
 
     <div class="envelopes">
@@ -1688,6 +1791,39 @@
                   <p>To have my heart oh so struck</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="envelope env-locked" tabindex="0" role="button" aria-expanded="false" onclick="toggleEnvelope(this)" onkeydown="envelopeKey(event, this)">
+        <h3 class="env-name">Three Months</h3>
+        <div class="env-cover">
+          <span class="env-stamp">VII</span>
+          <div class="env-flap"></div>
+          <div class="env-seal">T♥I</div>
+          <div class="env-front">
+            <span class="env-hint">open me ♥</span>
+          </div>
+        </div>
+        <div class="env-letter">
+          <div class="env-letter-wrap">
+            <div class="env-letter-inner">
+              <div class="poem-stanzas">
+                <div class="stanza">
+                  <p>To Imy</p>
+                </div>
+                <div class="stanza">
+                  <p>Today is July 11th, 2026, notorious for being National Gospel Day in Kiribati, and more relevantly, the 3rd month anniversary of us dating. Hard to imagine how much life we have lived in the past three months, with four channel crossings between the two of us, an international trip across four different countries, and more hours spent talking at night than I can possibly count. Even as I sit here at my desk I am reminded at all times of my feelings for you, captured by the joy of making eye contact with Rocky, or the sunlight hitting the flower drawing so perfectly it almost seems to reflect like a real bouquet.</p>
+                </div>
+                <div class="stanza">
+                  <p>I remember, when I first told you I loved you, that I built myself a tiny shield in that admission, by warning that I was not sure if I would be able to say it as freely as I truly felt it. Since we began talking in January I have realised how little of my true vulnerabilities I show or talk about, even with the closest of my friends. I wanted to tell you I loved you as often as the thought came into my head, but I did not know if I would be able to. Evidently, that was not the case. The moment I said it, it felt like a weight off my shoulders, and since that moment I feel I have been more clear in my mind and with everyone I care about. You have changed me for the better, and I am so thankful for that.</p>
+                </div>
+                <div class="stanza">
+                  <p>In just 3 days I will be in the United Kingdom, and in 4 I will be reunited with you, celebrating your birthday, and I want you to know, on our 3rd month anniversary how much happier you make me. I love you, and I am so excited to see you.</p>
+                </div>
+              </div>
+              <div class="env-sign">Yours, Tiago</div>
             </div>
           </div>
         </div>
@@ -2368,6 +2504,17 @@
   </footer>
 
   <script>
+    // Anniversary letter — takes over the whole page on July 11 2026 (Lisbon),
+    // then reverts automatically; the letter lives on as envelope VII afterwards.
+    function checkLetterDay() {
+      const lisbon = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Lisbon' }));
+      const stamp = lisbon.getFullYear() * 10000 + (lisbon.getMonth() + 1) * 100 + lisbon.getDate();
+      document.body.classList.toggle('letter-day', stamp === 20260711);          // the day itself: letter only
+      document.body.classList.toggle('anniversary-passed', stamp >= 20260712);   // afterwards: envelope VII appears
+    }
+    checkLetterDay();
+    setInterval(checkLetterDay, 60000);
+
     // Love-letter envelopes — open/close independently
     function toggleEnvelope(env) {
       const open = env.classList.toggle('open');
